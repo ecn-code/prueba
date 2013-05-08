@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="1aed934:13e7926fe9d:-8000" name="dbModel" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
+<schema-list>
+<schema id="1aed934:13e7926fe9d:-7ffd" name="DEFAULT_SCHEMA">
+<table-list>
+<table id="1aed934:13e7926fe9d:-7fff" name="PRODUCTO">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7ff8" mandatory="true" name="Id">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7ff5" mandatory="false" name="NOMBRE">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fee" mandatory="false" name="FACTOR">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7ffe" name="PK_PRODUCTO">
+<primary-key-column name="Id"/>
+</primary-key>
+</table>
+<table id="1aed934:13e7926fe9d:-7ffc" name="ACABADO">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fe5" mandatory="true" name="ID">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fe1" mandatory="false" name="NOMBRE">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fe0" mandatory="false" name="FACTOR">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7ffb" name="PK_ACABADO">
+<primary-key-column name="ID"/>
+</primary-key>
+</table>
+<table id="1aed934:13e7926fe9d:-7fdd" name="PIGMENTO">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fd9" mandatory="true" name="IDP">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fd8" mandatory="false" name="NOMBRE">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7fdc" name="PK_PIGMENTO">
+<primary-key-column name="IDP"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="1aed934:13e7926fe9d:-7dd4" name="FK_PIGMENTO_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PIGMENTO" referenced-table="PIGMENTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDP" referenced-key-column-name="IDP"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7dc0" name="FK_PIGMENTO_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PIGMENTO" referenced-table="PIGMENTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDP" referenced-key-column-name="IDP"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="1aed934:13e7926fe9d:-7fd7" name="BASES">
+<column-list>
+<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fd3" mandatory="true" name="IDB">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fd2" mandatory="false" name="NOMBRE">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7fd6" name="PK_BASES">
+<primary-key-column name="IDB"/>
+</primary-key>
+</table>
+<table id="1aed934:13e7926fe9d:-7fd1" name="BASES_PIGMENTO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7fcb" mandatory="false" name="PORCENTAJE">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7c31" mandatory="true" name="IDP">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7c16" mandatory="true" name="IDB">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7fd0" name="PK_BASES_PIGMENTO">
+<primary-key-column name="IDP"/>
+<primary-key-column name="IDB"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="1aed934:13e7926fe9d:-7c4e" name="FK_BASES_PIGMENTO_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_BASES_PIGMENTO" referenced-table="BASES_PIGMENTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDP" referenced-key-column-name="IDP"/>
+<foreign-key-column column-name="IDB" referenced-key-column-name="IDB"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7c33" name="FK_BASES_PIGMENTO_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PIGMENTO" referenced-table="PIGMENTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDP" referenced-key-column-name="IDP"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7c18" name="FK_BASES_PIGMENTO_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_BASES" referenced-table="BASES" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDB" referenced-key-column-name="IDB"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7bfc" name="FK_BASES_PIGMENTO_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_BASES_PIGMENTO" referenced-table="BASES_PIGMENTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDP" referenced-key-column-name="IDP"/>
+<foreign-key-column column-name="IDB" referenced-key-column-name="IDB"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7bf0" name="FK_BASES_PIGMENTO_5" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_BASES_PIGMENTO" referenced-table="BASES_PIGMENTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IDP" referenced-key-column-name="IDP"/>
+<foreign-key-column column-name="IDB" referenced-key-column-name="IDB"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="1aed934:13e7926fe9d:-7d5e" name="ADITIVOS">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d58" mandatory="false" name="TOTAL_AGUA">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d57" mandatory="false" name="DISPERTANTE">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d56" mandatory="false" name="ANTIESPUMANTE">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d55" mandatory="false" name="NEGRO">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d52" mandatory="false" name="ESPESANTE">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d4f" mandatory="false" name="MICREX">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d4b" mandatory="false" name="MPEG">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d25" mandatory="true" name="PORCENTAJE">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="1aed934:13e7926fe9d:-7ccf" mandatory="true" name="IdB">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7d5d" name="PK_ADITIVOS">
+<primary-key-column name="PORCENTAJE"/>
+<primary-key-column name="IdB"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="1aed934:13e7926fe9d:-7d27" name="FK_ADITIVOS_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PORCENTAJES" referenced-table="PORCENTAJES" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="PORCENTAJE" referenced-key-column-name="PORCENTAJE"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7cd1" name="FK_ADITIVOS_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_BASES" referenced-table="BASES" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="IdB" referenced-key-column-name="IDB"/>
+</foreign-key>
+<foreign-key id="1aed934:13e7926fe9d:-7ca7" name="FK_ADITIVOS_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ADITIVOS" referenced-table="ADITIVOS" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="PORCENTAJE" referenced-key-column-name="PORCENTAJE"/>
+<foreign-key-column column-name="IdB" referenced-key-column-name="IdB"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="1aed934:13e7926fe9d:-7d48" name="PORCENTAJES">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="1aed934:13e7926fe9d:-7d3f" mandatory="true" name="PORCENTAJE">
+<data-type name="DOUBLE" selected-variant-pattern="DOUBLE"/>
+</column>
+</column-list>
+<primary-key id="1aed934:13e7926fe9d:-7d47" name="PK_PORCENTAJES">
+<primary-key-column name="PORCENTAJE"/>
+</primary-key>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="92" refid="1aed934:13e7926fe9d:-7fff" width="101" x="120" y="63"/>
+<table-figure height="96" refid="1aed934:13e7926fe9d:-7ffc" width="111" x="297" y="63"/>
+<table-figure height="87" refid="1aed934:13e7926fe9d:-7fdd" width="115" x="143" y="202"/>
+<table-figure height="83" refid="1aed934:13e7926fe9d:-7fd7" width="106" x="460" y="228"/>
+<table-figure height="74" refid="1aed934:13e7926fe9d:-7fd1" width="96" x="337" y="337"/>
+<table-figure height="131" refid="1aed934:13e7926fe9d:-7d5e" width="100" x="566" y="54"/>
+<table-figure height="93" refid="1aed934:13e7926fe9d:-7d48" width="117" x="697" y="266"/>
+</diagram>
+</clay-model>
