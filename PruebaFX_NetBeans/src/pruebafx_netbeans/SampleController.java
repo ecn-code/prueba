@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -17,13 +18,34 @@ import javafx.scene.control.Label;
  */
 public class SampleController implements Initializable {
     
-    @FXML
-    private Label label;
     
+    private String granulometria;
+    private boolean errorLetra=false;
+    private boolean errorNombre=false;
+    @FXML
+    private TextField txtGranulometria,txtNombre;
+    @FXML
+    private Label lblErrorGranulometria,lblErrorNombre;
+    private char[] array;
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+       granulometria=txtGranulometria.getText();  
+            granulometria=granulometria.replace(',', '.');
+        for(char x: granulometria.toCharArray()){
+            if(Character.isLetter(x)){
+                errorLetra=true;
+                System.out.println(Character.isLetter(x));
+                break;
+            }
+            if(errorLetra){
+            lblErrorGranulometria.setText("No se pueden introducir letras");
+            lblErrorGranulometria.setVisible(true);
+            txtGranulometria.setText("");
+            }
+            
+         }
+        System.out.println(granulometria);
+        
     }
     
     @Override
