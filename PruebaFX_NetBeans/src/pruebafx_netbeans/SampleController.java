@@ -19,7 +19,8 @@ import javafx.scene.control.TextField;
 public class SampleController implements Initializable {
     
     
-    private String granulometria;
+    private String granulometria,nombre;
+   // private Producto producto;
     private boolean errorLetra=false;
     private boolean errorNombre=false;
     @FXML
@@ -29,7 +30,8 @@ public class SampleController implements Initializable {
     private char[] array;
     @FXML
     private void handleButtonAction(ActionEvent event) {
-       granulometria=txtGranulometria.getText();  
+       granulometria=txtGranulometria.getText(); 
+       nombre=txtNombre.getText();
             granulometria=granulometria.replace(',', '.');
         for(char x: granulometria.toCharArray()){
             if(Character.isLetter(x)){
@@ -37,14 +39,13 @@ public class SampleController implements Initializable {
                 System.out.println(Character.isLetter(x));
                 break;
             }
+           }
+        
             if(errorLetra){
             lblErrorGranulometria.setText("No se pueden introducir letras");
             lblErrorGranulometria.setVisible(true);
             txtGranulometria.setText("");
             }
-            
-         }
-        System.out.println(granulometria);
         
     }
     
