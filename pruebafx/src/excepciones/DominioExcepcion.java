@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package excepciones;
 
 public class DominioExcepcion extends Exception{
@@ -12,3 +13,19 @@ public class DominioExcepcion extends Exception{
 	}
 	
 }
+=======
+package excepciones;
+
+public class DominioExcepcion extends Exception{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public DominioExcepcion(String message){
+		super(message);
+	}
+	
+}
+>>>>>>> DAO PRODUCTO
