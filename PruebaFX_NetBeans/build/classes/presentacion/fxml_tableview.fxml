@@ -59,9 +59,15 @@
           <PropertyValueFactory property="id" />
         </cellValueFactory>
       </TableColumn>
+<<<<<<< HEAD
       <TableColumn prefWidth="100.0" text="Producto">
         <cellValueFactory>
           <PropertyValueFactory property="producto" />
+=======
+      <TableColumn prefWidth="100.0" text="Nombre">
+        <cellValueFactory>
+          <PropertyValueFactory property="nombre" />
+>>>>>>> TableView
         </cellValueFactory>
       </TableColumn>
       <TableColumn prefWidth="200.0" text="Factor">

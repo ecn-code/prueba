@@ -2,6 +2,7 @@ package persistencia;
 
 
 
+import logica.Producto;
 import excepciones.*;
 import java.util.ArrayList;
 import logica.Producto;

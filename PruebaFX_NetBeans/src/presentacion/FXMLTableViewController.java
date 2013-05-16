@@ -32,6 +32,7 @@
 
 package presentacion;
 
+import logica.Producto;
 import excepciones.DAOExcepcion;
 import excepciones.DominioExcepcion;
 import java.net.URL;
@@ -50,15 +51,20 @@ import logica.Controlador;
 
 
 public class FXMLTableViewController implements Initializable{
-    @FXML private TableView<Person> tableView;
+    @FXML private TableView<Producto> tableView;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
     
     @FXML
     protected void addPerson(ActionEvent event) {
+<<<<<<< HEAD
         ObservableList<Person> data = tableView.getItems();
         data.add(new Person(Integer.parseInt(firstNameField.getText()),
+=======
+        ObservableList<Producto> data = tableView.getItems();
+        data.add(new Producto(Integer.parseInt(firstNameField.getText()),
+>>>>>>> TableView
             lastNameField.getText(),
             Double.parseDouble(emailField.getText())
         ));
@@ -71,7 +77,11 @@ public class FXMLTableViewController implements Initializable{
     @Override
     public void initialize (URL location,ResourceBundle resources){
                   Controlador controlador = null;
+<<<<<<< HEAD
   ArrayList<logica.Producto> productos=new ArrayList<logica.Producto>();
+=======
+  ArrayList<Producto> productos=new ArrayList<Producto>();
+>>>>>>> TableView
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -84,6 +94,7 @@ public class FXMLTableViewController implements Initializable{
         } catch (DAOExcepcion ex) {
             Logger.getLogger(FXMLTableViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< HEAD
                   ArrayList<Person> productosTabla = new ArrayList<Person>();
                   for(int i=0;i<productos.size();i++){
                     System.out.println(productos.get(i).getId()+"  "+productos.get(i).getNombre()+"  "+productos.get(i).getFactor());
@@ -91,6 +102,10 @@ public class FXMLTableViewController implements Initializable{
                   
                   }
                    ObservableList<Person> producto = FXCollections.observableList(productosTabla);  
+=======
+                  
+                   ObservableList<Producto> producto = FXCollections.observableList(productos);  
+>>>>>>> TableView
        tableView.setItems(producto);
     }
     

@@ -1,5 +1,6 @@
 package persistencia;
 
+import logica.Producto;
 import java.util.ArrayList;
 
 import excepciones.DAOExcepcion;

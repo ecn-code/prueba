@@ -11,8 +11,13 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="PruebaFX_NetBeans.jar" size="40704" download="eager" />
     <jar href="lib/hsqldb.jar" size="678308" download="eager" />
+=======
+    <jar href="PruebaFX_NetBeans.jar" size="37538" download="eager" />
+    <jar href="lib/hsqldb.jar" size="678310" download="eager" />
+>>>>>>> TableView
   </resources>
 <security>
   <all-permissions/>
