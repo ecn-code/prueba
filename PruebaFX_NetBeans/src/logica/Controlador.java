@@ -42,4 +42,8 @@ public void eliminarProducto(Producto producto) throws DAOExcepcion {
 	dal.eliminarProducto(producto);
 }
 
+    public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
+        return dal.getPigmentos();
+    }
+
 }

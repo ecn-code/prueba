@@ -48,25 +48,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import logica.Controlador;
+import logica.Pigmento;
 
 
 public class FXMLTableViewController implements Initializable{
-    @FXML private TableView<Producto> tableView;
+    @FXML private TableView<Pigmento> tableView;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
     
     @FXML
     protected void addPerson(ActionEvent event) {
-<<<<<<< HEAD
-        ObservableList<Person> data = tableView.getItems();
-        data.add(new Person(Integer.parseInt(firstNameField.getText()),
-=======
-        ObservableList<Producto> data = tableView.getItems();
-        data.add(new Producto(Integer.parseInt(firstNameField.getText()),
->>>>>>> TableView
-            lastNameField.getText(),
-            Double.parseDouble(emailField.getText())
+
+        ObservableList<Pigmento> data = tableView.getItems();
+        data.add(new Pigmento(Integer.parseInt(firstNameField.getText()),
+
+            lastNameField.getText()
         ));
         
         firstNameField.setText("");
@@ -77,11 +74,9 @@ public class FXMLTableViewController implements Initializable{
     @Override
     public void initialize (URL location,ResourceBundle resources){
                   Controlador controlador = null;
-<<<<<<< HEAD
-  ArrayList<logica.Producto> productos=new ArrayList<logica.Producto>();
-=======
-  ArrayList<Producto> productos=new ArrayList<Producto>();
->>>>>>> TableView
+
+  ArrayList<Pigmento> productos=new ArrayList<Pigmento>();
+
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -90,22 +85,12 @@ public class FXMLTableViewController implements Initializable{
             Logger.getLogger(FXMLTableViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            productos=controlador.getProductos();
+            productos=controlador.getPigmentos();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(FXMLTableViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-<<<<<<< HEAD
-                  ArrayList<Person> productosTabla = new ArrayList<Person>();
-                  for(int i=0;i<productos.size();i++){
-                    System.out.println(productos.get(i).getId()+"  "+productos.get(i).getNombre()+"  "+productos.get(i).getFactor());
-                     productosTabla.add(new Person(productos.get(i).getId(),productos.get(i).getNombre(),productos.get(i).getFactor())); 
                   
-                  }
-                   ObservableList<Person> producto = FXCollections.observableList(productosTabla);  
-=======
-                  
-                   ObservableList<Producto> producto = FXCollections.observableList(productos);  
->>>>>>> TableView
+       ObservableList<Pigmento> producto = FXCollections.observableList(productos);  
        tableView.setItems(producto);
     }
     
