@@ -36,27 +36,32 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public final class Person {
+public class Person {
 
-    private final SimpleStringProperty id= new SimpleStringProperty("");
-    private final SimpleStringProperty producto=new SimpleStringProperty("");
-    private final SimpleStringProperty factor=new SimpleStringProperty("");
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
+    private final SimpleStringProperty producto = new SimpleStringProperty("");
+    private final SimpleDoubleProperty factor = new SimpleDoubleProperty(0.0);
 
     public Person() {
-        this("", "", "");
+        this(0, "", 0.0);
     }
 
-    public Person(String _id, String _producto, String _factor) {
-        setId(_id);
-        setProducto(_producto);
-        setFactor(_factor);
+    public Person(int id, String producto, Double factor) {
+        setId(id);
+        setProducto(producto);
+        setFactor(factor);
     }
-    public String getId() {
+
+    public int getId() {
         return id.get();
     }
 
-    public void setId(String _id) {
-        id.set(_id);
+    /**
+     *
+     * @param fName
+     */
+    public void setId(int fName) {
+        id.set(fName);
     }
 
     public String getProducto() {
@@ -66,11 +71,21 @@ public final class Person {
     public void setProducto(String fName) {
         producto.set(fName);
     }
-    public String getFactor() {
+
+    public double getPrimary() {
+        return getFactor();
+    }
+
+    public double getSecondary() {
+        return getFactor();
+    }
+
+    public double getFactor() {
         return factor.get();
     }
 
-    public void setFactor(String _factor) {
-        factor.set(_factor);
+    public void setFactor(Double fName) {
+        factor.set(fName);
     }
+
 }

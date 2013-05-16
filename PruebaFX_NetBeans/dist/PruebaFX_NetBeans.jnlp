@@ -11,8 +11,8 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PruebaFX_NetBeans.jar" size="48258" download="eager" />
-    <jar href="lib/hsqldb.jar" size="678312" download="eager" />
+    <jar href="PruebaFX_NetBeans.jar" size="40704" download="eager" />
+    <jar href="lib/hsqldb.jar" size="678308" download="eager" />
   </resources>
 <security>
   <all-permissions/>

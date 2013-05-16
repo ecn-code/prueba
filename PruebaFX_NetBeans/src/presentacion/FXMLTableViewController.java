@@ -48,28 +48,29 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import logica.Controlador;
 
+
 public class FXMLTableViewController implements Initializable{
     @FXML private TableView<Person> tableView;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
-      
+    
     @FXML
     protected void addPerson(ActionEvent event) {
-      /*  ObservableList<Producto> data = tableView.getItems();
-        data.add(new Producto(firstNameField.getText(),
+        ObservableList<Person> data = tableView.getItems();
+        data.add(new Person(Integer.parseInt(firstNameField.getText()),
             lastNameField.getText(),
-            emailField.getText()
+            Double.parseDouble(emailField.getText())
         ));
         
         firstNameField.setText("");
         lastNameField.setText("");
-        emailField.setText(""); */  
+        emailField.setText("");   
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-  Controlador controlador = null;
+                  Controlador controlador = null;
   ArrayList<logica.Producto> productos=new ArrayList<logica.Producto>();
         try {
             controlador = Controlador.dameControlador();
@@ -85,16 +86,12 @@ public class FXMLTableViewController implements Initializable{
         }
                   ArrayList<Person> productosTabla = new ArrayList<Person>();
                   for(int i=0;i<productos.size();i++){
-                   //   System.out.println(productos.get(i).getId()+"  "+productos.get(i).getNombre()+"  "+productos.get(i).getFactor());
-                     productosTabla.add(new Person(Integer.toString(productos.get(i).getId()),productos.get(i).getNombre(),Double.toString(productos.get(i).getFactor()))); 
+                    System.out.println(productos.get(i).getId()+"  "+productos.get(i).getNombre()+"  "+productos.get(i).getFactor());
+                     productosTabla.add(new Person(productos.get(i).getId(),productos.get(i).getNombre(),productos.get(i).getFactor())); 
                   
                   }
-        for(int i=0;i<productosTabla.size();i++){
-            System.out.println(productosTabla.get(i).getId()+"  "+productosTabla.get(i).getProducto()+"  "+productos.get(i).getFactor());
-        }
-        ObservableList<Person> producto = FXCollections.observableList(productosTabla);  
+                   ObservableList<Person> producto = FXCollections.observableList(productosTabla);  
        tableView.setItems(producto);
     }
-
     
 }

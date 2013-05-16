@@ -51,22 +51,22 @@
   <Label style="-fx-font: NORMAL 20 Tahoma;" text="Address Book" GridPane.columnIndex="0" GridPane.rowIndex="0" />
   <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
     <columns>
-      <TableColumn prefWidth="100.0" text="First Name" fx:id="firstNameColumn">
+      <TableColumn prefWidth="100.0" text="Id" fx:id="firstNameColumn">
         <cellFactory>
           <FormattedTableCellFactory alignment="CENTER" />
         </cellFactory>
         <cellValueFactory>
-          <PropertyValueFactory property="firstName" />
+          <PropertyValueFactory property="id" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="100.0" text="Last Name">
+      <TableColumn prefWidth="100.0" text="Producto">
         <cellValueFactory>
-          <PropertyValueFactory property="lastName" />
+          <PropertyValueFactory property="producto" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="200.0" text="Email Address">
+      <TableColumn prefWidth="200.0" text="Factor">
         <cellValueFactory>
-          <PropertyValueFactory property="email" />
+          <PropertyValueFactory property="factor" />
         </cellValueFactory>
       </TableColumn>
     </columns>
