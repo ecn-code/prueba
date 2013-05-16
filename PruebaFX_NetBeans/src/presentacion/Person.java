@@ -30,38 +30,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package elias;
+package presentacion;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Person {
+public final class Person {
 
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
-    private final SimpleStringProperty producto = new SimpleStringProperty("");
-    private final SimpleDoubleProperty factor = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty id= new SimpleStringProperty("");
+    private final SimpleStringProperty producto=new SimpleStringProperty("");
+    private final SimpleStringProperty factor=new SimpleStringProperty("");
 
     public Person() {
-        this(0, "", 0.0);
+        this("", "", "");
     }
 
-    public Person(int id, String producto, Double factor) {
-        setId(id);
-        setProducto(producto);
-        setFactor(factor);
+    public Person(String _id, String _producto, String _factor) {
+        setId(_id);
+        setProducto(_producto);
+        setFactor(_factor);
     }
-
-    public int getId() {
+    public String getId() {
         return id.get();
     }
 
-    /**
-     *
-     * @param fName
-     */
-    public void setId(int fName) {
-        id.set(fName);
+    public void setId(String _id) {
+        id.set(_id);
     }
 
     public String getProducto() {
@@ -71,21 +66,11 @@ public class Person {
     public void setProducto(String fName) {
         producto.set(fName);
     }
-
-    public double getPrimary() {
-        return getFactor();
-    }
-
-    public double getSecondary() {
-        return getFactor();
-    }
-
-    public double getFactor() {
+    public String getFactor() {
         return factor.get();
     }
 
-    public void setFactor(Double fName) {
-        factor.set(fName);
+    public void setFactor(String _factor) {
+        factor.set(_factor);
     }
-
 }

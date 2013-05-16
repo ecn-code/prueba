@@ -30,62 +30,34 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package elias;
+package presentacion;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.beans.property.ListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventType;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public class Person {
-
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
-    private final SimpleStringProperty producto = new SimpleStringProperty("");
-    private final SimpleDoubleProperty factor = new SimpleDoubleProperty(0.0);
-
-    public Person() {
-        this(0, "", 0.0);
+public class FXMLTableView extends Application {
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("FXML TableView Example");
+        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("fxml_tableview.fxml"));
+        Scene myScene = new Scene(myPane);
+        primaryStage.setScene(myScene);
+        primaryStage.show();
+        
     }
-
-    public Person(int id, String producto, Double factor) {
-        setId(id);
-        setProducto(producto);
-        setFactor(factor);
+ 
+    public static void main(String[] args) {
+        launch(args);
     }
-
-    public int getId() {
-        return id.get();
-    }
-
-    /**
-     *
-     * @param fName
-     */
-    public void setId(int fName) {
-        id.set(fName);
-    }
-
-    public String getProducto() {
-        return producto.get();
-    }
-
-    public void setProducto(String fName) {
-        producto.set(fName);
-    }
-
-    public double getPrimary() {
-        return getFactor();
-    }
-
-    public double getSecondary() {
-        return getFactor();
-    }
-
-    public double getFactor() {
-        return factor.get();
-    }
-
-    public void setFactor(Double fName) {
-        factor.set(fName);
-    }
-
 }

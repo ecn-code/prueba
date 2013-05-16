@@ -33,7 +33,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 -->
-<?import elias.*?>
+<?import presentacion.*?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
@@ -44,29 +44,29 @@
 <?import javafx.scene.layout.*?>
 
 
-<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" fx:controller="elias.FXMLTableViewController" xmlns:fx="http://javafx.com/fxml">
+<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" fx:controller="presentacion.FXMLTableViewController" xmlns:fx="http://javafx.com/fxml">
   <padding>
     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </padding>
   <Label style="-fx-font: NORMAL 20 Tahoma;" text="Address Book" GridPane.columnIndex="0" GridPane.rowIndex="0" />
   <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
     <columns>
-      <TableColumn prefWidth="100.0" text="Id" fx:id="firstNameColumn">
+      <TableColumn prefWidth="100.0" text="First Name" fx:id="firstNameColumn">
         <cellFactory>
           <FormattedTableCellFactory alignment="CENTER" />
         </cellFactory>
         <cellValueFactory>
-          <PropertyValueFactory property="id" />
+          <PropertyValueFactory property="firstName" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="100.0" text="Producto">
+      <TableColumn prefWidth="100.0" text="Last Name">
         <cellValueFactory>
-          <PropertyValueFactory property="producto" />
+          <PropertyValueFactory property="lastName" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="200.0" text="Factor">
+      <TableColumn prefWidth="200.0" text="Email Address">
         <cellValueFactory>
-          <PropertyValueFactory property="factor" />
+          <PropertyValueFactory property="email" />
         </cellValueFactory>
       </TableColumn>
     </columns>

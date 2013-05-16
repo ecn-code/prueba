@@ -7,7 +7,7 @@ import persistencia.DAL;
 
 
 public class Controlador {
-	
+	private static Controlador controlador;
 	private DAL dal;
 	//**********************************************************************
 	// Creaci�n del controlador
@@ -22,7 +22,12 @@ public class Controlador {
 			throw new DominioExcepcion(e.getMessage());
 		}
 	}
-	
+        
+	public static Controlador dameControlador() throws DAOExcepcion, DominioExcepcion {
+	if(controlador == null)
+		controlador=new Controlador();
+	return controlador;
+	}
 	
 	public void insertarProducto(Producto producto) throws DAOExcepcion {
 	dal.insertarProducto(producto);
