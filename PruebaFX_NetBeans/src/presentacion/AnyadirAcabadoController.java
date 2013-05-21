@@ -25,33 +25,33 @@ import jfx.messagebox.*;
  *
  * @author Elias
  */
-public class AnyadirProductoController implements Initializable,ControlledScreen{
+public class AnyadirAcabadoController implements Initializable,ControlledScreen{
     
     ScreensController myController;
-    private String granulometria,nombre;
+    private String factor,nombre;
     @FXML
-    private TextField txtGranulometria,txtNombre;
+    private TextField txtFactor,txtNombre;
     @FXML
-    private Label lblErrorGranulometria,lblErrorNombre;
+    private Label lblErrorFactor,lblErrorNombre;
     @FXML
    
     private void handleButtonAction(ActionEvent event) throws DAOExcepcion, DominioExcepcion, Throwable {
         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
-       granulometria=txtGranulometria.getText(); 
+       factor=txtFactor.getText(); 
        nombre=txtNombre.getText();
-            granulometria=granulometria.replace(',', '.');
-        for(char x: granulometria.toCharArray()){
+            factor=factor.replace(',', '.');
+        for(char x: factor.toCharArray()){
             if(Character.isLetter(x)){
                 error=true;
-                lblErrorGranulometria.setText("No se pueden introducir letras");
-                lblErrorGranulometria.setVisible(true);
-                txtGranulometria.setText("");
+                lblErrorFactor.setText("No se pueden introducir letras");
+                lblErrorFactor.setVisible(true);
+                txtFactor.setText("");
                 break;
             }
-            if(granulometria.equals("")){
-                 txtGranulometria.setText("La granulometria no puede estar vacia");
+            if(factor.equals("")){
+                 txtFactor.setText("El factor no puede estar vacio");
                 error=true;
             }
            }
@@ -69,14 +69,14 @@ public class AnyadirProductoController implements Initializable,ControlledScreen
                 error=true;
             }
             if(!error){
-           Producto producto=new Producto(0, nombre, Double.parseDouble(granulometria));
-                controlador.insertarProducto(producto);  
-                lblErrorGranulometria.setText("");
+           Acabado acabado=new Acabado(0, nombre, Double.parseDouble(factor));
+                controlador.insertarAcabado(acabado);  
+                lblErrorFactor.setText("");
                 lblErrorNombre.setText("");
-                txtGranulometria.setText("");
+                txtFactor.setText("");
                   txtNombre.setText("");     
                   int answer = MessageBox.show(stage,
-						"El producto se ha creado correctamente",
+						"El acabado se ha creado correctamente",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                   FXMLTableViewController.cargar();

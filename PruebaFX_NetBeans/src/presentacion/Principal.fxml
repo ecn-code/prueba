@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="565.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <MenuBar layoutX="0.0" layoutY="0.0" prefWidth="565.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Productos" fx:id="menuProductos">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Listado" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Acabados" fx:id="menuAcabados">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Listado" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Bases" fx:id="menuBases">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Listado" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Pigmentos" fx:id="menuPigmentos">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Listado" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Aditivos">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Listado" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <Button layoutX="20.0" layoutY="40.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="CALCULAR" textFill="BLACK" />
+    <Button layoutX="20.0" layoutY="210.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Button" />
+    <Button layoutX="299.0" layoutY="40.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Button" />
+    <Button layoutX="299.0" layoutY="211.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="250.0" text="Button" />
+  </children>
+</AnchorPane>

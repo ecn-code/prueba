@@ -30,36 +30,54 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package presentacion;
+package logica;
 
-import java.util.ArrayList;
-import javafx.application.Application;
-import javafx.beans.property.ListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventType;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
-public class FXMLTableView extends Application {
+public class Acabado {
 
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
+    private final SimpleStringProperty nombre = new SimpleStringProperty("");
+    private final SimpleDoubleProperty factor = new SimpleDoubleProperty(0.0);
 
-    
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("FXML TableView Example");
-        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("AnyadirAcabado.fxml"));
-        Scene myScene = new Scene(myPane);
-        primaryStage.setScene(myScene);
-        primaryStage.show();
-        
+    public Acabado() {
+        this(0, "", 0.0);
     }
- 
-    public static void main(String[] args) {
-        launch(args);
+
+    public Acabado(int id, String acabado, Double factor) {
+        setId(id);
+        setNombre(acabado);
+        setFactor(factor);
     }
+
+    public int getId() {
+        return id.get();
+    }
+
+    /**
+     *
+     * @param fName
+     */
+    public void setId(int fName) {
+        id.set(fName);
+    }
+
+    public String getNombre() {
+        return nombre.get();
+    }
+
+    public void setNombre(String fName) {
+        nombre.set(fName);
+    }
+
+    public double getFactor() {
+        return factor.get();
+    }
+
+    public void setFactor(Double fName) {
+        factor.set(fName);
+    }
+
 }

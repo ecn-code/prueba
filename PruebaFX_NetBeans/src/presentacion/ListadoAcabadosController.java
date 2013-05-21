@@ -32,7 +32,6 @@
 
 package presentacion;
 
-import logica.Producto;
 import excepciones.DAOExcepcion;
 import excepciones.DominioExcepcion;
 import java.io.IOException;
@@ -52,12 +51,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logica.Acabado;
 import logica.Controlador;
 import logica.Producto;
 
 
-public class FXMLTableViewController implements Initializable, ControlledScreen{
-    @FXML private static TableView<Producto> tableView;
+public class ListadoAcabadosController implements Initializable, ControlledScreen{
+    @FXML private static TableView<Acabado> tableView;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
@@ -85,30 +85,29 @@ public class FXMLTableViewController implements Initializable, ControlledScreen{
     @Override
     public void initialize (URL location,ResourceBundle resources){
   cargar();
-  tableView.setEditable(true);
     }
     
     public static void cargar(){
         
                     Controlador controlador = null;
 
-  ArrayList<Producto> productos=new ArrayList<Producto>();
+  ArrayList<Acabado> acabados=new ArrayList<Acabado>();
 
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(FXMLTableViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(FXMLTableViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            productos=controlador.getProductos();
+            acabados=controlador.getAcabados();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(FXMLTableViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Producto> producto = FXCollections.observableList(productos);  
-       tableView.setItems(producto);
+       ObservableList<Acabado> acabado = FXCollections.observableList(acabados);  
+       tableView.setItems(acabado);
     }
     
 

@@ -45,5 +45,17 @@ public void eliminarProducto(Producto producto) throws DAOExcepcion {
     public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return dal.getPigmentos();
     }
+public void insertarAcabado(Acabado acabado) throws DAOExcepcion {
+	dal.insertarAcabado(acabado);
+}
+public Acabado getAcabado(String _nombre) throws DAOExcepcion {
+	return dal.getAcabado(_nombre);
+}
+public ArrayList<Acabado> getAcabados() throws DAOExcepcion {
+	return dal.getAcabados();
+}
+public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
+	dal.eliminarAcabado(acabado);
+}
 
 }
