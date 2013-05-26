@@ -14,11 +14,13 @@ public class DAL {
 	IProductoDAO iproductoDAO;
         IPigmentoDAO ipigmentoDAO;
 	IAcabadoDAO iacabadoDAO;
+        IAditivoDAO iaditivoDAO;
 private DAL() throws DAOExcepcion{
 	// Objectos para comunicarse con la capa de acceso a datos
 	this.iproductoDAO = new ProductoDAO();
         this.ipigmentoDAO = new PigmentoDAO();
         this.iacabadoDAO=new AcabadoDAO();
+        this.iaditivoDAO=new AditivoDAO();
 }
 
 public static DAL dameDAL() throws DAOExcepcion {
@@ -55,4 +57,13 @@ public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
     public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return ipigmentoDAO.getPigmentos();
     }
+    public void insertarAditivo(String nombre) throws DAOExcepcion {
+	iaditivoDAO.añadirAditivo(nombre);
+    }
+    public void eliminarAditivo(String nombre) throws DAOExcepcion {
+	iaditivoDAO.eliminarAditivo(nombre);
+    }
+    public ArrayList<String> getAditivos() throws DAOExcepcion {
+            return iaditivoDAO.getAditivos();
+}
 }
