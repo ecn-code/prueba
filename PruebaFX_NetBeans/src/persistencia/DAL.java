@@ -6,6 +6,8 @@ import logica.Producto;
 import excepciones.*;
 import java.util.ArrayList;
 import logica.Acabado;
+import logica.Aditivo;
+import logica.Base;
 import logica.Pigmento;
 import logica.Producto;
 
@@ -57,6 +59,7 @@ public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
     public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return ipigmentoDAO.getPigmentos();
     }
+<<<<<<< HEAD
     public void insertarAditivo(String nombre) throws DAOExcepcion {
 	iaditivoDAO.añadirAditivo(nombre);
     }
@@ -65,5 +68,27 @@ public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
     }
     public ArrayList<String> getAditivos() throws DAOExcepcion {
             return iaditivoDAO.getAditivos();
+=======
+    public ArrayList<String> getAditivos() throws DAOExcepcion{
+    return iaditivoDAO.getAditivos();
+    }
+public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
+return iaditivoDAO.getAditivos(idb);
+}
+public void insertarAditivoNombre(String nombre) throws DAOExcepcion{
+iaditivoDAO.insertarAditivoNombre(nombre);
+}
+public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion{
+iaditivoDAO.modificarAditivoNombre(nombreAntes, nombreAhora);
+}
+public void eliminarAditivoNombre(String nombre) throws DAOExcepcion{
+iaditivoDAO.eliminarAditivoNombre(nombre);
+}
+public void asociarAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
+iaditivoDAO.asociarAditivo(base, aditivo);
+}
+public void eliminaAsociacionAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
+iaditivoDAO.eliminaAsociacionAditivo(base, aditivo);
+>>>>>>> cf633cebc936c866e451c1ec0bf74036ad1d2727
 }
 }
