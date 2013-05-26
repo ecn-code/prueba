@@ -43,36 +43,20 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import logica.Acabado;
-import logica.Aditivo;
+import logica.Base;
 import logica.Controlador;
-import logica.Producto;
 
-
-public class ListadoAcabadosController implements Initializable, ControlledScreen{
-    @FXML private static TableView<Acabado> tableView;
-    @FXML private TextField firstNameField;
-    @FXML private TextField lastNameField;
-    @FXML private TextField emailField;
-    @FXML private TableColumn nombre;
+public class ListadoBasesController implements Initializable, ControlledScreen{
+    @FXML private static TableView<Base> tableView;
     ScreensController myController;
-    
-    
-
-    
-    
     @FXML
     protected void addPerson(ActionEvent event) throws IOException {
        /* Stage stage=new Stage();
@@ -95,17 +79,6 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-    nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-    nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Aditivo, String>>() {
-        @Override
-        public void handle(CellEditEvent<Aditivo, String> t) {
-            ((Aditivo) t.getTableView().getItems().get(
-                t.getTablePosition().getRow())
-                ).setNombre(t.getNewValue());
-        }
-    }
-);
   cargar();
     }
     
@@ -113,23 +86,23 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
         
                     Controlador controlador = null;
 
-  ArrayList<Acabado> acabados=new ArrayList<Acabado>();
+  ArrayList<Base> bases=new ArrayList<Base>();
 
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            acabados=controlador.getAcabados();
+            bases=controlador.getBases();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Acabado> acabado = FXCollections.observableList(acabados);  
-       tableView.setItems(acabado);
+       ObservableList<Base> base = FXCollections.observableList(acabados);  
+       tableView.setItems(base);
     }
     
 

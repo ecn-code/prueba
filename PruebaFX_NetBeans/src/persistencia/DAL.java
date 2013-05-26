@@ -19,6 +19,7 @@ private DAL() throws DAOExcepcion{
 	this.iproductoDAO = new ProductoDAO();
         this.ipigmentoDAO = new PigmentoDAO();
         this.iacabadoDAO=new AcabadoDAO();
+      
 }
 
 public static DAL dameDAL() throws DAOExcepcion {
@@ -55,4 +56,5 @@ public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
     public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return ipigmentoDAO.getPigmentos();
     }
+
 }

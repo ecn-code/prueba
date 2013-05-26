@@ -48,7 +48,7 @@
     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </padding>
   <Label alignment="CENTER" depthTest="INHERIT" style="-fx-font: NORMAL 20 Tahoma;" text="Acabado" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-  <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
+  <TableView fx:id="tableView" editable="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
     <columns>
       <TableColumn prefWidth="100.0" text="Id" fx:id="firstNameColumn">
         <cellFactory>
@@ -58,7 +58,7 @@
           <PropertyValueFactory property="id" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="100.0" text="Nombre">
+      <TableColumn prefWidth="100.0" text="Nombre" fx:id="nombre">
         <cellValueFactory>
           <PropertyValueFactory property="nombre" />
         </cellValueFactory>
