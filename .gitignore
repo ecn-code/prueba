@@ -14,7 +14,7 @@ tmp/
 local.properties
 .classpath
 .settings/
-*.properties
+private.properties
 *.class
 .loadpath
 
