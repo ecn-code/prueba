@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import excepciones.DAOExcepcion;
 
 import logica.Acabado;
+import logica.Aditivo;
+import logica.Base;
 
 
-public class AditivoDAO implements IAcabadoDAO{
+public class AditivoDAO implements IAditivoDAO{
 	private ConnectionManager connManager;
 	public AditivoDAO() throws DAOExcepcion{
 		super();
@@ -21,20 +23,21 @@ public class AditivoDAO implements IAcabadoDAO{
 			throw new DAOExcepcion("DB_CONNECT_ERROR");
 		}
 	}
-	@Override
-	public ArrayList<Acabado> getAcabados() throws DAOExcepcion{
-		// TODO Auto-generated method stub
-		
-		ArrayList<Acabado> acabados = new ArrayList<Acabado>();
+	
+
+    @Override
+    public ArrayList<String> getAditivos() throws DAOExcepcion {
+    ArrayList<String> aditivos = new ArrayList<String>();
+    
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ACABADO");
+			ResultSet rs=connManager.queryDB("select * from ADITIVOS");
 			connManager.close();
 			try {
 				
 				while (rs.next()){
-					Acabado acabado = new Acabado(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getDouble("FACTOR"));
-					acabados.add(acabado);
+					String nombre = rs.getString("NOMBRE");
+					aditivos.add(nombre);
 		
 				}
 				}catch (SQLException e){
@@ -44,73 +47,96 @@ public class AditivoDAO implements IAcabadoDAO{
 			}catch (DAOExcepcion e){
 				throw e;
 			}
-			return acabados;
-	}
+			return aditivos;
+    }
 
-	@Override
-	public Acabado getAcabado(String nombre) throws DAOExcepcion {
-		// TODO Auto-generated method stub
+    @Override
+    public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion {
+         ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
+    
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ACABADO where NOMBRE= '"+nombre+"'");						
+			ResultSet rs=connManager.queryDB("select * from ADITIVOS_CANTIDAD WHERE IDB="+idb);
 			connManager.close();
-			try{
-				if (rs.next()){
-					return new Acabado(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getDouble("FACTOR"));
+			try {
+				
+				while (rs.next()){
+					Aditivo aditivo = new Aditivo(rs.getString("NOMBRE"),rs.getDouble("CANTIDAD"));
+					aditivos.add(aditivo);
+		
 				}
-				else
-					return null;
-			}catch (SQLException e){
-				throw new DAOExcepcion("DB_READ_ERROR");
-			}
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
 			
 			}catch (DAOExcepcion e){
 				throw e;
 			}
-	}
+			return aditivos;
+    }
 
-	@Override
-	public void insertarAcabado(Acabado acabado) {
-		try {
+    @Override
+    public void insertarAditivoNombre(String nombre) throws DAOExcepcion {
+    try {
 			this.connManager.connect();
-			this.connManager.updateDB("insert into ACABADO (ID, NOMBRE, " +
-					"FACTOR) values ("
-					+ null
-					+ ",'"
-					+ acabado.getNombre()
-					+ "' , "
-					+ acabado.getFactor()
+			this.connManager.updateDB("insert into ADITIVOS (NOMBRE) values ('"+
+					nombre
+					+ "')");
+			this.connManager.close();
+
+		} catch (DAOExcepcion e) {
+			System.out.println("ERROR EN DAO");
+		}}
+
+    @Override
+    public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion {
+        try{
+			connManager.connect();
+			connManager.updateDB("UPDATE ADITIVOS SET NOMBRE = '" + nombreAhora+ 
+                        "'WHERE NOMBRE = " + nombreAntes);
+			connManager.close();
+
+		}catch (DAOExcepcion e){
+			e.printStackTrace();
+		}
+     }
+
+    @Override
+    public void eliminarAditivoNombre(String nombre) throws DAOExcepcion {
+    try{
+			connManager.connect();
+			connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE NOMBRE = " + nombre);
+			connManager.close();
+                        connManager.connect();
+			connManager.updateDB("DELETE FROM ADITIVOS WHERE NOMBRE = " + nombre);
+			connManager.close();
+
+		}catch (DAOExcepcion e){
+			e.printStackTrace();
+		}}
+
+    @Override
+    public void asociarAditivo(Base base, Aditivo aditivo) throws DAOExcepcion {
+      try {
+			this.connManager.connect();
+			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (IDB,PORCENTAJE,NOMBRE,CANTIDAD) values ("+
+					base.getId()+","+
+                                        base.getPorcentaje()+","+
+                                        aditivo.getNombre()+","+
+                                        aditivo.getCantidad()
 					+ ")");
 			this.connManager.close();
 
 		} catch (DAOExcepcion e) {
 			System.out.println("ERROR EN DAO");
-		}
-	}
+		}}
 
-	@Override
-	public void modificarAcabado(Acabado acabado) {
-		try{
-			connManager.connect();
-			connManager.updateDB("UPDATE ACABADO SET NOMBRE = '" + acabado.getNombre()+ 
-                        "'WHERE ID = " + acabado.getId());
+    @Override
+    public void eliminaAsociacionAditivo(Base base, Aditivo aditivo) throws DAOExcepcion {
+        connManager.connect();
+			connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE NOMBRE = " + aditivo.getNombre()+" AND"+
+                                                "IDB="+base.getId());
 			connManager.close();
-
-		}catch (DAOExcepcion e){
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void eliminarAcabado(Acabado acabado) {
-		try{
-			connManager.connect();
-			connManager.updateDB("DELETE FROM ACABADO WHERE ID = " + acabado.getId());
-			connManager.close();
-
-		}catch (DAOExcepcion e){
-			e.printStackTrace();
-		}
-	}
+    }
 
 }
