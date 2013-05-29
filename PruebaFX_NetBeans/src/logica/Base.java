@@ -53,5 +53,10 @@ public class Base {
     public void setPorcentaje(Double fName) {
         porcentaje.set(fName);
     }
-
+    public void setAditivos(ArrayList<Aditivo> array){
+        aditivos = array;
+    }
+     public ArrayList<Aditivo> getAditivos(){
+        return aditivos ;
+    }
 }
