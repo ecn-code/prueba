@@ -33,7 +33,7 @@ public class AcabadoDAO implements IAcabadoDAO{
 			try {
 				
 				while (rs.next()){
-					Acabado acabado = new Acabado(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getDouble("FACTOR"));
+					Acabado acabado = new Acabado(rs.getInt("ID"),rs.getString("NOMBRE"),Double.toString(rs.getDouble("FACTOR")));
 					acabados.add(acabado);
 		
 				}
@@ -56,7 +56,7 @@ public class AcabadoDAO implements IAcabadoDAO{
 			connManager.close();
 			try{
 				if (rs.next()){
-					return new Acabado(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getDouble("FACTOR"));
+					return new Acabado(rs.getInt("ID"),rs.getString("NOMBRE"),Double.toString(rs.getDouble("FACTOR")));
 				}
 				else
 					return null;
@@ -93,7 +93,7 @@ public class AcabadoDAO implements IAcabadoDAO{
 		try{
 			connManager.connect();
 			connManager.updateDB("UPDATE ACABADO SET NOMBRE = '" + acabado.getNombre()+ 
-                        "'WHERE ID = " + acabado.getId());
+                        "',FACTOR ='"+acabado.getFactor()+"'WHERE ID = " + acabado.getId());
 			connManager.close();
 
 		}catch (DAOExcepcion e){

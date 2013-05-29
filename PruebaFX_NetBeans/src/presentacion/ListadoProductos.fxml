@@ -43,7 +43,7 @@
 <?import javafx.scene.layout.*?>
 <?import presentacion.*?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="545.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoAcabadosController">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="545.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoProductosController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -57,14 +57,14 @@
   </rowConstraints>
   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
     <children>
-      <Label alignment="CENTER" depthTest="INHERIT" style="-fx-font: NORMAL 20 Tahoma;" text="Acabado">
+      <Label alignment="CENTER" depthTest="INHERIT" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Productos">
         <HBox.margin>
           <Insets top="60.0" />
         </HBox.margin>
       </Label>
-      <Button mnemonicParsing="false" onAction="#eliminarAcabado" prefHeight="23.0" prefWidth="68.0" text="Eliminar">
+      <Button mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="23.0" prefWidth="68.0" text="Eliminar">
         <HBox.margin>
-          <Insets left="250.0" top="60.0" />
+          <Insets left="220.0" top="60.0" />
         </HBox.margin>
       </Button>
     </children>
@@ -99,7 +99,7 @@
     </VBox>
     <VBox prefHeight="54.0" prefWidth="87.0">
       <children>
-        <Button onAction="#anyadirAcabado" prefWidth="68.0" text="Añadir" />
+        <Button onAction="#anyadirProducto" prefWidth="68.0" text="Añadir" />
       </children>
     </VBox>
   </HBox>

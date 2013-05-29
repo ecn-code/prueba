@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import excepciones.DAOExcepcion;
+import logica.Acabado;
 
 import logica.Producto;
 
@@ -33,7 +34,7 @@ public class ProductoDAO implements IProductoDAO{
 			try {
 				
 				while (rs.next()){
-					Producto producto = new Producto(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getDouble("FACTOR"));
+					Producto producto = new Producto(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getString("FACTOR"));
 					productos.add(producto);
 		
 				}
@@ -56,7 +57,7 @@ public class ProductoDAO implements IProductoDAO{
 			connManager.close();
 			try{
 				if (rs.next()){
-					return new Producto(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getDouble("FACTOR"));
+					return new Producto(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getString("FACTOR"));
 				}
 				else
 					return null;
@@ -93,7 +94,7 @@ public class ProductoDAO implements IProductoDAO{
 		try{
 			connManager.connect();
 			connManager.updateDB("UPDATE PRODUCTO SET NOMBRE = '" + producto.getNombre()+ 
-                        "'WHERE ID = " + producto.getId());
+                        "',FACTOR ='"+producto.getFactor()+"'WHERE ID = " + producto.getId());
 			connManager.close();
 
 		}catch (DAOExcepcion e){

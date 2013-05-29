@@ -40,13 +40,13 @@ public class Acabado {
 
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private final SimpleStringProperty nombre = new SimpleStringProperty("");
-    private final SimpleDoubleProperty factor = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty factor = new SimpleStringProperty("");
 
     public Acabado() {
-        this(0, "", 0.0);
+        this(0, "", "");
     }
 
-    public Acabado(int id, String acabado, Double factor) {
+    public Acabado(int id, String acabado, String factor) {
         setId(id);
         setNombre(acabado);
         setFactor(factor);
@@ -72,11 +72,11 @@ public class Acabado {
         nombre.set(fName);
     }
 
-    public double getFactor() {
+    public String getFactor() {
         return factor.get();
     }
 
-    public void setFactor(Double fName) {
+    public void setFactor(String fName) {
         factor.set(fName);
     }
 

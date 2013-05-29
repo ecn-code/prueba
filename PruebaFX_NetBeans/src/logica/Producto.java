@@ -40,13 +40,13 @@ public class Producto {
 
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private final SimpleStringProperty nombre = new SimpleStringProperty("");
-    private final SimpleDoubleProperty factor = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty factor = new SimpleStringProperty("");
 
     public Producto() {
-        this(0, "", 0.0);
+        this(0, "", "");
     }
 
-    public Producto(int id, String producto, Double factor) {
+    public Producto(int id, String producto, String factor) {
         setId(id);
         setNombre(producto);
         setFactor(factor);
@@ -72,11 +72,11 @@ public class Producto {
         nombre.set(fName);
     }
 
-    public double getFactor() {
+    public String getFactor() {
         return factor.get();
     }
 
-    public void setFactor(Double fName) {
+    public void setFactor(String fName) {
         factor.set(fName);
     }
 

@@ -32,6 +32,9 @@ public class Controlador {
 	public void insertarProducto(Producto producto) throws DAOExcepcion {
 	dal.insertarProducto(producto);
         }
+        public void modificarProducto(Producto producto) throws DAOExcepcion {
+	dal.modificarProducto(producto);
+        }
         public Producto getProducto(String _nombre) throws DAOExcepcion {
 	return dal.getProducto(_nombre);
         }
@@ -55,18 +58,10 @@ public class Controlador {
         }
         public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
 	dal.eliminarAcabado(acabado);
-<<<<<<< HEAD
         }
-        public ArrayList<String> getAditivos() throws DAOExcepcion {
-	return dal.getAditivos();
-        }
-        public void insertarAditivo(String nombre) throws DAOExcepcion {
-	dal.insertarAditivo(nombre);
-        }
-        public void eliminarAditivo(String nombre) throws DAOExcepcion {
-	dal.eliminarAditivo(nombre);
-        }
-=======
+        public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
+	dal.modificarAcabado(acabado);
+
 }
     public ArrayList<String> getAditivos() throws DAOExcepcion{
     return dal.getAditivos();
@@ -89,5 +84,4 @@ dal.asociarAditivo(base, aditivo);
 public void eliminaAsociacionAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
 dal.eliminaAsociacionAditivo(base, aditivo);
 }
->>>>>>> cf633cebc936c866e451c1ec0bf74036ad1d2727
 }

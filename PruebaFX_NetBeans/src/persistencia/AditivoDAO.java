@@ -24,38 +24,9 @@ public class AditivoDAO implements IAditivoDAO{
 			throw new DAOExcepcion("DB_CONNECT_ERROR");
 		}
 }
-    @Override
-    public void añadirAditivo(String nombre) throws DAOExcepcion {
-        double valor=0.0;
-     try {
-			this.connManager.connect();
-			this.connManager.updateDB("ALTER TABLE ADITIVOS ADD ("+nombre.toUpperCase()+" DOUBLE)");
-			this.connManager.close();
+   
 
-		} catch (DAOExcepcion e) {
-			System.out.println("ERROR EN DAO");
-		}
-       try{
-			connManager.connect();
-			connManager.updateDB("UPDATE ADITIVOS SET '"+nombre.toUpperCase()+"'='"+valor);
-			connManager.close();
 
-		}catch (DAOExcepcion e){
-			e.printStackTrace();
-		}
-    }
-
-    @Override
-    public void eliminarAditivo(String nombre) throws DAOExcepcion {
-      try{
-			connManager.connect();
-			connManager.updateDB("ALTER TABLE ADITIVOS DROP ("+nombre.toUpperCase());
-			connManager.close();
-
-		}catch (DAOExcepcion e){
-			e.printStackTrace();
-		}
-    }
 
 
 	
@@ -176,5 +147,4 @@ public class AditivoDAO implements IAditivoDAO{
 			connManager.close();
     }
 
->>>>>>> cf633cebc936c866e451c1ec0bf74036ad1d2727
 }

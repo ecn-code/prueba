@@ -43,6 +43,9 @@ public ArrayList<Producto> getProductos() throws DAOExcepcion {
 public void eliminarProducto(Producto producto) throws DAOExcepcion {
 	iproductoDAO.eliminarProducto(producto);
 }
+public void modificarProducto(Producto producto) throws DAOExcepcion {
+	iproductoDAO.modificarProducto(producto);
+}
 public void insertarAcabado(Acabado acabado) throws DAOExcepcion {
 	iacabadoDAO.insertarAcabado(acabado);
 }
@@ -55,20 +58,14 @@ public ArrayList<Acabado> getAcabados() throws DAOExcepcion {
 public void eliminarAcabado(Acabado acabado) throws DAOExcepcion {
 	iacabadoDAO.eliminarAcabado(acabado);
 }
+public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
+	iacabadoDAO.modificarAcabado(acabado);
+}
 
     public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return ipigmentoDAO.getPigmentos();
     }
-<<<<<<< HEAD
-    public void insertarAditivo(String nombre) throws DAOExcepcion {
-	iaditivoDAO.añadirAditivo(nombre);
-    }
-    public void eliminarAditivo(String nombre) throws DAOExcepcion {
-	iaditivoDAO.eliminarAditivo(nombre);
-    }
-    public ArrayList<String> getAditivos() throws DAOExcepcion {
-            return iaditivoDAO.getAditivos();
-=======
+
     public ArrayList<String> getAditivos() throws DAOExcepcion{
     return iaditivoDAO.getAditivos();
     }
@@ -89,6 +86,5 @@ iaditivoDAO.asociarAditivo(base, aditivo);
 }
 public void eliminaAsociacionAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
 iaditivoDAO.eliminaAsociacionAditivo(base, aditivo);
->>>>>>> cf633cebc936c866e451c1ec0bf74036ad1d2727
 }
 }

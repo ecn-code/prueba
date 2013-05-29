@@ -51,6 +51,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logica.Base;
 import logica.Controlador;
 
 public class ListadoBasesController implements Initializable, ControlledScreen{
@@ -85,8 +86,8 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         
                     Controlador controlador = null;
 
-  ArrayList<Base> acabados=new ArrayList<Base>();
-
+  ArrayList<Base> bases=new ArrayList<Base>();
+/*
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -100,8 +101,8 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Base> base = FXCollections.observableList(acabados);  
-       tableView.setItems(base);
+       ObservableList<Base> base = FXCollections.observableList(bases);  
+       tableView.setItems(base);*/
     }
     
 

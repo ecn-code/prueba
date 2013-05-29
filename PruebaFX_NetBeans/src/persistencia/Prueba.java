@@ -15,11 +15,11 @@ import logica.Aditivo;
  */
 public class Prueba {
      public static void main(String[] args) throws DAOExcepcion {
-        DAL dal = DAL.dameDAL();
+       /* DAL dal = DAL.dameDAL();
         dal.insertarAditivoNombre("Aditivo2");
         ArrayList<Aditivo> array = dal.getAditivos();
         
         for(Aditivo aditivo : array)
-            System.out.println(aditivo.getNombre());
+            System.out.println(aditivo.getNombre*/
     }
 }

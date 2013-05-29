@@ -59,36 +59,37 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
-import logica.Acabado;
+import logica.Producto;
 import logica.Controlador;
 import logica.Producto;
 
 
-public class ListadoAcabadosController implements Initializable, ControlledScreen{
-    @FXML private static TableView<Acabado> tableView;
+public class ListadoProductosController implements Initializable, ControlledScreen{
     ScreensController myController;
+    @FXML private static TableView<Producto> tableView;
     private String factor,nombre;
     @FXML
     private TextField txtFactor,txtNombre;
     @FXML
     private Label lblErrorFactor,lblErrorNombre;
     @FXML
-    public void eliminarAcabado(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+    public void eliminarProducto(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+        
         Stage stage=new Stage();
         Controlador controlador=null;
-        Acabado acabado= tableView.getSelectionModel().getSelectedItem();
+        Producto producto= tableView.getSelectionModel().getSelectedItem();
         int answer= MessageBox.show(stage,
-        "Estas seguro de que quieres eliminar este acabado?",
+        "Estas seguro de que quieres eliminar este producto?",
         "Information dialog",
         MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
         System.out.println(answer);
         if(answer==65536){
             controlador=controlador.dameControlador();
-            controlador.eliminarAcabado(acabado);
+            controlador.eliminarProducto(producto);
             cargar();
         }
     }
-    public void anyadirAcabado(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
+    public void anyadirProducto(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
@@ -111,9 +112,9 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
             }
            
             if(!nombre.equals("")){
-             Acabado acabado=controlador.getAcabado(nombre);
-            if(acabado!=null){
-            lblErrorNombre.setText("Ese acabado ya existe");
+             Producto producto=controlador.getProducto(nombre);
+            if(producto!=null){
+            lblErrorNombre.setText("Ese producto ya existe");
             txtNombre.setText("");
             error=true;
             }else{
@@ -125,14 +126,14 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
                 error=true;
             }
             if(!error){
-           Acabado acabado=new Acabado(0, nombre, factor.toString());
-                controlador.insertarAcabado(acabado);  
+           Producto producto=new Producto(0, nombre, factor.toString());
+                controlador.insertarProducto(producto);  
                 lblErrorFactor.setText("");
                 lblErrorNombre.setText("");
                 txtFactor.setText("");
                   txtNombre.setText("");     
                   int answer = MessageBox.show(stage,
-						"El acabado se ha creado correctamente",
+						"El producto se ha creado correctamente",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
@@ -150,8 +151,8 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
         Id.setMinWidth(100);
         Factor.setMinWidth(100);
         Nombre.setMinWidth(200);
-      Id.setCellValueFactory(new PropertyValueFactory<Acabado,String>("Id"));
-      Nombre.setCellValueFactory(new PropertyValueFactory<Acabado,String>("Nombre"));
+      Id.setCellValueFactory(new PropertyValueFactory<Producto,String>("Id"));
+      Nombre.setCellValueFactory(new PropertyValueFactory<Producto,String>("Nombre"));
       Factor.setCellValueFactory(new PropertyValueFactory("Factor"));
       tableView.getColumns().addAll(Id,Nombre,Factor);
       tableView.setTableMenuButtonVisible(true);
@@ -159,52 +160,52 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
 
     Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
     Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Acabado, String>>() {
+    new EventHandler<CellEditEvent<Producto, String>>() {
         @Override
-        public void handle(CellEditEvent<Acabado, String> t) {
+        public void handle(CellEditEvent<Producto, String> t) {
                Controlador controlador = null;
-               Acabado acabado=null;
+               Producto producto=null;
                Stage stage=new Stage();
         try {
             controlador=controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
         }
             try {
-                acabado=controlador.getAcabado(t.getNewValue());
+                producto=controlador.getProducto(t.getNewValue());
             } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 this.finalize();
             } catch (Throwable ex) {
-                Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
             }
              if(t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"El nombre del acabado no  puede estar vacio",
+						"El nombre del producto no  puede estar vacio",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
             }
-            if(acabado==null && !t.getNewValue().trim().equals("")){
-               ((Acabado) t.getTableView().getItems().get(
+            if(producto==null && !t.getNewValue().trim().equals("")){
+               ((Producto) t.getTableView().getItems().get(
                 t.getTablePosition().getRow())
                 ).setNombre(t.getNewValue());
-               Acabado acabadoA=  ((Acabado) t.getTableView().getItems().get(
+               Producto productoA=  ((Producto) t.getTableView().getItems().get(
                 t.getTablePosition().getRow()));
-               acabadoA.setNombre(t.getNewValue().trim());
+               productoA.setNombre(t.getNewValue().trim());
                    try {
-                       controlador.modificarAcabado(acabadoA);
+                       controlador.modificarProducto(productoA);
                    } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+                       Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
                    }
                cargar();
             }
            
-            if(acabado!= null && !t.getNewValue().trim().equals("")){
+            if(producto!= null && !t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
 						"Ese producto ya existe, introduzca un nombre distinto",
 						"Information dialog", 
@@ -218,19 +219,19 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
 );
     Factor.setCellFactory(TextFieldTableCell.forTableColumn());
     Factor.setOnEditCommit(
-    new EventHandler<CellEditEvent<Acabado, String>>() {
+    new EventHandler<CellEditEvent<Producto, String>>() {
         @Override
-        public void handle(CellEditEvent<Acabado, String> t) {
+        public void handle(CellEditEvent<Producto, String> t) {
             Controlador controlador=null;
-            Acabado nuevoAcabado=null;
+            Producto nuevoProducto=null;
             Stage stage=new Stage();
             boolean hayLetras=false;
             try {
                 controlador=controlador.dameControlador();
             } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (DominioExcepcion ex) {
-                Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
              if(!t.getNewValue().trim().equals("")){
@@ -246,15 +247,15 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
             }
                 }
                 if(!hayLetras){
-               nuevoAcabado=((Acabado) t.getTableView().getItems().get(
+               nuevoProducto=((Producto) t.getTableView().getItems().get(
                 t.getTablePosition().getRow()));
-               nuevoAcabado.setFactor(t.getNewValue().trim().replace(',', '.'));
+               nuevoProducto.setFactor(t.getNewValue().trim().replace(',', '.'));
                 try {
-                    controlador.modificarAcabado(nuevoAcabado);
+                    controlador.modificarProducto(nuevoProducto);
                 } catch (DAOExcepcion ex) {
-                    Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               ((Acabado) t.getTableView().getItems().get(
+               ((Producto) t.getTableView().getItems().get(
                 t.getTablePosition().getRow())
                 ).setFactor(t.getNewValue());
                cargar();
@@ -276,23 +277,23 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
         
                     Controlador controlador = null;
 
-  ArrayList<Acabado> acabados=new ArrayList<Acabado>();
+  ArrayList<Producto> productos=new ArrayList<Producto>();
 
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            acabados=controlador.getAcabados();
+            productos=controlador.getProductos();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Acabado> acabado = FXCollections.observableList(acabados);  
-       tableView.setItems(acabado);
+       ObservableList<Producto> producto = FXCollections.observableList(productos);  
+       tableView.setItems(producto);
     }
     
 
