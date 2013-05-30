@@ -47,6 +47,16 @@ public class Controlador {
         public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return dal.getPigmentos();
         }
+        public Pigmento getPigmento(String nombre) throws DAOExcepcion {
+        return dal.getPigmento(nombre);
+        }
+         public void insertarPigmento(Pigmento pigmento) throws DAOExcepcion {
+         dal.insertarPigmento(pigmento);
+        }
+          public void eliminarPigmento(Pigmento pigmento) throws DAOExcepcion {
+         dal.eliminarPigmento(pigmento);
+        }
+  
         public void insertarAcabado(Acabado acabado) throws DAOExcepcion {
 	dal.insertarAcabado(acabado);
         }
