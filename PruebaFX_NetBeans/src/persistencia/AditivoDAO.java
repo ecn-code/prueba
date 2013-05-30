@@ -60,11 +60,14 @@ public class AditivoDAO implements IAditivoDAO{
     @Override
     public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion {
          ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
-    
+                
 		try{
+                    
 			connManager.connect();
 			ResultSet rs=connManager.queryDB("select * from ADITIVOS_CANTIDAD WHERE IDB="+idb);
 			connManager.close();
+                        
+                        
 			try {
 				
 				while (rs.next()){
@@ -81,6 +84,7 @@ public class AditivoDAO implements IAditivoDAO{
 			}catch (DAOExcepcion e){
 				throw e;
 			}
+                
 			return aditivos;
 
     }

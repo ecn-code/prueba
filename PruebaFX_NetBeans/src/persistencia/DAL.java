@@ -24,7 +24,7 @@ private DAL() throws DAOExcepcion{
         this.ipigmentoDAO = new PigmentoDAO();
         this.iacabadoDAO=new AcabadoDAO();
         this.iaditivoDAO=new AditivoDAO();
-        this.ibaseDAO= new BaseDAO(dal);
+        this.ibaseDAO= new BaseDAO();
 }
 
 public static DAL dameDAL() throws DAOExcepcion {

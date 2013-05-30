@@ -49,5 +49,7 @@ public class Pigmento {
     public void setNombre(String fName) {
         nombre.set(fName);
     }
-
+    @Override public String toString() {
+     return nombre.get();
+     }
 }

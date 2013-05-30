@@ -15,9 +15,9 @@ import logica.Base;
 public class BaseDAO implements IBaseDAO{
 	private ConnectionManager connManager;
         private DAL dal;
-	public BaseDAO(DAL _dal) throws DAOExcepcion{
+	public BaseDAO() throws DAOExcepcion{
 		super();
-                dal = _dal;
+
 		// TODO Auto-generated constructor stub
 		try{
 		connManager= new ConnectionManager("CALCPIGMENTOS");
@@ -35,11 +35,11 @@ public class BaseDAO implements IBaseDAO{
 			ResultSet rs=connManager.queryDB("select * from BASES");
 			connManager.close();
 			try {
-				
+				DAL dal = DAL.dameDAL();
 				while (rs.next()){
-                                 //  ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
 					Base base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-				//	base.setAditivos(array);
+					base.setAditivos(array);
                                         bases.add(base);
 		
 				}
@@ -108,12 +108,12 @@ public class BaseDAO implements IBaseDAO{
 			ResultSet rs=connManager.queryDB("select * from BASES WHERE IDB="+idb);
 			connManager.close();
 			try {
-				
+			DAL dal = DAL.dameDAL();
 				while (rs.next()){
-                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                  ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
                                    
 				base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-					base.setAditivos(array);
+				//	base.setAditivos(array);
                                         
 		
 				}
@@ -137,11 +137,12 @@ public class BaseDAO implements IBaseDAO{
 			try {
 				
 				while (rs.next()){
-                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                    
                                    
-				Base base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-					base.setAditivos(array);
-                                        bases.add(base);
+
+
+				Base base = getBase(rs.getInt("IDB"));
+                                    if(base!=null)    bases.add(base);
                                         
 		
 				}
