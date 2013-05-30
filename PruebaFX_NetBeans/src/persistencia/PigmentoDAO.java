@@ -26,7 +26,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 
 	public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion{
 		// TODO Auto-generated method stub
-                DAL dal=dal.dameDAL();
+                DAL dal=DAL.dameDAL();
 		int idPigmento;
                 String nombrePigmento;
 		ArrayList<Pigmento> pigmentos = new ArrayList<Pigmento>();
