@@ -19,7 +19,7 @@ import logica.Aditivo;
  */
 public class Prueba {
 
-     public static void main(String[] args) throws DAOExcepcion, IOException {
+    /* public static void main(String[] args) throws DAOExcepcion, IOException {
          
         ThreadEjemplo ej = new ThreadEjemplo();
          ej.start();
@@ -71,5 +71,5 @@ public class Prueba {
                 e.printStackTrace();
             }
     }
-}
+}*/
 }

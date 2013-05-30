@@ -78,14 +78,17 @@ public class Controlador {
         public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
         return dal.getAditivos(idb);
         }
-        public void insertarAditivoNombre(String nombre) throws DAOExcepcion{
-        dal.insertarAditivoNombre(nombre);
+        public void insertarAditivo(Aditivo aditivo) throws DAOExcepcion{
+        dal.insertarAditivo(aditivo);
         }
         public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion{
         dal.modificarAditivoNombre(nombreAntes, nombreAhora);
         }
-        public void eliminarAditivoNombre(String nombre) throws DAOExcepcion{
-        dal.eliminarAditivoNombre(nombre);
+        public void eliminarAditivo(Aditivo aditivo) throws DAOExcepcion{
+        dal.eliminarAditivo(aditivo);
+        }
+        public Aditivo getAditivo(String nombre) throws DAOExcepcion{
+        return dal.getAditivo(nombre);
         }
         public void asociarAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
         dal.asociarAditivo(base, aditivo);

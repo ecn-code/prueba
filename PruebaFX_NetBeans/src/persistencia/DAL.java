@@ -79,17 +79,20 @@ public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
     public ArrayList<Aditivo> getAditivos() throws DAOExcepcion{
     return iaditivoDAO.getAditivos();
     }
+    public Aditivo getAditivo(String nombre) throws DAOExcepcion{
+    return iaditivoDAO.getAditivo(nombre);
+    }
 public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
 return iaditivoDAO.getAditivos(idb);
 }
-public void insertarAditivoNombre(String nombre) throws DAOExcepcion{
-iaditivoDAO.insertarAditivoNombre(nombre);
+public void insertarAditivo(Aditivo aditivo) throws DAOExcepcion{
+iaditivoDAO.insertarAditivo(aditivo);
 }
 public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion{
 iaditivoDAO.modificarAditivoNombre(nombreAntes, nombreAhora);
 }
-public void eliminarAditivoNombre(String nombre) throws DAOExcepcion{
-iaditivoDAO.eliminarAditivoNombre(nombre);
+public void eliminarAditivo(Aditivo aditivo) throws DAOExcepcion{
+iaditivoDAO.eliminarAditivo(aditivo);
 }
 public void asociarAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
 iaditivoDAO.asociarAditivo(base, aditivo);

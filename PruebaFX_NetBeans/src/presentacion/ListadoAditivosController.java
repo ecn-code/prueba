@@ -34,6 +34,7 @@ package presentacion;
 
 import excepciones.DAOExcepcion;
 import excepciones.DominioExcepcion;
+import java.awt.Dialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -43,49 +44,156 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import jfx.messagebox.MessageBox;
 import logica.Aditivo;
 import logica.Controlador;
-
+import logica.Aditivo;
 
 
 public class ListadoAditivosController implements Initializable, ControlledScreen{
-    @FXML private static TableView<Aditivo> tableView;
-    @FXML private TextField firstNameField;
-    @FXML private TextField lastNameField;
-    @FXML private TextField emailField;
     ScreensController myController;
+    @FXML private static TableView<Aditivo> tableView;
+    private String nombre;
     @FXML
-    protected void addPerson(ActionEvent event) throws IOException {
-       /* Stage stage=new Stage();
-         Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("AnyadirProducto.fxml"));
-         Scene myScene = new Scene(myPane);
-        stage.setScene(myScene);
-        stage.show();*/
-        myController.setScreen(ScreensFramework.ANYADIR_PRODUCTO_SCREEN);
-
-       /* ObservableList<Producto> data = tableView.getItems();
-        data.add(new Producto(Integer.parseInt(firstNameField.getText()),
-
-            lastNameField.getText()
-        ));
+    private TextField txtNombre;
+    @FXML
+    private Label lblErrorNombre;
+    @FXML
+    public void eliminarAditivo(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
         
-        firstNameField.setText("");
-        lastNameField.setText("");
-        emailField.setText("");   */
+        Stage stage=new Stage();
+        Controlador controlador=null;
+        Aditivo aditivo= tableView.getSelectionModel().getSelectedItem();
+        int answer= MessageBox.show(stage,
+        "Estas seguro de que quieres eliminar este aditivo?",
+        "Information dialog",
+        MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
+        System.out.println(answer);
+        if(answer==65536){
+            controlador=controlador.dameControlador();
+            controlador.eliminarAditivo(aditivo);
+            cargar();
+        }
+    }
+    public void anyadirAditivo(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
+        Stage stage=new Stage();
+        boolean error=false;
+         Controlador controlador= Controlador.dameControlador();
+       nombre=txtNombre.getText();
+            if(!nombre.equals("")){
+             Aditivo aditivo=controlador.getAditivo(nombre);
+            if(aditivo!=null){
+            lblErrorNombre.setText("Ese aditivo ya existe");
+            txtNombre.setText("");
+            error=true;
+            }else{
+              lblErrorNombre.setText("");  
+            }
+                
+            }else{
+                lblErrorNombre.setText("Debes rellenar el nombre");
+                error=true;
+            }
+            if(!error){
+           Aditivo aditivo=new Aditivo(nombre);
+                controlador.insertarAditivo(aditivo);  
+                lblErrorNombre.setText("");
+                  txtNombre.setText("");     
+                  int answer = MessageBox.show(stage,
+						"El aditivo se ha creado correctamente",
+						"Information dialog", 
+						MessageBox.ICON_INFORMATION | MessageBox.OK);
+                cargar();
+            }
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-  cargar();
+      
+        tableView.setEditable(true);
+        tableView.setMaxWidth(400);
+        TableColumn Nombre=new TableColumn("Nombre");
+        Nombre.setMinWidth(200);
+      Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
+      tableView.getColumns().addAll(Nombre);
+      tableView.setTableMenuButtonVisible(true);
+      cargar();
+   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
+   /* Nombre.setOnEditCommit(
+    new EventHandler<CellEditEvent<Aditivo, String>>() {
+        @Override
+        public void handle(CellEditEvent<Aditivo, String> t) {
+               Controlador controlador = null;
+               Aditivo aditivo=null;
+               Stage stage=new Stage();
+        try {
+            controlador=controlador.dameControlador();
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DominioExcepcion ex) {
+            Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+                aditivo=controlador.getAditivo(t.getNewValue());
+            } catch (DAOExcepcion ex) {
+                Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                this.finalize();
+            } catch (Throwable ex) {
+                Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             if(t.getNewValue().trim().equals("")){
+                int answer = MessageBox.show(stage,
+						"El nombre del aditivo no  puede estar vacio",
+						"Information dialog", 
+						MessageBox.ICON_INFORMATION | MessageBox.OK);
+                cargar();
+            }
+            if(aditivo==null && !t.getNewValue().trim().equals("")){
+               ((Aditivo) t.getTableView().getItems().get(
+                t.getTablePosition().getRow())
+                ).setNombre(t.getNewValue());
+               Aditivo aditivoA=  ((Aditivo) t.getTableView().getItems().get(
+                t.getTablePosition().getRow()));
+               aditivoA.setNombre(t.getNewValue().trim());
+                   try {
+                       controlador.modificarAditivo(aditivoA);
+                   } catch (DAOExcepcion ex) {
+                       Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+               cargar();
+            }
+           
+            if(aditivo!= null && !t.getNewValue().trim().equals("")){
+                int answer = MessageBox.show(stage,
+						"Ese aditivo ya existe, introduzca un nombre distinto",
+						"Information dialog", 
+						MessageBox.ICON_INFORMATION | MessageBox.OK);
+                cargar();
+    
+            }
+      
+        }
     }
+);*/
+    
+        }
+    
     
     public static void cargar(){
         
@@ -105,9 +213,7 @@ public class ListadoAditivosController implements Initializable, ControlledScree
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                  for(int i=0;i<aditivos.size();i++){
-                      System.out.println(aditivos.get(i));
-                  }
+                  
        ObservableList<Aditivo> aditivo = FXCollections.observableList(aditivos);  
        tableView.setItems(aditivo);
     }
