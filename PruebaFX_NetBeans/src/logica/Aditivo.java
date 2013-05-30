@@ -44,5 +44,7 @@ public class Aditivo {
     public void setCantidad(Double fName) {
         cantidad.set(fName);
     }
-
+    @Override public String toString() {
+     return nombre.get();
+     }
 }

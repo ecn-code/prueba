@@ -78,7 +78,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     private TextField txtNombre;
     @FXML
     private Label lblErrorNombre;
-    @FXML private ChoiceBox elegirBase;
+    @FXML private ChoiceBox elegirBase,aditivosChoiceBox;
     
    @FXML
     public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
@@ -124,7 +124,12 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             ChangeListener<Number>() {
                 public void changed(ObservableValue ov,
                     Number value, Number new_value) {
-                      //  label.setText(greetings[new_value.intValue()]);
+                    try {
+                        //  label.setText(greetings[new_value.intValue()]);
+                      cargarAditivos(((Base)elegirBase.getItems().get(new_value.intValue())).getId());
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(ListadoBasesController_ComboBox.class.getName()).log(Level.SEVERE, null, ex);
+                    }
             }
         });
 
@@ -203,7 +208,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         }
     
     
-    public static void cargarAditivos(int idb){
+    public void cargarAditivos(int idb) throws DAOExcepcion{
         
                     Controlador controlador = null;
 
@@ -222,8 +227,27 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Aditivo> aditivos2 = FXCollections.observableList(aditivos);  
-       tableView.setItems(aditivos2);
+       ObservableList<Aditivo> aditivosConvertidosParaTabla = FXCollections.observableList(aditivos);  
+       
+       ArrayList<Aditivo> aditivosTodos = controlador.getAditivos();
+       
+       ArrayList<Aditivo> aditivosChoiceBoxx = new ArrayList<Aditivo>();
+       
+       ObservableList<Aditivo> aditivosOVChoiceBox = null;
+       if(aditivos.size()>0){
+       for(Aditivo aditivoOV : aditivosTodos)
+           for(Aditivo aditivoOV2 : aditivos)
+           if(!aditivoOV.getNombre().equals(aditivoOV2.getNombre()))aditivosChoiceBoxx.add(aditivoOV);
+       
+       aditivosOVChoiceBox = FXCollections.observableList(aditivosChoiceBoxx); 
+       }else{
+          
+       aditivosOVChoiceBox = FXCollections.observableList(aditivosTodos); 
+       }
+       
+       
+       aditivosChoiceBox.setItems(aditivosOVChoiceBox);
+       tableView.setItems(aditivosConvertidosParaTabla);
     }
     
     public  void cargarBases(){
