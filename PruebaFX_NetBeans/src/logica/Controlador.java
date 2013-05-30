@@ -71,27 +71,47 @@ public class Controlador {
         }
         public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
 	dal.modificarAcabado(acabado);
-
-}
-    public ArrayList<String> getAditivos() throws DAOExcepcion{
-    return dal.getAditivos();
-    }
-public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
-return dal.getAditivos(idb);
-}
-public void insertarAditivoNombre(String nombre) throws DAOExcepcion{
-dal.insertarAditivoNombre(nombre);
-}
-public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion{
-dal.modificarAditivoNombre(nombreAntes, nombreAhora);
-}
-public void eliminarAditivoNombre(String nombre) throws DAOExcepcion{
-dal.eliminarAditivoNombre(nombre);
-}
-public void asociarAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
-dal.asociarAditivo(base, aditivo);
-}
-public void eliminaAsociacionAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
-dal.eliminaAsociacionAditivo(base, aditivo);
-}
+        }
+        public ArrayList<String> getAditivos() throws DAOExcepcion{
+        return dal.getAditivos();
+        }
+        public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
+        return dal.getAditivos(idb);
+        }
+        public void insertarAditivoNombre(String nombre) throws DAOExcepcion{
+        dal.insertarAditivoNombre(nombre);
+        }
+        public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion{
+        dal.modificarAditivoNombre(nombreAntes, nombreAhora);
+        }
+        public void eliminarAditivoNombre(String nombre) throws DAOExcepcion{
+        dal.eliminarAditivoNombre(nombre);
+        }
+        public void asociarAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
+        dal.asociarAditivo(base, aditivo);
+        }
+        public void eliminaAsociacionAditivo(Base base,Aditivo aditivo) throws DAOExcepcion{
+        dal.eliminaAsociacionAditivo(base, aditivo);
+        }
+        public void insertarBase(Base base) throws DAOExcepcion{
+        dal.insertarBase(base);
+        }
+        public void modificarBase(Base base) throws DAOExcepcion{
+        dal.modificarBase(base);
+        }
+        public void eliminarBase(Base base) throws DAOExcepcion{
+        dal.eliminarBase(base);
+        }
+        public ArrayList<Base> getBases() throws DAOExcepcion{
+            return dal.getBases();
+        }
+        public ArrayList<Base> getBases(int idp) throws DAOExcepcion{
+            return dal.getBases(idp);
+        }
+        public Base getBase(int idb) throws DAOExcepcion{
+            return dal.getBase(idb);
+        }
+        public Base getBase(String nombre) throws DAOExcepcion{
+            return dal.getBase(nombre);
+        }
 }

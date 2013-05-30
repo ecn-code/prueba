@@ -88,8 +88,8 @@
     </VBox>
     <VBox prefHeight="47.0" prefWidth="163.0">
       <children>
-        <Button onAction="#anyadirPigmento" prefWidth="68.0" text="Añadir" />
-        <Button mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
+        <Button onAction="#anyadirBase" prefWidth="68.0" text="Añadir" />
+        <Button mnemonicParsing="false" onAction="#eliminarBase" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
       </children>
     </VBox>
   </HBox>
