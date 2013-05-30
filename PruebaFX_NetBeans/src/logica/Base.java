@@ -43,21 +43,10 @@ public class Base {
     public void setNombre(String fName) {
         nombre.set(fName);
     }
-<<<<<<< HEAD
-=======
-
-    public double getPorcentaje() {
-        return porcentaje.get();
-    }
-
-    public void setPorcentaje(Double fName) {
-        porcentaje.set(fName);
-    }
     public void setAditivos(ArrayList<Aditivo> array){
         aditivos = array;
     }
      public ArrayList<Aditivo> getAditivos(){
         return aditivos ;
     }
->>>>>>> 13caf2f669d5c0f30d57f0acddaa75bc28be0833
 }
