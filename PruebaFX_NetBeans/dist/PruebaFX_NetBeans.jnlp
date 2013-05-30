@@ -11,9 +11,20 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="PruebaFX_NetBeans.jar" size="87592" download="eager" />
     <jar href="lib/hsqldb.jar" size="678310" download="eager" />
     <jar href="lib/jfxmessagebox-1.1.0.jar" size="37641" download="eager" />
+=======
+<<<<<<< HEAD
+    <jar href="PruebaFX_NetBeans.jar" size="84329" download="eager" />
+    <jar href="lib/hsqldb.jar" size="678310" download="eager" />
+=======
+    <jar href="PruebaFX_NetBeans.jar" size="72034" download="eager" />
+    <jar href="lib/hsqldb.jar" size="678311" download="eager" />
+>>>>>>> preparando dao base
+    <jar href="lib/jfxmessagebox-1.1.0.jar" size="37644" download="eager" />
+>>>>>>> 13caf2f669d5c0f30d57f0acddaa75bc28be0833
   </resources>
 <security>
   <all-permissions/>
