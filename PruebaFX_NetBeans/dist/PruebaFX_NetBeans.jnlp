@@ -12,6 +12,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <jar href="PruebaFX_NetBeans.jar" size="101453" download="eager" />
     <jar href="lib/hsqldb.jar" size="678310" download="eager" />
     <jar href="lib/jfxmessagebox-1.1.0.jar" size="37642" download="eager" />
@@ -20,6 +21,11 @@
     <jar href="lib/hsqldb.jar" size="678311" download="eager" />
     <jar href="lib/jfxmessagebox-1.1.0.jar" size="37644" download="eager" />
 >>>>>>> AditivoDAO
+=======
+    <jar href="PruebaFX_NetBeans.jar" size="101452" download="eager" />
+    <jar href="lib/hsqldb.jar" size="678310" download="eager" />
+    <jar href="lib/jfxmessagebox-1.1.0.jar" size="37644" download="eager" />
+>>>>>>> nose
   </resources>
 <security>
   <all-permissions/>
