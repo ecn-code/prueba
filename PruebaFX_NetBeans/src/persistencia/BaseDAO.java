@@ -57,19 +57,19 @@ public class BaseDAO implements IBaseDAO{
 
     @Override
     public void insertarBase(Base base) throws DAOExcepcion {
-     try {
+                try {
 			this.connManager.connect();
-			this.connManager.updateDB("insert into BASES (ID, NOMBRE, " +
-					"PORCENTAJE) values ("
+			this.connManager.updateDB("insert into BASES (IDB, NOMBRE) values ("
 					+ null
 					+ ",'"
 					+ base.getNombre()
-					+ ")");
+					+ "')");
 			this.connManager.close();
 
 		} catch (DAOExcepcion e) {
 			System.out.println("ERROR EN DAO");
-		}}
+		}
+    }
 
     @Override
     public void modificarBase(Base base) throws DAOExcepcion {
@@ -157,30 +157,27 @@ public class BaseDAO implements IBaseDAO{
 
     @Override
     public Base getBase(String nombre) throws DAOExcepcion {
-      Base base=null;        
-        try{
-                   
+            
+       try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from BASES WHERE NOMBRE="+nombre);
+			ResultSet rs=connManager.queryDB("select * from BASES where NOMBRE= '"+nombre+"'");						
 			connManager.close();
-			try {
-				
-				while (rs.next()){
-                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
-                                   
-				base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-					base.setAditivos(array);
-                                        
-		
+			try{
+				if (rs.next()){
+                                        Base base=new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
+                                        ArrayList<Aditivo> aditivos = dal.getAditivos(rs.getInt("IDB"));
+					base.setAditivos(aditivos);
+                                        return base;
 				}
-                                return base;
-				}catch (SQLException e){
-					throw new DAOExcepcion("DB_READ_ERROR");
-				}
+				else
+					return null;
+			}catch (SQLException e){
+				throw new DAOExcepcion("DB_READ_ERROR");
+			}
 			
 			}catch (DAOExcepcion e){
 				throw e;
-                        }
+			}
     }
 
 }
