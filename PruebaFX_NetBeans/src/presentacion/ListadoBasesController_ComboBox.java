@@ -73,48 +73,33 @@ import logica.Pigmento;
 public class ListadoBasesController_ComboBox implements Initializable, ControlledScreen{
    ScreensController myController;
     @FXML private static TableView<Aditivo> tableView;
-    private String nombre;
+    private String cantidad;
+    Base base;
+    Aditivo aditivo;
     @FXML
-    private TextField txtNombre;
-    @FXML
-    private Label lblErrorNombre;
+    private TextField txtCantidad;
+    //@FXML
+    //private Label lblErrorCantidad;
     @FXML private ChoiceBox elegirBase,aditivosChoiceBox;
     
    @FXML
-    public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+    public void eliminarAditivoBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
         
     
         }
 
-    public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
+    public void anyadirAditivoBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
-       nombre=txtNombre.getText();
-            if(!nombre.equals("")){
-             Pigmento pigmento=controlador.getPigmento(nombre);
-            if(pigmento!=null){
-            lblErrorNombre.setText("Ese pigmento ya existe");
-            txtNombre.setText("");
-            error=true;
-            }else{
-              lblErrorNombre.setText("");  
-            }
-                
-            }else{
-                lblErrorNombre.setText("Debes rellenar el nombre");
-                error=true;
-            }
+       cantidad=txtCantidad.getText();
+       base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
+       aditivo=(Aditivo)aditivosChoiceBox.getSelectionModel().getSelectedItem();
+    if(cantidad.equals(""))
+             error=true;
             if(!error){
-           Pigmento pigmento=new Pigmento(0, nombre);
-                controlador.insertarPigmento(pigmento);  
-                lblErrorNombre.setText("");
-                  txtNombre.setText("");     
-                  int answer = MessageBox.show(stage,
-						"El pigmento se ha creado correctamente",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargarBases();
+           aditivo.setCantidad(Double.parseDouble(cantidad));
+           controlador.asociarAditivo(base, aditivo);
             }
     }
     
@@ -137,16 +122,16 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         tableView.setEditable(true);
         tableView.setMaxWidth(400);
         TableColumn Id=new TableColumn("Id");
-        TableColumn Nombre=new TableColumn("Nombre");
+        TableColumn Cantidad=new TableColumn("Cantidad");
         Id.setMinWidth(100);
-        Nombre.setMinWidth(200);
+        Cantidad.setMinWidth(200);
       Id.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Id"));
-      Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Nombre"));
-      tableView.getColumns().addAll(Id,Nombre);
+      Cantidad.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Cantidad"));
+      tableView.getColumns().addAll(Id,Cantidad);
       tableView.setTableMenuButtonVisible(true);
       cargarBases();
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
+   // Cantidad.setCellFactory(TextFieldTableCell.forTableColumn());
+   /* Cantidad.setOnEditCommit(
     new EventHandler<CellEditEvent<Pigmento, String>>() {
         @Override
         public void handle(CellEditEvent<Pigmento, String> t) {
@@ -172,7 +157,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             }
              if(t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"El nombre del pigmento no  puede estar vacio",
+						"El cantidad del pigmento no  puede estar vacio",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
@@ -180,10 +165,10 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             if(pigmento==null && !t.getNewValue().trim().equals("")){
                ((Pigmento) t.getTableView().getItems().get(
                 t.getTablePosition().getRow())
-                ).setNombre(t.getNewValue());
+                ).setCantidad(t.getNewValue());
                Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
                 t.getTablePosition().getRow()));
-               pigmentoA.setNombre(t.getNewValue().trim());
+               pigmentoA.setCantidad(t.getNewValue().trim());
                    try {
                        controlador.modificarPigmento(pigmentoA);
                    } catch (DAOExcepcion ex) {
@@ -194,7 +179,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
            
             if(pigmento!= null && !t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"Ese pigmento ya existe, introduzca un nombre distinto",
+						"Ese pigmento ya existe, introduzca un cantidad distinto",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
@@ -237,7 +222,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        if(aditivos.size()>0){
        for(Aditivo aditivoOV : aditivosTodos)
            for(Aditivo aditivoOV2 : aditivos)
-           if(!aditivoOV.getNombre().equals(aditivoOV2.getNombre()))aditivosChoiceBoxx.add(aditivoOV);
+           if(!aditivoOV.getCantidad().equals(aditivoOV2.getCantidad()))aditivosChoiceBoxx.add(aditivoOV);
        
        aditivosOVChoiceBox = FXCollections.observableList(aditivosChoiceBoxx); 
        }else{

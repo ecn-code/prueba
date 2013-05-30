@@ -131,10 +131,10 @@ public class AditivoDAO implements IAditivoDAO{
     public void asociarAditivo(Base base, Aditivo aditivo) throws DAOExcepcion {
       try {
 			this.connManager.connect();
-			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (IDB,NOMBRE,CANTIDAD) values ("+
-					base.getId()+","+
-                                        aditivo.getNombre()+","+
-                                        aditivo.getCantidad()
+			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (CANTIDAD,IDB,NOMBRE) values ("+
+					aditivo.getCantidad()+","+
+                                        base.getId()+","+
+                                        aditivo.getNombre()
 					+ ")");
 			this.connManager.close();
 

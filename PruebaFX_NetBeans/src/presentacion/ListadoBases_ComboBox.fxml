@@ -58,7 +58,7 @@
   </rowConstraints>
   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
     <children>
-      <Label alignment="CENTER" depthTest="INHERIT" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Pigmentos">
+      <Label alignment="CENTER" depthTest="INHERIT" prefWidth="166.0" style="-fx-font: NORMAL 20 Tahoma;" text="AditivosDeLaBase">
         <HBox.margin>
           <Insets top="40.0" />
         </HBox.margin>
@@ -97,13 +97,13 @@
             </FXCollections>
           </items>
         </ChoiceBox>
-        <TextField id="lastNameField" fx:id="txtNombre" prefWidth="136.0" promptText="Nombre" />
+        <TextField id="lastNameField" fx:id="txtCantidad" prefWidth="136.0" promptText="Cantidad" />
       </children>
     </HBox>
     <VBox prefHeight="42.0" prefWidth="71.0">
       <children>
-        <Button onAction="#anyadirPigmento" prefWidth="68.0" text="Añadir" />
-        <Button mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
+        <Button onAction="#anyadirAditivoBase" prefWidth="68.0" text="Añadir" />
+        <Button mnemonicParsing="false" onAction="#eliminarAditivoBase" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
       </children>
     </VBox>
   </HBox>
