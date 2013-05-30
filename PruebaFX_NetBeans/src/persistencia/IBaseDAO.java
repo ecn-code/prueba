@@ -19,6 +19,7 @@ public interface IBaseDAO {
 public ArrayList<Base> getBases() throws DAOExcepcion;
 public ArrayList<Base> getBases(int idp) throws DAOExcepcion;
 public Base getBase(int idb) throws DAOExcepcion ;
+public Base getBase(String nombre) throws DAOExcepcion ;
 public void insertarBase(Base base) throws DAOExcepcion ;
 public void modificarBase(Base base) throws DAOExcepcion ;
 public void eliminarBase(Base base) throws DAOExcepcion ;

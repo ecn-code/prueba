@@ -59,45 +59,45 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
-import logica.Pigmento;
+import logica.Base;
 import logica.Controlador;
-import logica.Pigmento;
+import logica.Base;
 
 
 public class ListadoBasesController implements Initializable, ControlledScreen{
     ScreensController myController;
-    @FXML private static TableView<Pigmento> tableView;
+    @FXML private static TableView<Base> tableView;
     private String nombre;
     @FXML
     private TextField txtNombre;
     @FXML
     private Label lblErrorNombre;
     @FXML
-    public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+    public void eliminarBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
         
         Stage stage=new Stage();
         Controlador controlador=null;
-        Pigmento pigmento= tableView.getSelectionModel().getSelectedItem();
+        Base base= tableView.getSelectionModel().getSelectedItem();
         int answer= MessageBox.show(stage,
-        "Estas seguro de que quieres eliminar este pigmento?",
+        "Estas seguro de que quieres eliminar este base?",
         "Information dialog",
         MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
         System.out.println(answer);
         if(answer==65536){
             controlador=controlador.dameControlador();
-            controlador.eliminarPigmento(pigmento);
+            controlador.eliminarBase(base);
             cargar();
         }
     }
-    public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
+    public void anyadirBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
        nombre=txtNombre.getText();
             if(!nombre.equals("")){
-             Pigmento pigmento=controlador.getPigmento(nombre);
-            if(pigmento!=null){
-            lblErrorNombre.setText("Ese pigmento ya existe");
+             Base base=controlador.getBase(nombre);
+            if(base!=null){
+            lblErrorNombre.setText("Ese base ya existe");
             txtNombre.setText("");
             error=true;
             }else{
@@ -109,12 +109,12 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
                 error=true;
             }
             if(!error){
-           Pigmento pigmento=new Pigmento(0, nombre);
-                controlador.insertarPigmento(pigmento);  
+           Base base=new Base(0, nombre);
+                controlador.insertarBase(base);  
                 lblErrorNombre.setText("");
                   txtNombre.setText("");     
                   int answer = MessageBox.show(stage,
-						"El pigmento se ha creado correctamente",
+						"El base se ha creado correctamente",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
@@ -130,61 +130,61 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         TableColumn Nombre=new TableColumn("Nombre");
         Id.setMinWidth(100);
         Nombre.setMinWidth(200);
-      Id.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Id"));
-      Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Nombre"));
+      Id.setCellValueFactory(new PropertyValueFactory<Base,String>("Id"));
+      Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
       tableView.getColumns().addAll(Id,Nombre);
       tableView.setTableMenuButtonVisible(true);
       cargar();
    // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
    /* Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Pigmento, String>>() {
+    new EventHandler<CellEditEvent<Base, String>>() {
         @Override
-        public void handle(CellEditEvent<Pigmento, String> t) {
+        public void handle(CellEditEvent<Base, String> t) {
                Controlador controlador = null;
-               Pigmento pigmento=null;
+               Base base=null;
                Stage stage=new Stage();
         try {
             controlador=controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
             try {
-                pigmento=controlador.getPigmento(t.getNewValue());
+                base=controlador.getBase(t.getNewValue());
             } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 this.finalize();
             } catch (Throwable ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
             }
              if(t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"El nombre del pigmento no  puede estar vacio",
+						"El nombre del base no  puede estar vacio",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
             }
-            if(pigmento==null && !t.getNewValue().trim().equals("")){
-               ((Pigmento) t.getTableView().getItems().get(
+            if(base==null && !t.getNewValue().trim().equals("")){
+               ((Base) t.getTableView().getItems().get(
                 t.getTablePosition().getRow())
                 ).setNombre(t.getNewValue());
-               Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
+               Base baseA=  ((Base) t.getTableView().getItems().get(
                 t.getTablePosition().getRow()));
-               pigmentoA.setNombre(t.getNewValue().trim());
+               baseA.setNombre(t.getNewValue().trim());
                    try {
-                       controlador.modificarPigmento(pigmentoA);
+                       controlador.modificarBase(baseA);
                    } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
+                       Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
                    }
                cargar();
             }
            
-            if(pigmento!= null && !t.getNewValue().trim().equals("")){
+            if(base!= null && !t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"Ese pigmento ya existe, introduzca un nombre distinto",
+						"Ese base ya existe, introduzca un nombre distinto",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
@@ -202,7 +202,7 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         
                     Controlador controlador = null;
 
-  ArrayList<Pigmento> pigmentos=new ArrayList<Pigmento>();
+  ArrayList<Base> bases=new ArrayList<Base>();
 
         try {
             controlador = Controlador.dameControlador();
@@ -212,13 +212,13 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            pigmentos=controlador.getPigmentos();
+            bases=controlador.getBases();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Pigmento> pigmento = FXCollections.observableList(pigmentos);  
-       tableView.setItems(pigmento);
+       ObservableList<Base> base = FXCollections.observableList(bases);  
+       tableView.setItems(base);
     }
     
 

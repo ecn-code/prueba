@@ -106,6 +106,9 @@ public ArrayList<Base> getBases(int idp) throws DAOExcepcion{
 public Base getBase(int idb) throws DAOExcepcion{
     return ibaseDAO.getBase(idb);
 }
+public Base getBase(String nombre) throws DAOExcepcion{
+    return ibaseDAO.getBase(nombre);
+}
 public void insertarBase(Base base) throws DAOExcepcion{
     ibaseDAO.insertarBase(base);
 }

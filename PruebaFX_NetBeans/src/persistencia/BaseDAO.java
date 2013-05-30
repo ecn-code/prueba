@@ -155,4 +155,32 @@ public class BaseDAO implements IBaseDAO{
 			}
     }
 
+    @Override
+    public Base getBase(String nombre) throws DAOExcepcion {
+      Base base=null;        
+        try{
+                   
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from BASES WHERE NOMBRE="+nombre);
+			connManager.close();
+			try {
+				
+				while (rs.next()){
+                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                   
+				base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
+					base.setAditivos(array);
+                                        
+		
+				}
+                                return base;
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
+			
+			}catch (DAOExcepcion e){
+				throw e;
+                        }
+    }
+
 }
