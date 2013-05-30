@@ -52,7 +52,7 @@ public class FXMLTableView extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("FXML TableView Example");
-        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
+        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
         Scene myScene = new Scene(myPane);
         primaryStage.setScene(myScene);
         primaryStage.show();

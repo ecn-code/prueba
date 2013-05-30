@@ -132,7 +132,7 @@ public class BaseDAO implements IBaseDAO{
         ArrayList<Base> bases = new ArrayList<Base>();
                 try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from BASES");
+			ResultSet rs=connManager.queryDB("select * from BASES_PIGMENTO");
 			connManager.close();
 			try {
 				
