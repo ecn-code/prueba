@@ -71,7 +71,7 @@ import logica.Pigmento;
 
 
 public class ListadoBasesController_ComboBox implements Initializable, ControlledScreen{
-    ScreensController myController;
+   ScreensController myController;
     @FXML private static TableView<Aditivo> tableView;
     private String nombre;
     @FXML
@@ -85,7 +85,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         
     
         }
-   
+
     public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
         Stage stage=new Stage();
         boolean error=false;
@@ -255,5 +255,5 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;
     }
-    
+  
 }

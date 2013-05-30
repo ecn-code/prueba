@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2012, 2013 Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
@@ -52,9 +53,8 @@ public class FXMLTableView extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("FXML TableView Example");
-//XX
         Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
-
+//Hola Roberto
         Scene myScene = new Scene(myPane);
         primaryStage.setScene(myScene);
         primaryStage.show();
