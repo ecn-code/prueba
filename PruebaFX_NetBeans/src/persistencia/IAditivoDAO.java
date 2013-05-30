@@ -10,7 +10,7 @@ import logica.Base;
 
 
 public interface IAditivoDAO {
-public ArrayList<String> getAditivos() throws DAOExcepcion;
+public ArrayList<Aditivo> getAditivos() throws DAOExcepcion;
 public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion ;
 public void insertarAditivoNombre(String nombre) throws DAOExcepcion ;
 public void modificarAditivoNombre(String nombreAntes,String nombreAhora) throws DAOExcepcion ;

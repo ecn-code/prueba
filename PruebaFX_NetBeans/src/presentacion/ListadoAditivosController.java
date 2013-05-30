@@ -51,12 +51,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logica.Aditivo;
 import logica.Controlador;
 
 
 
 public class ListadoAditivosController implements Initializable, ControlledScreen{
-    @FXML private static TableView<String> tableView;
+    @FXML private static TableView<Aditivo> tableView;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
@@ -90,7 +91,7 @@ public class ListadoAditivosController implements Initializable, ControlledScree
         
                     Controlador controlador = null;
 
-  ArrayList<String> aditivos=new ArrayList<String>();
+  ArrayList<Aditivo> aditivos=new ArrayList<Aditivo>();
 
         try {
             controlador = Controlador.dameControlador();
@@ -107,7 +108,7 @@ public class ListadoAditivosController implements Initializable, ControlledScree
                   for(int i=0;i<aditivos.size();i++){
                       System.out.println(aditivos.get(i));
                   }
-       ObservableList<String> aditivo = FXCollections.observableList(aditivos);  
+       ObservableList<Aditivo> aditivo = FXCollections.observableList(aditivos);  
        tableView.setItems(aditivo);
     }
     

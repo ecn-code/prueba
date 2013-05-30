@@ -32,8 +32,8 @@ public class AditivoDAO implements IAditivoDAO{
 	
 
     @Override
-    public ArrayList<String> getAditivos() throws DAOExcepcion {
-    ArrayList<String> aditivos = new ArrayList<String>();
+    public ArrayList<Aditivo> getAditivos() throws DAOExcepcion {
+    ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
     
 		try{
 			connManager.connect();
@@ -43,7 +43,8 @@ public class AditivoDAO implements IAditivoDAO{
 				
 				while (rs.next()){
 					String nombre = rs.getString("NOMBRE");
-					aditivos.add(nombre);
+                                        Aditivo aditivo=new Aditivo(nombre);
+					aditivos.add(aditivo);
 		
 				}
 				}catch (SQLException e){
@@ -68,8 +69,9 @@ public class AditivoDAO implements IAditivoDAO{
 				
 				while (rs.next()){
 
-					Aditivo aditivo = new Aditivo(rs.getString("NOMBRE"),rs.getDouble("CANTIDAD"));
-					aditivos.add(aditivo);
+					Aditivo aditivo = new Aditivo(rs.getString("NOMBRE"));
+					aditivo.setCantidad(rs.getDouble("CANTIDAD"));
+                                        aditivos.add(aditivo);
 		
 				}
 				}catch (SQLException e){

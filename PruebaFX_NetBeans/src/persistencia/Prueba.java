@@ -27,9 +27,9 @@ public class Prueba {
          
         DAL dal = DAL.dameDAL();
         dal.insertarAditivoNombre("Aditivo2445");
-        ArrayList<String> array = dal.getAditivos();
+        ArrayList<Aditivo> array = dal.getAditivos();
         
-        for(String aditivo : array)
+        for(Aditivo aditivo : array)
             System.out.println(aditivo);
         
         ej.finaler();

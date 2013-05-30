@@ -72,7 +72,7 @@ public class Controlador {
         public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
 	dal.modificarAcabado(acabado);
         }
-        public ArrayList<String> getAditivos() throws DAOExcepcion{
+        public ArrayList<Aditivo> getAditivos() throws DAOExcepcion{
         return dal.getAditivos();
         }
         public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{

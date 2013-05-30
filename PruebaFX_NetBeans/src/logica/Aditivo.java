@@ -14,12 +14,12 @@ public class Aditivo {
     private final SimpleDoubleProperty cantidad = new SimpleDoubleProperty(0.0);
 
     public Aditivo() {
-        this("", 0.0);
+        this("");
     }
 
-    public Aditivo(String nombre, Double cantidad) {
+    public Aditivo(String nombre) {
         setNombre(nombre);
-        setCantidad(cantidad);
+       
     }
 
     /**

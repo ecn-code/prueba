@@ -76,7 +76,7 @@ public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
       public Pigmento getPigmento(String nombre) throws DAOExcepcion {
         return ipigmentoDAO.getPigmento(nombre);
     }
-    public ArrayList<String> getAditivos() throws DAOExcepcion{
+    public ArrayList<Aditivo> getAditivos() throws DAOExcepcion{
     return iaditivoDAO.getAditivos();
     }
 public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
