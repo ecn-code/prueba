@@ -80,23 +80,12 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     private Label lblErrorNombre;
     @FXML private ChoiceBox elegirBase;
     
-   /* @FXML
+   @FXML
     public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
         
-        Stage stage=new Stage();
-        Controlador controlador=null;
-        Pigmento pigmento= tableView.getSelectionModel().getSelectedItem();
-        int answer= MessageBox.show(stage,
-        "Estas seguro de que quieres eliminar este pigmento?",
-        "Information dialog",
-        MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
-        System.out.println(answer);
-        if(answer==65536){
-            controlador=controlador.dameControlador();
-            controlador.eliminarPigmento(pigmento);
-            cargar();
+    
         }
-    }*/
+   
     public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
         Stage stage=new Stage();
         boolean error=false;
@@ -237,7 +226,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        tableView.setItems(aditivos2);
     }
     
-    public static void cargarBases(){
+    public  void cargarBases(){
         
                     Controlador controlador = null;
 

@@ -49,4 +49,7 @@ public class Base {
      public ArrayList<Aditivo> getAditivos(){
         return aditivos ;
     }
+     @Override public String toString() {
+     return nombre.get();
+     }
 }

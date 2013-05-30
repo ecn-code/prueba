@@ -32,14 +32,14 @@ public class BaseDAO implements IBaseDAO{
    ArrayList<Base> bases = new ArrayList<Base>();
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ADITIVOS_CANTIDAD");
+			ResultSet rs=connManager.queryDB("select * from BASES");
 			connManager.close();
 			try {
 				
 				while (rs.next()){
-                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                 //  ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
 					Base base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-					base.setAditivos(array);
+				//	base.setAditivos(array);
                                         bases.add(base);
 		
 				}
