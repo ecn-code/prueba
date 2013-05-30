@@ -52,31 +52,8 @@ public class BaseDAO implements IBaseDAO{
 			}
 			return bases; 
     }
-
-    @Override
-    public Base getBase(int idb) throws DAOExcepcion {
-   Base base;
-		try{
-			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ADITIVOS_CANTIDAD");
-			connManager.close();
-			try {
-				
-				while (rs.next()){
-                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
-					base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-					base.setAditivos(array);
-                                        return base;
-		
-				}
-				}catch (SQLException e){
-					throw new DAOExcepcion("DB_READ_ERROR");
-				}
-			
-			}catch (DAOExcepcion e){
-				throw e;
-			}
-			return null;  }
+    
+     
 
     @Override
     public void insertarBase(Base base) throws DAOExcepcion {
@@ -96,12 +73,86 @@ public class BaseDAO implements IBaseDAO{
 
     @Override
     public void modificarBase(Base base) throws DAOExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    try{
+			connManager.connect();
+			connManager.updateDB("UPDATE ADITIVOS SET NOMBRE = '" + base.getNombre()+ 
+                        "'WHERE IDB = " + base.getId());
+			connManager.close();
+
+		}catch (DAOExcepcion e){
+			e.printStackTrace();
+		}}
 
     @Override
     public void eliminarBase(Base base) throws DAOExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     try{
+			connManager.connect();
+			connManager.updateDB("DELETE FROM BASES_PIGMENTO WHERE IDB = " + base.getId());
+                        connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE IDB = " + base.getId());
+			connManager.updateDB("DELETE FROM BASES WHERE IDB = " + base.getId());
+			connManager.close();
+
+		}catch (DAOExcepcion e){
+			e.printStackTrace();
+		}
+    }
+
+   
+
+    @Override
+    public Base getBase(int idb) throws DAOExcepcion {
+         Base base=null;        
+        try{
+                   
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from BASES WHERE IDB="+idb);
+			connManager.close();
+			try {
+				
+				while (rs.next()){
+                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                   
+				base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
+					base.setAditivos(array);
+                                        
+		
+				}
+                                return base;
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
+			
+			}catch (DAOExcepcion e){
+				throw e;
+                        }
+    }
+
+    @Override
+    public ArrayList<Base> getBases(int idp) throws DAOExcepcion {
+        ArrayList<Base> bases = new ArrayList<Base>();
+                try{
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from BASES");
+			connManager.close();
+			try {
+				
+				while (rs.next()){
+                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                   
+				Base base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
+					base.setAditivos(array);
+                                        bases.add(base);
+                                        
+		
+				}
+                                return bases;
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
+			
+			}catch (DAOExcepcion e){
+				throw e;
+			}
     }
 
 }

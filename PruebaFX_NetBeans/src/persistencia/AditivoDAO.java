@@ -114,8 +114,6 @@ public class AditivoDAO implements IAditivoDAO{
     try{
 			connManager.connect();
 			connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE NOMBRE = " + nombre);
-			connManager.close();
-                        connManager.connect();
 			connManager.updateDB("DELETE FROM ADITIVOS WHERE NOMBRE = " + nombre);
 			connManager.close();
 
