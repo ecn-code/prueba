@@ -18,15 +18,7 @@ import logica.Aditivo;
  * @author Elias
  */
 public class Prueba {
-<<<<<<< HEAD
-     public static void main(String[] args) throws DAOExcepcion {
-       /* DAL dal = DAL.dameDAL();
-        dal.insertarAditivoNombre("Aditivo2");
-        ArrayList<Aditivo> array = dal.getAditivos();
-        
-        for(Aditivo aditivo : array)
-            System.out.println(aditivo.getNombre*/
-=======
+
     
      public static void main(String[] args) throws DAOExcepcion, IOException {
          
@@ -54,7 +46,7 @@ public class Prueba {
     public void finaler(){
     rt.exit(0);
     pr.destroy();
->>>>>>> preparando dao base
+
     }
     
     public void run() {
