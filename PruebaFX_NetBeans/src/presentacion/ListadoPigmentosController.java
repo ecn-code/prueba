@@ -64,7 +64,7 @@ import logica.Controlador;
 import logica.Pigmento;
 
 
-public class ListadoBasesController implements Initializable, ControlledScreen{
+public class ListadoPigmentosController implements Initializable, ControlledScreen{
     ScreensController myController;
     @FXML private static TableView<Pigmento> tableView;
     private String nombre;
@@ -207,14 +207,14 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             pigmentos=controlador.getPigmentos();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
        ObservableList<Pigmento> pigmento = FXCollections.observableList(pigmentos);  

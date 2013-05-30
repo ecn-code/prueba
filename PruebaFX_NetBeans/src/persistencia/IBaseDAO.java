@@ -1,6 +1,13 @@
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package persistencia;
 
-import logica.Acabado;
+import excepciones.DAOExcepcion;
+import java.util.ArrayList;
+import logica.Base;
 import java.util.ArrayList;
 
 import excepciones.DAOExcepcion;

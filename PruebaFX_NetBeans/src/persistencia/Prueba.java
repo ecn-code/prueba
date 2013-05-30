@@ -18,8 +18,12 @@ import logica.Aditivo;
  * @author Elias
  */
 public class Prueba {
+<<<<<<< HEAD
 
     
+=======
+  
+>>>>>>> 4b5c9a3ec82e99eef2dda2872849d618ece110b3
      public static void main(String[] args) throws DAOExcepcion, IOException {
          
         ThreadEjemplo ej = new ThreadEjemplo();
@@ -46,7 +50,10 @@ public class Prueba {
     public void finaler(){
     rt.exit(0);
     pr.destroy();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4b5c9a3ec82e99eef2dda2872849d618ece110b3
     }
     
     public void run() {

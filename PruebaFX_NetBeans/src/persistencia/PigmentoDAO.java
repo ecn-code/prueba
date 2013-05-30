@@ -52,7 +52,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 		// TODO Auto-generated method stub
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from PRODUCTO where NOMBRE= '"+nombre+"'");						
+			ResultSet rs=connManager.queryDB("select * from PIGMENTO where NOMBRE= '"+nombre+"'");						
 			connManager.close();
 			try{
 				if (rs.next()){
@@ -73,8 +73,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 	public void insertarPigmento(Pigmento pigmento) {
 		try {
 			this.connManager.connect();
-			this.connManager.updateDB("insert into PRODUCTO (ID, NOMBRE, " +
-					"FACTOR) values ("
+			this.connManager.updateDB("insert into PIGMENTO (IDP, NOMBRE) values ("
 					+ null
 					+ ",'"
 					+ pigmento.getNombre()
@@ -89,7 +88,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 	public void modificarPigmento(Pigmento pigmento) {
 		try{
 			connManager.connect();
-			connManager.updateDB("UPDATE PRODUCTO SET NOMBRE = '" + pigmento.getNombre()+ 
+			connManager.updateDB("UPDATE PIGMENTO SET NOMBRE = '" + pigmento.getNombre()+ 
                         "'WHERE ID = " + pigmento.getId());
 			connManager.close();
 
@@ -102,7 +101,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 	public void eliminarPigmento(Pigmento pigmento) {
 		try{
 			connManager.connect();
-			connManager.updateDB("DELETE FROM PRODUCTO WHERE ID = " + pigmento.getId());
+			connManager.updateDB("DELETE FROM PIGMENTO WHERE IDP = " + pigmento.getId());
 			connManager.close();
 
 		}catch (DAOExcepcion e){

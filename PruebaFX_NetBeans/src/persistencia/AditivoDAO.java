@@ -127,9 +127,8 @@ public class AditivoDAO implements IAditivoDAO{
     public void asociarAditivo(Base base, Aditivo aditivo) throws DAOExcepcion {
       try {
 			this.connManager.connect();
-			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (IDB,PORCENTAJE,NOMBRE,CANTIDAD) values ("+
+			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (IDB,NOMBRE,CANTIDAD) values ("+
 					base.getId()+","+
-                                        base.getPorcentaje()+","+
                                         aditivo.getNombre()+","+
                                         aditivo.getCantidad()
 					+ ")");

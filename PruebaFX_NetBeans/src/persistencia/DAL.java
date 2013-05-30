@@ -65,7 +65,15 @@ public void modificarAcabado(Acabado acabado) throws DAOExcepcion {
     public ArrayList<Pigmento> getPigmentos() throws DAOExcepcion {
         return ipigmentoDAO.getPigmentos();
     }
-
+     public void eliminarPigmento(Pigmento pigmento) throws DAOExcepcion {
+        ipigmentoDAO.eliminarPigmento(pigmento);
+    }
+     public void insertarPigmento(Pigmento pigmento) throws DAOExcepcion {
+        ipigmentoDAO.insertarPigmento(pigmento);
+    }
+      public Pigmento getPigmento(String nombre) throws DAOExcepcion {
+        return ipigmentoDAO.getPigmento(nombre);
+    }
     public ArrayList<String> getAditivos() throws DAOExcepcion{
     return iaditivoDAO.getAditivos();
     }
