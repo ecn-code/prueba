@@ -44,12 +44,16 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -65,12 +69,144 @@ import logica.Producto;
 
 
 public class PrincipalController implements Initializable{
-    
+    @FXML MenuItem listadoProducto,listadoAcabado,listadoPigmento,listadoAditivo,listadoBase;
+    @FXML MenuItem aditivoABase,baseAPigmento;
+    @FXML Menu calcular;
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
       
+       listadoProducto.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoProductos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
        
+       listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoAcabados.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
+       listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
+       listadoBase.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoBases.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
+       listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoAditivos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
+       baseAPigmento.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmento_ComboBox.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
+      aditivoABase.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
+ 
+      calcular.setOnShown(new EventHandler<Event>() {
+
+          @Override
+           public void handle(Event t) {
+               System.out.println("Hola");
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("Calcular.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    Stage stage = new Stage();
+        stage.setTitle("FXML Welcome");
+        stage.setScene(new Scene(root, 300, 275));
+        stage.show();
+           }
+       });
     }
     
     
