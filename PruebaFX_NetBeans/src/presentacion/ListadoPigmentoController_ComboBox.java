@@ -84,7 +84,11 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
     Base base;
    @FXML
     public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-        
+        Controlador controlador= Controlador.dameControlador();
+       pigmento=(Pigmento) elegirPigmento.getSelectionModel().getSelectedItem();
+       base=tableView.getSelectionModel().getSelectedItem();
+       controlador.eliminaBasePigmento(base, pigmento);
+       cargarBases(pigmento.getId());
     
         }
 
@@ -99,7 +103,7 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
              error=true;
             if(!error){
          controlador.asociarBasePigmento(pigmento,base, Double.parseDouble(cantidad));
-           //cargarAditivos(base.getId());
+           cargarBases(pigmento.getId());
             }
     }
     
@@ -122,13 +126,16 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
        elegirPigmento.setItems(null);
         tableView.setEditable(true);
         tableView.setMaxWidth(400);
+        TableColumn Id=new TableColumn("Id");
         TableColumn Nombre=new TableColumn("Nombre");
-        TableColumn Cantidad=new TableColumn("Cantidad");
+        TableColumn Porcentaje=new TableColumn("Porcentaje");
+        Id.setMinWidth(100);
         Nombre.setMinWidth(100);
-        Cantidad.setMinWidth(200);
-      Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Nombre"));
-      Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Cantidad"));
-      tableView.getColumns().addAll(Nombre,Cantidad);
+        Porcentaje.setMinWidth(100);
+      Id.setCellValueFactory(new PropertyValueFactory<Base,String>("Id"));
+      Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
+      Porcentaje.setCellValueFactory(new PropertyValueFactory<Base,String>("Porcentaje"));
+      tableView.getColumns().addAll(Id,Nombre,Porcentaje);
       tableView.setTableMenuButtonVisible(true);
       cargarPigmentos(); 
    // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -195,7 +202,7 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
     
     
     public void cargarBases(int idp) throws DAOExcepcion{
-        
+        System.out.println(idp);
                     Controlador controlador = null;
 
   ArrayList<Base> bases=new ArrayList<Base>();
@@ -212,7 +219,7 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                  
+      System.out.println(bases.size());    
        ObservableList<Base> basesConvertidosParaTabla = FXCollections.observableList(bases);  
        
       

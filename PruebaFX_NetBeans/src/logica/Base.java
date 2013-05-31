@@ -13,10 +13,17 @@ public class Base {
 
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private final SimpleStringProperty nombre = new SimpleStringProperty("");
+    private final SimpleDoubleProperty porcentaje = new SimpleDoubleProperty(0.0);
     private ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
 
     public Base() {
         this(0, "");
+    }
+    
+    public Base(int id, String nombre,Double porcentaje) {
+        setId(id);
+        setNombre(nombre);
+        setPorcentaje(porcentaje);
     }
 
     public Base(int id, String nombre) {
@@ -49,6 +56,13 @@ public class Base {
      public ArrayList<Aditivo> getAditivos(){
         return aditivos ;
     }
+      public void setPorcentaje(Double _porcentaje){
+        porcentaje.set(_porcentaje);
+    }
+     public Double getPorcentaje(){
+        return porcentaje.get();
+    }
+     
      @Override public String toString() {
      return nombre.get();
      }

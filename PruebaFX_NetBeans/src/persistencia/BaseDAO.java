@@ -133,7 +133,7 @@ public class BaseDAO implements IBaseDAO{
         ArrayList<Base> bases = new ArrayList<Base>();
                 try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from BASES_PIGMENTO");
+			ResultSet rs=connManager.queryDB("select * from BASES_PIGMENTO WHERE IDP="+idp);
 			connManager.close();
 			try {
 				
@@ -143,7 +143,8 @@ public class BaseDAO implements IBaseDAO{
 
 
 				Base base = getBase(rs.getInt("IDB"));
-                                    if(base!=null)    bases.add(base);
+                                base.setPorcentaje(rs.getDouble("PORCENTAJE"));
+                                bases.add(base);
                                         
 		
 				}
@@ -231,5 +232,17 @@ public class BaseDAO implements IBaseDAO{
                 
 			return bases;
 
+    }
+
+    @Override
+    public void eliminarBasePigmento(Base base, Pigmento pigmento) {
+        try{
+			connManager.connect();
+			connManager.updateDB("DELETE FROM BASES_PIGMENTO WHERE IDB = " + base.getId()+" and IDP="+pigmento.getId());
+			connManager.close();
+
+		}catch (DAOExcepcion e){
+			e.printStackTrace();
+		}
     }
     }

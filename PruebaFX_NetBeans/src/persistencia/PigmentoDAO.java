@@ -59,11 +59,11 @@ public class PigmentoDAO implements IPigmentoDAO{
 		// TODO Auto-generated method stub
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from PIGMENTO where NOMBRE= '"+nombre+"'");						
+			ResultSet rs=connManager.queryDB("select * from PIGMENTO where NOMBRE='"+nombre+"'");						
 			connManager.close();
 			try{
 				if (rs.next()){
-					return new Pigmento(rs.getInt("ID"),rs.getString("NOMBRE"));
+					return new Pigmento(rs.getInt("IDP"),rs.getString("NOMBRE"));
 				}
 				else
 					return null;

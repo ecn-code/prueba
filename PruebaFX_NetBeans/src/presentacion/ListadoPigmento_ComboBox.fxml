@@ -63,7 +63,7 @@
           <Insets top="40.0" />
         </HBox.margin>
       </Label>
-      <ChoiceBox id="elegirBase" fx:id="elegirPigmento">
+      <ChoiceBox  fx:id="elegirPigmento">
         <items>
           <FXCollections fx:factory="observableArrayList" />
         </items>
@@ -88,16 +88,11 @@
   <HBox alignment="BOTTOM_RIGHT" prefHeight="54.0" prefWidth="393.0" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
     <HBox prefHeight="42.0" prefWidth="250.0">
       <children>
-        <ChoiceBox fx:id="aditivosChoiceBox" prefWidth="90.0">
+        <ChoiceBox fx:id="elegirBase" prefWidth="90.0">
           <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Item 1" />
-              <String fx:value="Item 2" />
-              <String fx:value="Item 3" />
-            </FXCollections>
           </items>
         </ChoiceBox>
-        <TextField id="lastNameField" fx:id="txtNombre" prefWidth="136.0" promptText="Nombre" />
+        <TextField id="lastNameField" fx:id="txtCantidad" prefWidth="136.0" promptText="Nombre" />
       </children>
     </HBox>
     <VBox prefHeight="42.0" prefWidth="71.0">

@@ -127,4 +127,8 @@ public class Controlador {
     public ArrayList<Aditivo> getAditivosNoAsociados(int idb) throws DAOExcepcion {
         return dal.getAditivosNoAsociados(idb);
     }
+
+    public void eliminaBasePigmento(Base base, Pigmento pigmento) {
+        dal.eliminaBasePigmento(base,pigmento);
+    }
 }

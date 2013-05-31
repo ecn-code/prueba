@@ -131,4 +131,8 @@ public void eliminarBase(Base base) throws DAOExcepcion{
     public ArrayList<Aditivo> getAditivosNoAsociados(int idb) throws DAOExcepcion {
        return iaditivoDAO.getAditivosNoAsignados(idb);
     }
+
+    public void eliminaBasePigmento(Base base, Pigmento pigmento) {
+        ibaseDAO.eliminarBasePigmento(base,pigmento);
+    }
 }

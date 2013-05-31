@@ -8,11 +8,11 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="565.0" xmlns:fx="http://javafx.com/fxml">
   <children>
-    <MenuBar layoutX="0.0" layoutY="0.0" prefWidth="565.0">
+    <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="565.0">
       <menus>
         <Menu mnemonicParsing="false" text="Productos" fx:id="menuProductos">
           <items>
-            <MenuItem mnemonicParsing="false" text="Listado" />
+            <MenuItem mnemonicParsing="false" text="Listado" fx:id="listadoProductos" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Acabados" fx:id="menuAcabados">
