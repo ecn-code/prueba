@@ -71,6 +71,7 @@ import logica.Pigmento;
 import logica.Controlador;
 import logica.Pigmento;
 import logica.Producto;
+import static presentacion.ListadoProductosController.cargar;
 
 
 public class CalcularController implements Initializable, ControlledScreen{
@@ -80,10 +81,16 @@ public class CalcularController implements Initializable, ControlledScreen{
     Producto producto;
     Acabado acabado;
     Pigmento pigmento;
-    @FXML
-    private TextField txtCantidad;
+    @FXML private TextField txtCantidad;
     @FXML private ComboBox comboProducto,comboAcabado,comboPigmento;
+    @FXML
+    public void calcular(ActionEvent event){
+    pigmento=(Pigmento)comboPigmento.getSelectionModel().getSelectedItem();
+    producto=(Producto)comboProducto.getSelectionModel().getSelectedItem();
+    acabado=(Acabado)comboAcabado.getSelectionModel().getSelectedItem();
+    cantidad=txtCantidad.getText();
     
+    }
    
 
    

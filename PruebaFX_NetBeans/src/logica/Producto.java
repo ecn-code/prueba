@@ -79,5 +79,7 @@ public class Producto {
     public void setFactor(String fName) {
         factor.set(fName);
     }
-
+     @Override public String toString() {
+     return nombre.get();
+     }
 }

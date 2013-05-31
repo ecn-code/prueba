@@ -21,7 +21,7 @@
       </items>
     </ComboBox>
     <Label layoutX="278.0" layoutY="96.0" prefWidth="71.0001220703125" text="Producto" />
-    <ComboBox fx:id="ComboProducto" layoutX="388.0" layoutY="99.0" prefHeight="21.0" prefWidth="164.00009999999747">
+    <ComboBox id="ComboProducto" fx:id="comboProducto" layoutX="388.0" layoutY="99.0" prefHeight="21.0" prefWidth="164.00009999999747">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -31,7 +31,7 @@
       </items>
     </ComboBox>
     <Label layoutX="15.0" layoutY="147.0" prefWidth="71.0" text="Acabado" />
-    <ComboBox fx:id="ComboAcabado" layoutX="86.0" layoutY="147.0" prefHeight="21.0" prefWidth="164.00009999999747">
+    <ComboBox id="ComboAcabado" fx:id="comboAcabado" layoutX="86.0" layoutY="147.0" prefHeight="21.0" prefWidth="164.00009999999747">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -46,7 +46,7 @@
         <Font name="Iskoola Pota Bold" size="40.0" />
       </font>
     </Label>
-    <Button fx:id="btnCalcular" layoutX="209.0" layoutY="209.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="139.0" text="Calcular" />
+    <Button fx:id="btnCalcular" layoutX="209.0" layoutY="209.0" mnemonicParsing="false" onAction="#calcular" prefHeight="40.0" prefWidth="139.0" text="Calcular" />
     <TableView fx:id="tableView" layoutX="15.0" layoutY="271.0" prefHeight="230.0" prefWidth="538.0" />
     <TextField fx:id="txtCantidad" layoutX="386.0" layoutY="150.0" prefWidth="152.0" />
     <Label layoutX="538.0" layoutY="152.0" prefHeight="18.0" prefWidth="30.000099999997474" text="Kg." />

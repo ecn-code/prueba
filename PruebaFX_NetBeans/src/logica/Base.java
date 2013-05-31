@@ -66,4 +66,14 @@ public class Base {
      @Override public String toString() {
      return nombre.get();
      }
+     
+    public Double getFactorBase(){
+        double sumaAditivos=0;
+        double FactorBase,porcentajeBase;
+        for(Aditivo aditivo:aditivos)
+            sumaAditivos+=aditivo.getCantidad();
+        porcentajeBase=100-sumaAditivos;
+        FactorBase=sumaAditivos/porcentajeBase;
+        return FactorBase;
+    }
 }

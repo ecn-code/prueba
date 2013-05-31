@@ -44,7 +44,7 @@
 <?import presentacion.*?>
 <?scenebuilder-classpath-element .?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="545.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentoController_ComboBox">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="545.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentosController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -63,11 +63,6 @@
           <Insets top="40.0" />
         </HBox.margin>
       </Label>
-      <ChoiceBox id="elegirBase" fx:id="elegirPigmento">
-        <items>
-          <FXCollections fx:factory="observableArrayList" />
-        </items>
-      </ChoiceBox>
     </children>
   </HBox>
   <TableView fx:id="tableView" prefHeight="404.0" prefWidth="393.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
