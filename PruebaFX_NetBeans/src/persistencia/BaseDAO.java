@@ -10,6 +10,7 @@ import excepciones.DAOExcepcion;
 import logica.Acabado;
 import logica.Aditivo;
 import logica.Base;
+import logica.Pigmento;
 
 
 public class BaseDAO implements IBaseDAO{
@@ -183,4 +184,52 @@ public class BaseDAO implements IBaseDAO{
 			}
     }
 
-}
+    @Override
+    public void asociarBasePigmento(Pigmento pigmento, Base base, Double cantidad) throws DAOExcepcion {
+       try {
+			this.connManager.connect();
+			this.connManager.updateDB("insert into BASES_PIGMENTO (PORCENTAJE,IDP,IDB) values ("+
+					cantidad+","+
+                                        pigmento.getId()+","+
+                                        base.getId()
+					+ ")");
+			this.connManager.close();
+
+		} catch (DAOExcepcion e) {
+			System.out.println("ERROR EN DAO");
+		}
+    }
+
+    @Override
+    public ArrayList<Base> getBasesNoAsignadas(int idp) throws DAOExcepcion {
+     ArrayList<Base> bases = new ArrayList<Base>();
+                
+		try{
+                    
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("Select * from BASES ba where NOT EXISTS(Select * from "
+                                + "BASES_PIGMENTO basp WHERE IDP="+idp+" and ba.IDB=basp.IDB)");
+			connManager.close();
+                        
+                        
+			try {
+				
+				while (rs.next()){
+
+				Base base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
+					//aditivo.setCantidad(rs.getDouble("CANTIDAD"));
+                                        bases.add(base);
+		
+				}
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
+			
+			}catch (DAOExcepcion e){
+				throw e;
+			}
+                
+			return bases;
+
+    }
+    }

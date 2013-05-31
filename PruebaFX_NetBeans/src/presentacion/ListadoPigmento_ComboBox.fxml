@@ -63,7 +63,7 @@
           <Insets top="40.0" />
         </HBox.margin>
       </Label>
-      <ChoiceBox fx:id="elegirBase">
+      <ChoiceBox id="elegirBase" fx:id="elegirPigmento">
         <items>
           <FXCollections fx:factory="observableArrayList" />
         </items>

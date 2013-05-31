@@ -106,6 +106,9 @@ public ArrayList<Base> getBases() throws DAOExcepcion{
 public ArrayList<Base> getBases(int idp) throws DAOExcepcion{
     return ibaseDAO.getBases(idp);
 }
+public ArrayList<Base> getBasesNoAsignadas(int idp) throws DAOExcepcion{
+    return ibaseDAO.getBasesNoAsignadas(idp);
+}
 public Base getBase(int idb) throws DAOExcepcion{
     return ibaseDAO.getBase(idb);
 }
@@ -114,6 +117,9 @@ public Base getBase(String nombre) throws DAOExcepcion{
 }
 public void insertarBase(Base base) throws DAOExcepcion{
     ibaseDAO.insertarBase(base);
+}
+public void asociarBasePigmento(Pigmento pigmento,Base base,Double cantidad) throws DAOExcepcion{
+    ibaseDAO.asociarBasePigmento(pigmento, base, cantidad);
 }
 public void modificarBase(Base base) throws DAOExcepcion{
     ibaseDAO.modificarBase(base);

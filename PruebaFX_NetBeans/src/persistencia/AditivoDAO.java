@@ -139,7 +139,7 @@ public class AditivoDAO implements IAditivoDAO{
     @Override
     public void eliminaAsociacionAditivo(Base base, Aditivo aditivo) throws DAOExcepcion {
         connManager.connect();
-			connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE NOMBRE = " + aditivo.getNombre()+" AND"+
+			connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE NOMBRE = '" + aditivo.getNombre()+"' AND "+
                                                 "IDB="+base.getId());
 			connManager.close();
     }

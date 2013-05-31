@@ -105,11 +105,17 @@ public class Controlador {
         public void eliminarBase(Base base) throws DAOExcepcion{
         dal.eliminarBase(base);
         }
+         public void asociarBasePigmento(Pigmento pigmento,Base base,Double cantidad) throws DAOExcepcion{
+        dal.asociarBasePigmento(pigmento,base,cantidad);
+        }
         public ArrayList<Base> getBases() throws DAOExcepcion{
             return dal.getBases();
         }
         public ArrayList<Base> getBases(int idp) throws DAOExcepcion{
             return dal.getBases(idp);
+        }
+        public ArrayList<Base> getBasesNoAsignadas(int idp) throws DAOExcepcion{
+            return dal.getBasesNoAsignadas(idp);
         }
         public Base getBase(int idb) throws DAOExcepcion{
             return dal.getBase(idb);

@@ -84,8 +84,11 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     
    @FXML
     public void eliminarAditivoBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-        
-    
+       Controlador controlador= Controlador.dameControlador();
+       base=base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
+       aditivo=tableView.getSelectionModel().getSelectedItem();
+       controlador.eliminaAsociacionAditivo(base, aditivo);
+       cargarAditivos(base.getId());
         }
 
     public void anyadirAditivoBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
@@ -123,13 +126,13 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        elegirBase.setItems(null);
         tableView.setEditable(true);
         tableView.setMaxWidth(400);
-        TableColumn Id=new TableColumn("Id");
+        TableColumn Nombre=new TableColumn("Nombre");
         TableColumn Cantidad=new TableColumn("Cantidad");
-        Id.setMinWidth(100);
+        Nombre.setMinWidth(200);
         Cantidad.setMinWidth(200);
-      Id.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Id"));
-      Cantidad.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Cantidad"));
-      tableView.getColumns().addAll(Id,Cantidad);
+      Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
+      Cantidad.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Cantidad"));
+      tableView.getColumns().addAll(Nombre,Cantidad);
       tableView.setTableMenuButtonVisible(true);
       cargarBases();
    // Cantidad.setCellFactory(TextFieldTableCell.forTableColumn());

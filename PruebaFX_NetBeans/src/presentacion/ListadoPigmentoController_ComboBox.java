@@ -73,13 +73,15 @@ import logica.Pigmento;
 public class ListadoPigmentoController_ComboBox implements Initializable, ControlledScreen{
    ScreensController myController;
     @FXML private static TableView<Base> tableView;
+   private String cantidad;
     private String nombre;
     @FXML
-    private TextField txtNombre;
+    private TextField txtCantidad;
     @FXML
     private Label lblErrorNombre;
-    @FXML private ChoiceBox elegirBase,aditivosChoiceBox;
-    
+    @FXML private ChoiceBox elegirPigmento,elegirBase;
+    Pigmento pigmento;
+    Base base;
    @FXML
     public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
         
@@ -87,63 +89,46 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
         }
 
     public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
-        Stage stage=new Stage();
+         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
-       nombre=txtNombre.getText();
-            if(!nombre.equals("")){
-             Pigmento pigmento=controlador.getPigmento(nombre);
-            if(pigmento!=null){
-            lblErrorNombre.setText("Ese pigmento ya existe");
-            txtNombre.setText("");
-            error=true;
-            }else{
-              lblErrorNombre.setText("");  
-            }
-                
-            }else{
-                lblErrorNombre.setText("Debes rellenar el nombre");
-                error=true;
-            }
+       cantidad=txtCantidad.getText();
+       pigmento=controlador.getPigmento(elegirPigmento.getSelectionModel().getSelectedItem().toString());
+       base=(Base)elegirBase.getSelectionModel().getSelectedItem();
+    if(cantidad.equals(""))
+             error=true;
             if(!error){
-           Pigmento pigmento=new Pigmento(0, nombre);
-                controlador.insertarPigmento(pigmento);  
-                lblErrorNombre.setText("");
-                  txtNombre.setText("");     
-                  int answer = MessageBox.show(stage,
-						"El pigmento se ha creado correctamente",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargarPigmentos();
+         controlador.asociarBasePigmento(pigmento,base, Double.parseDouble(cantidad));
+           //cargarAditivos(base.getId());
             }
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
         
-       elegirBase.getSelectionModel().selectedIndexProperty().addListener(new
+       elegirPigmento.getSelectionModel().selectedIndexProperty().addListener(new
             ChangeListener<Number>() {
                 public void changed(ObservableValue ov,
                     Number value, Number new_value) {
                     try {
                         //  label.setText(greetings[new_value.intValue()]);
-                      cargarBases(((Pigmento)elegirBase.getItems().get(new_value.intValue())).getId());
+                      cargarBases(((Pigmento)elegirPigmento.getItems().get(new_value.intValue())).getId());
                     } catch (DAOExcepcion ex) {
                         Logger.getLogger(ListadoBasesController_ComboBox.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
         });
 
-       elegirBase.setItems(null);
+       elegirPigmento.setItems(null);
         tableView.setEditable(true);
         tableView.setMaxWidth(400);
-        TableColumn Id=new TableColumn("Id");
         TableColumn Nombre=new TableColumn("Nombre");
-        Id.setMinWidth(100);
-        Nombre.setMinWidth(200);
-      Id.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Id"));
+        TableColumn Cantidad=new TableColumn("Cantidad");
+        Nombre.setMinWidth(100);
+        Cantidad.setMinWidth(200);
       Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Nombre"));
-      tableView.getColumns().addAll(Id,Nombre);
+      Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Cantidad"));
+      tableView.getColumns().addAll(Nombre,Cantidad);
       tableView.setTableMenuButtonVisible(true);
       cargarPigmentos(); 
    // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -230,11 +215,11 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
                   
        ObservableList<Base> basesConvertidosParaTabla = FXCollections.observableList(bases);  
        
-       ArrayList<Base> aditivosTodos = controlador.getBases();
+      
        
-       ArrayList<Base> basesChoiceBoxx = new ArrayList<Base>();
+       ArrayList<Base> basesChoiceBoxx = controlador.getBasesNoAsignadas(idp);
        
-       ObservableList<Base> basesOVChoiceBox = null;
+     /*  ObservableList<Base> basesOVChoiceBox = null;
        if(bases.size()>0){
        for(Base baseOV : aditivosTodos)
            for(Base baseOV2 : bases)
@@ -246,8 +231,9 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
        basesOVChoiceBox = FXCollections.observableList(aditivosTodos); 
        }
        
-       
-       aditivosChoiceBox.setItems(basesOVChoiceBox);
+       */
+       ObservableList<Base> basesOVChoiceBox = FXCollections.observableList(basesChoiceBoxx); 
+       elegirBase.setItems(basesOVChoiceBox);
        tableView.setItems(basesConvertidosParaTabla);
     }
     
@@ -271,7 +257,7 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
         }
                   
        ObservableList<Pigmento> pigmentos2 = FXCollections.observableList(pigmentos);  
-       elegirBase.setItems(pigmentos2);
+       elegirPigmento.setItems(pigmentos2);
  
     }
     

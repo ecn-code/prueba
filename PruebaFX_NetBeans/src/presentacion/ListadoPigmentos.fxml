@@ -42,8 +42,9 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 <?import presentacion.*?>
+<?scenebuilder-classpath-element .?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="545.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentosController">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="545.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentoController_ComboBox">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -59,9 +60,14 @@
     <children>
       <Label alignment="CENTER" depthTest="INHERIT" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Pigmentos">
         <HBox.margin>
-          <Insets top="60.0" />
+          <Insets top="40.0" />
         </HBox.margin>
       </Label>
+      <ChoiceBox id="elegirBase" fx:id="elegirPigmento">
+        <items>
+          <FXCollections fx:factory="observableArrayList" />
+        </items>
+      </ChoiceBox>
     </children>
   </HBox>
   <TableView fx:id="tableView" prefHeight="404.0" prefWidth="393.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -80,13 +86,21 @@
     </sortOrder>
   </TableView>
   <HBox alignment="BOTTOM_RIGHT" prefHeight="54.0" prefWidth="393.0" spacing="10.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-    <VBox prefHeight="47.0" prefWidth="178.0">
+    <HBox prefHeight="42.0" prefWidth="250.0">
       <children>
+        <ChoiceBox id="aditivosChoiceBox" fx:id="elegirBase" prefWidth="90.0">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
         <TextField id="lastNameField" fx:id="txtNombre" prefWidth="136.0" promptText="Nombre" />
-        <Label fx:id="lblErrorNombre" prefHeight="21.0" prefWidth="159.9998779296875" text="" textFill="RED" />
       </children>
-    </VBox>
-    <VBox prefHeight="47.0" prefWidth="163.0">
+    </HBox>
+    <VBox prefHeight="42.0" prefWidth="71.0">
       <children>
         <Button onAction="#anyadirPigmento" prefWidth="68.0" text="Añadir" />
         <Button mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
