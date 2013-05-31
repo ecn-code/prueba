@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0000999999975" prefWidth="600.000199999995" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.CalcularController">
+  <children>
+    <Label layoutX="15.0" layoutY="93.0" prefWidth="71.0" text="Pigmento" />
+    <ComboBox fx:id="comboPigmento" layoutX="86.0" layoutY="93.0" prefHeight="21.0" prefWidth="164.00009999999747">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Label layoutX="278.0" layoutY="96.0" prefWidth="71.0001220703125" text="Producto" />
+    <ComboBox fx:id="ComboProducto" layoutX="388.0" layoutY="99.0" prefHeight="21.0" prefWidth="164.00009999999747">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Label layoutX="15.0" layoutY="147.0" prefWidth="71.0" text="Acabado" />
+    <ComboBox fx:id="ComboAcabado" layoutX="86.0" layoutY="147.0" prefHeight="21.0" prefWidth="164.00009999999747">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Label layoutX="278.0" layoutY="150.0" prefWidth="110.0" text="Introduce cantidad" />
+    <Label layoutX="168.0" layoutY="27.0" prefWidth="279.0" text="CALCULAR" textFill="#cc0000">
+      <font>
+        <Font name="Iskoola Pota Bold" size="40.0" />
+      </font>
+    </Label>
+    <Button fx:id="btnCalcular" layoutX="209.0" layoutY="209.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="139.0" text="Calcular" />
+    <TableView fx:id="tableView" layoutX="15.0" layoutY="271.0" prefHeight="230.0" prefWidth="538.0" />
+    <TextField fx:id="txtCantidad" layoutX="386.0" layoutY="150.0" prefWidth="152.0" />
+    <Label layoutX="538.0" layoutY="152.0" prefHeight="18.0" prefWidth="30.000099999997474" text="Kg." />
+  </children>
+</AnchorPane>
