@@ -163,7 +163,9 @@ public class BaseDAO implements IBaseDAO{
 			connManager.connect();
 			ResultSet rs=connManager.queryDB("select * from BASES where NOMBRE= '"+nombre+"'");						
 			connManager.close();
+                        
 			try{
+                            DAL dal = DAL.dameDAL();
 				if (rs.next()){
                                         Base base=new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
                                         ArrayList<Aditivo> aditivos = dal.getAditivos(rs.getInt("IDB"));
