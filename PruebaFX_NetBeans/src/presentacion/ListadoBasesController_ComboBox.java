@@ -100,7 +100,9 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             if(!error){
            aditivo.setCantidad(Double.parseDouble(cantidad));
            controlador.asociarAditivo(base, aditivo);
+           cargarAditivos(base.getId());
             }
+            
     }
     
     @Override
@@ -216,7 +218,8 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        
        ArrayList<Aditivo> aditivosTodos = controlador.getAditivos();
        
-       ArrayList<Aditivo> aditivosChoiceBoxx = new ArrayList<Aditivo>();
+       ArrayList<Aditivo> aditivosChoiceBoxx = controlador.getAditivosNoAsociados(((Base)elegirBase.getSelectionModel().getSelectedItem()).getId());
+       /*
        
        ObservableList<Aditivo> aditivosOVChoiceBox = null;
        if(aditivos.size()>0){
@@ -229,8 +232,8 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
           
        aditivosOVChoiceBox = FXCollections.observableList(aditivosTodos); 
        }
-       
-       
+       */
+       ObservableList<Aditivo>  aditivosOVChoiceBox = FXCollections.observableList(aditivosTodos); 
        aditivosChoiceBox.setItems(aditivosOVChoiceBox);
        tableView.setItems(aditivosConvertidosParaTabla);
     }

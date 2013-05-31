@@ -24,12 +24,6 @@ public class AditivoDAO implements IAditivoDAO{
 			throw new DAOExcepcion("DB_CONNECT_ERROR");
 		}
 }
-   
-
-
-
-
-	
 
     @Override
     public ArrayList<Aditivo> getAditivos() throws DAOExcepcion {
@@ -133,9 +127,9 @@ public class AditivoDAO implements IAditivoDAO{
 			this.connManager.connect();
 			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (CANTIDAD,IDB,NOMBRE) values ("+
 					aditivo.getCantidad()+","+
-                                        base.getId()+","+
+                                        base.getId()+",'"+
                                         aditivo.getNombre()
-					+ ")");
+					+ "')");
 			this.connManager.close();
 
 		} catch (DAOExcepcion e) {
@@ -169,6 +163,39 @@ public class AditivoDAO implements IAditivoDAO{
 			}catch (DAOExcepcion e){
 				throw e;
 			}
+    }
+
+    @Override
+    public ArrayList<Aditivo> getAditivosNoAsignados(int idb) throws DAOExcepcion {
+      ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
+                
+		try{
+                    
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from ADITIVOS ad where NOT EXISTS(Select * from "
+                                + "ADITIVOS_CANTIDAD adc WHERE IDB="+idb+" and ad.NOMBRE=adc.NOMBRE");
+			connManager.close();
+                        
+                        
+			try {
+				
+				while (rs.next()){
+
+					Aditivo aditivo = new Aditivo(rs.getString("NOMBRE"));
+					//aditivo.setCantidad(rs.getDouble("CANTIDAD"));
+                                        aditivos.add(aditivo);
+		
+				}
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
+			
+			}catch (DAOExcepcion e){
+				throw e;
+			}
+                
+			return aditivos;
+
     }
 
 }

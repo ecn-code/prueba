@@ -121,4 +121,8 @@ public void modificarBase(Base base) throws DAOExcepcion{
 public void eliminarBase(Base base) throws DAOExcepcion{
     ibaseDAO.eliminarBase(base);
 }
+
+    public ArrayList<Aditivo> getAditivosNoAsociados(int idb) throws DAOExcepcion {
+       return iaditivoDAO.getAditivosNoAsignados(idb);
+    }
 }

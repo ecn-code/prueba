@@ -117,4 +117,8 @@ public class Controlador {
         public Base getBase(String nombre) throws DAOExcepcion{
             return dal.getBase(nombre);
         }
+
+    public ArrayList<Aditivo> getAditivosNoAsociados(int idb) throws DAOExcepcion {
+        return dal.getAditivosNoAsociados(idb);
+    }
 }
