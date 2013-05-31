@@ -172,8 +172,8 @@ public class AditivoDAO implements IAditivoDAO{
 		try{
                     
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ADITIVOS ad where NOT EXISTS(Select * from "
-                                + "ADITIVOS_CANTIDAD adc WHERE IDB="+idb+" and ad.NOMBRE=adc.NOMBRE");
+			ResultSet rs=connManager.queryDB("Select * from ADITIVOS ad where NOT EXISTS(Select * from "
+                                + "ADITIVOS_CANTIDAD adc WHERE IDB="+idb+" and ad.NOMBRE=adc.NOMBRE)");
 			connManager.close();
                         
                         

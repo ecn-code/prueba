@@ -215,10 +215,8 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         }
                   
        ObservableList<Aditivo> aditivosConvertidosParaTabla = FXCollections.observableList(aditivos);  
-       
-       ArrayList<Aditivo> aditivosTodos = controlador.getAditivos();
-       
-       ArrayList<Aditivo> aditivosChoiceBoxx = controlador.getAditivosNoAsociados(((Base)elegirBase.getSelectionModel().getSelectedItem()).getId());
+     
+       ArrayList<Aditivo> aditivosChoiceBoxx = controlador.getAditivosNoAsociados(idb);
        /*
        
        ObservableList<Aditivo> aditivosOVChoiceBox = null;
@@ -233,7 +231,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        aditivosOVChoiceBox = FXCollections.observableList(aditivosTodos); 
        }
        */
-       ObservableList<Aditivo>  aditivosOVChoiceBox = FXCollections.observableList(aditivosTodos); 
+       ObservableList<Aditivo>  aditivosOVChoiceBox = FXCollections.observableList(aditivosChoiceBoxx); 
        aditivosChoiceBox.setItems(aditivosOVChoiceBox);
        tableView.setItems(aditivosConvertidosParaTabla);
     }
