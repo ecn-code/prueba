@@ -11,15 +11,9 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< HEAD
-    <jar href="PruebaFX_NetBeans.jar" size="114527" download="eager" />
-    <jar href="lib/hsqldb.jar" size="678307" download="eager" />
-    <jar href="lib/jfxmessagebox-1.1.0.jar" size="37640" download="eager" />
-=======
-    <jar href="PruebaFX_NetBeans.jar" size="125670" download="eager" />
-    <jar href="lib/hsqldb.jar" size="678308" download="eager" />
+    <jar href="PruebaFX_NetBeans.jar" size="126245" download="eager" />
+    <jar href="lib/hsqldb.jar" size="678310" download="eager" />
     <jar href="lib/jfxmessagebox-1.1.0.jar" size="37642" download="eager" />
->>>>>>> menu
   </resources>
 <security>
   <all-permissions/>
