@@ -136,7 +136,7 @@ public class BaseDAO implements IBaseDAO{
 			ResultSet rs=connManager.queryDB("select * from BASES_PIGMENTO WHERE IDP="+idp);
 			connManager.close();
 			try {
-				
+				DAL dal = DAL.dameDAL();
 				while (rs.next()){
                                     
                                    
@@ -144,6 +144,8 @@ public class BaseDAO implements IBaseDAO{
 
 				Base base = getBase(rs.getInt("IDB"));
                                 base.setPorcentaje(rs.getDouble("PORCENTAJE"));
+                                ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
+                                base.setAditivos(array);
                                 bases.add(base);
                                         
 		
@@ -244,5 +246,27 @@ public class BaseDAO implements IBaseDAO{
 		}catch (DAOExcepcion e){
 			e.printStackTrace();
 		}
+    }
+
+    @Override
+    public Double getPorcentaje(Base base, Pigmento pigmento) throws DAOExcepcion {
+       try{
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from BASES_PIGMENTO WHERE IDB="+base.getId()+""
+                                + " and IDP="+pigmento.getId());
+			connManager.close();
+			try {
+				
+				if (rs.next()){
+                               return rs.getDouble("PORCENTAJE");
+				}
+				}catch (SQLException e){
+					throw new DAOExcepcion("DB_READ_ERROR");
+				}
+			
+			}catch (DAOExcepcion e){
+				throw e;
+			}
+			return null; 
     }
     }

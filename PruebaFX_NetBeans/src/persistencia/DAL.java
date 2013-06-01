@@ -135,4 +135,7 @@ public void eliminarBase(Base base) throws DAOExcepcion{
     public void eliminaBasePigmento(Base base, Pigmento pigmento) {
         ibaseDAO.eliminarBasePigmento(base,pigmento);
     }
+    public Double getPorcentaje(Base base, Pigmento pigmento) throws DAOExcepcion {
+       return ibaseDAO.getPorcentaje(base, pigmento);
+    }
 }

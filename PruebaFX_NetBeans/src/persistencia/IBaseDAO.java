@@ -27,4 +27,5 @@ public void modificarBase(Base base) throws DAOExcepcion ;
 public void eliminarBase(Base base) throws DAOExcepcion ;
 public void asociarBasePigmento(Pigmento pigmento, Base base, Double cantidad)throws DAOExcepcion ;;
 public void eliminarBasePigmento(Base base, Pigmento pigmento);
+public Double getPorcentaje(Base base,Pigmento pigmento)throws DAOExcepcion;
 }
