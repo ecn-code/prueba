@@ -37,6 +37,7 @@ import excepciones.DominioExcepcion;
 import java.awt.Dialog;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -76,27 +77,59 @@ import static presentacion.ListadoProductosController.cargar;
 
 public class CalcularController implements Initializable, ControlledScreen{
    ScreensController myController;
-    @FXML private static TableView<Aditivo> tableView;
-    private String cantidad;
+    @FXML private static TableView<Base> tableView;
+    private Double cantidad;
     Producto producto;
     Acabado acabado;
     Pigmento pigmento;
     @FXML private TextField txtCantidad;
     @FXML private ComboBox comboProducto,comboAcabado,comboPigmento;
     @FXML
-    public void calcular(ActionEvent event){
+    public void calcular(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+    ArrayList<Base> basesResultado=new ArrayList<Base>();
     pigmento=(Pigmento)comboPigmento.getSelectionModel().getSelectedItem();
     producto=(Producto)comboProducto.getSelectionModel().getSelectedItem();
     acabado=(Acabado)comboAcabado.getSelectionModel().getSelectedItem();
-    cantidad=txtCantidad.getText();
-    
+    cantidad=Double.parseDouble(txtCantidad.getText());
+    ArrayList<Base> bases=getBases(pigmento);
+    for(int i=0;i<bases.size();i++){
+        basesResultado.add(calculo(bases.get(i), pigmento, acabado, producto, cantidad));
+    }
+   ObservableList<Base> basesTabla = FXCollections.observableList(basesResultado);  
+       tableView.setItems(basesTabla);
     }
    
-
+    public Base calculo(Base _base,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad){
+       Double factor=Double.parseDouble(_producto.getFactor())*Double.parseDouble(_acabado.getFactor())*_base.getPorcentaje();
+       Double factorAditivos=_base.getFactorBase();
+       Double resultado100g=factor+factor*factorAditivos;
+       Double resultadParaCantidadSeleccionada=(resultado100g*_cantidad)/0.1;
+       Base baseResultado=_base;
+       DecimalFormat df =new DecimalFormat("####.##");
+       baseResultado.setPorcentaje(resultadParaCantidadSeleccionada);
+        return baseResultado;
+        
+    }
+ 
+   public ArrayList<Base> getBases(Pigmento _pigmento) throws DAOExcepcion, DominioExcepcion{
+       Controlador controlador=Controlador.dameControlador();
+       ArrayList<Base> bases=controlador.getBases(_pigmento.getId());
+       return bases;
+   }
    
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+         tableView.setEditable(true);
+        tableView.setMaxWidth(400);
+        TableColumn Nombre=new TableColumn("Nombre");
+        TableColumn Cantidad=new TableColumn("Cantidad");
+        Cantidad.setMinWidth(100);
+        Nombre.setMinWidth(200);
+      Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
+      Cantidad.setCellValueFactory(new PropertyValueFactory("Porcentaje"));
+      tableView.getColumns().addAll(Nombre,Cantidad);
+      tableView.setTableMenuButtonVisible(true);
        try {
            cargarPigmentos();
        } catch (DAOExcepcion ex) {

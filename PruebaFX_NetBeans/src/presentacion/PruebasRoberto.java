@@ -53,7 +53,7 @@ public class PruebasRoberto extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("FXML TableView Example");
-        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("Calcular.fxml"));
+        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("Principal.fxml"));
 
         Scene myScene = new Scene(myPane);
         primaryStage.setScene(myScene);

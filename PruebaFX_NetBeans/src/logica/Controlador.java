@@ -131,4 +131,7 @@ public class Controlador {
     public void eliminaBasePigmento(Base base, Pigmento pigmento) {
         dal.eliminaBasePigmento(base,pigmento);
     }
+    public Double getPorcentaje(Base base, Pigmento pigmento) throws DAOExcepcion {
+       return dal.getPorcentaje(base, pigmento);
+    }
 }
