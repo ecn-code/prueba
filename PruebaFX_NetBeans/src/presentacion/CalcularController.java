@@ -78,19 +78,60 @@ import static presentacion.ListadoProductosController.cargar;
 public class CalcularController implements Initializable, ControlledScreen{
    ScreensController myController;
     @FXML private static TableView<Base> tableView;
+    private String comprobarCantidad;
     private Double cantidad;
     Producto producto;
     Acabado acabado;
     Pigmento pigmento;
     @FXML private TextField txtCantidad;
     @FXML private ComboBox comboProducto,comboAcabado,comboPigmento;
+    @FXML private Label lblErrorAcabado,lblErrorProducto,lblErrorCantidad,lblErrorPigmento;
     @FXML
     public void calcular(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
     ArrayList<Base> basesResultado=new ArrayList<Base>();
+    boolean correcto=true;
     pigmento=(Pigmento)comboPigmento.getSelectionModel().getSelectedItem();
     producto=(Producto)comboProducto.getSelectionModel().getSelectedItem();
     acabado=(Acabado)comboAcabado.getSelectionModel().getSelectedItem();
-    cantidad=Double.parseDouble(txtCantidad.getText());
+    comprobarCantidad=txtCantidad.getText().trim().replace(',', '.');
+        for(char x: comprobarCantidad.toCharArray()){
+            if(Character.isLetter(x)){
+                correcto=false;
+                lblErrorCantidad.setText("No se pueden introducir letras");
+                txtCantidad.setText("");
+                break;
+            }else{
+               lblErrorCantidad.setText(""); 
+            }
+            } 
+        
+   if(comprobarCantidad.equals("")){
+   lblErrorCantidad.setText("Introduce cantidad");
+   correcto=false;
+    }else{
+    lblErrorCantidad.setText(""); 
+   }
+    if(pigmento==null){
+        lblErrorPigmento.setText("Selecciona pigmento");
+        correcto=false;
+    }else{
+        lblErrorPigmento.setText("");
+    }
+    if(acabado==null){
+        lblErrorAcabado.setText("Selecciona acabado");
+        correcto=false;
+    }else{
+        lblErrorAcabado.setText("");
+    }
+    if(producto==null){
+        lblErrorProducto.setText("Selecciona producto");
+        correcto=false;
+    }else{
+        lblErrorProducto.setText("");
+    }
+        
+    if(correcto){
+    cantidad=Double.parseDouble(comprobarCantidad);
     ArrayList<Base> bases=getBases(pigmento);
     for(int i=0;i<bases.size();i++){
         basesResultado.add(calculo(bases.get(i), pigmento, acabado, producto, cantidad));
@@ -98,15 +139,16 @@ public class CalcularController implements Initializable, ControlledScreen{
    ObservableList<Base> basesTabla = FXCollections.observableList(basesResultado);  
        tableView.setItems(basesTabla);
     }
+    }
    
     public Base calculo(Base _base,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad){
        Double factor=Double.parseDouble(_producto.getFactor())*Double.parseDouble(_acabado.getFactor())*_base.getPorcentaje();
+       factor=Math.round(factor*100)/100d;
        Double factorAditivos=_base.getFactorBase();
        Double resultado100g=factor+factor*factorAditivos;
        Double resultadParaCantidadSeleccionada=(resultado100g*_cantidad)/0.1;
        Base baseResultado=_base;
-       DecimalFormat df =new DecimalFormat("####.##");
-       baseResultado.setPorcentaje(resultadParaCantidadSeleccionada);
+       baseResultado.setPorcentaje(Math.round(resultadParaCantidadSeleccionada*100)/100d);
         return baseResultado;
         
     }
@@ -122,8 +164,8 @@ public class CalcularController implements Initializable, ControlledScreen{
     public void initialize (URL location,ResourceBundle resources){
          tableView.setEditable(true);
         tableView.setMaxWidth(400);
-        TableColumn Nombre=new TableColumn("Nombre");
-        TableColumn Cantidad=new TableColumn("Cantidad");
+        TableColumn Nombre=new TableColumn("Base");
+        TableColumn Cantidad=new TableColumn("Cantidad(g)");
         Cantidad.setMinWidth(100);
         Nombre.setMinWidth(200);
       Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));

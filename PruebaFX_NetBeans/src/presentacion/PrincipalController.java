@@ -88,7 +88,7 @@ public class PrincipalController implements Initializable{
                }
     Stage stage = new Stage();
         stage.setTitle("FXML Welcome");
-        stage.setScene(new Scene(root, 300, 275));
+        stage.setScene(new Scene(root, 450, 550));
         stage.show();
            }
        });
@@ -203,7 +203,7 @@ public class PrincipalController implements Initializable{
                }
     Stage stage = new Stage();
         stage.setTitle("FXML Welcome");
-        stage.setScene(new Scene(root, 300, 275));
+        stage.setScene(new Scene(root,650, 500));
         stage.show();
            }
        });
