@@ -33,6 +33,8 @@
 
 package presentacion;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.beans.property.ListProperty;
@@ -45,6 +47,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import persistencia.DAL;
 
 public class FXMLTableView extends Application {
 
@@ -62,6 +65,49 @@ public class FXMLTableView extends Application {
     }
  
     public static void main(String[] args) {
-        launch(args);
+        
+          ThreadEjemplo ej = new ThreadEjemplo();
+         ej.start();
+      
+      launch(args);     
+     }
+     public static class ThreadEjemplo extends Thread {
+    public ThreadEjemplo() {
+        super();
     }
-}
+    Runtime rt;
+     Process pr = null;
+    public void finaler(){
+    rt.exit(0);
+    pr.destroy();
+
+    }
+    
+    public void run() {
+       
+         try {
+                rt = Runtime.getRuntime();
+                //Process pr = rt.exec("cmd /c dir");
+                 pr= rt.exec("c:\\hsqldb\\bin\\runServer.bat CALCPIGMENTOS CALCPIGMENTOS");
+ 
+                BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+ 
+                String line=null;
+                
+                while((line=input.readLine()) != null) {
+                    System.out.println(line);
+                }
+ 
+                int exitVal = pr.waitFor();
+                System.out.println("Exited with error code "+exitVal);
+ 
+            } catch(Exception e) {
+                System.out.println(e.toString());
+                e.printStackTrace();
+            }
+    }
+     }}
+        
+        
+        
+

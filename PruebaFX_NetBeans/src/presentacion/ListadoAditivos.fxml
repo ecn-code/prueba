@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
@@ -20,9 +21,6 @@
       </items>
       <sortOrder>
         <TableColumn prefWidth="100.0" text="Id">
-          <cellFactory>
-           
-          </cellFactory>
           <cellValueFactory>
             <PropertyValueFactory property="id" />
           </cellValueFactory>
@@ -60,4 +58,7 @@
       </menus>
     </MenuBar>
   </children>
+  <stylesheets>
+    <URL value="@Botones.css" />
+  </stylesheets>
 </AnchorPane>
