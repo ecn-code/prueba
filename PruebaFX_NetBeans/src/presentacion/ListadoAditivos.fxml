@@ -11,28 +11,9 @@
 
 <AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoAditivosController">
   <children>
-<<<<<<< HEAD
-    <Label alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="38.0" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Aditivos" />
-    <Button layoutX="355.0" layoutY="51.0" mnemonicParsing="false" onAction="#eliminarAditivo" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="66.0" layoutY="537.0" prefWidth="136.0" promptText="Nombre" />
+    <TextField id="lastNameField" fx:id="txtNombre" layoutX="136.0" layoutY="471.0" prefWidth="136.0" promptText="Nombre" />
     <Label fx:id="lblErrorNombre" layoutX="69.0" layoutY="559.0" prefHeight="21.0" prefWidth="159.9998779296875" text="" textFill="RED" />
-    <TableView fx:id="tableView" layoutX="52.0" layoutY="103.0" prefHeight="404.0" prefWidth="393.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList" />
-      </items>
-      <sortOrder>
-        <TableColumn prefWidth="100.0" text="Id">
-          <cellValueFactory>
-            <PropertyValueFactory property="id" />
-          </cellValueFactory>
-        </TableColumn>
-      </sortOrder>
-    </TableView>
-    <Button layoutX="332.0" layoutY="544.0" onAction="#anyadirAditivo" prefWidth="68.0" text="Añadir" />
-    <MenuBar id="menuBar" layoutX="3.0" layoutY="0.0" prefWidth="452.9998779296875">
-=======
     <MenuBar id="menuBar" layoutX="3.0" layoutY="0.0" prefWidth="597.0">
->>>>>>> Estilo todas las interfaces
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -61,7 +42,6 @@
         </Menu>
       </menus>
     </MenuBar>
-    <Label fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
     <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="154.0" style="" text="Aditivos" />
     <Button id="ipad-grey2" layoutX="493.0" layoutY="535.0" mnemonicParsing="false" onAction="#eliminarAditivo" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
     <TableView fx:id="tableView" layoutX="40.0" layoutY="118.0" prefHeight="334.0" prefWidth="520.0000999999975">
@@ -73,7 +53,6 @@
         </TableColumn>
       </sortOrder>
     </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="136.0" layoutY="471.0" prefWidth="136.0" promptText="Nombre" />
     <Button id="ipad-grey2" layoutX="493.0" layoutY="468.0" minHeight="21.0" onAction="#anyadirAditivo" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
     <Label layoutX="40.0" layoutY="471.0" prefWidth="59.0" text="Aditivo" />
     <Separator layoutX="40.0" layoutY="513.0" prefHeight="7.0" prefWidth="520.9998779296875" />
