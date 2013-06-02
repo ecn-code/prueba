@@ -12,7 +12,7 @@
 <AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoAditivosController">
   <children>
     <TextField id="lastNameField" fx:id="txtNombre" layoutX="136.0" layoutY="471.0" prefWidth="136.0" promptText="Nombre" />
-    <Label fx:id="lblErrorNombre" layoutX="69.0" layoutY="559.0" prefHeight="21.0" prefWidth="159.9998779296875" text="" textFill="RED" />
+    <Label fx:id="lblErrorNombre" layoutX="136.0" layoutY="495.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
     <MenuBar id="menuBar" layoutX="3.0" layoutY="0.0" prefWidth="597.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
@@ -55,7 +55,7 @@
     </TableView>
     <Button id="ipad-grey2" layoutX="493.0" layoutY="468.0" minHeight="21.0" onAction="#anyadirAditivo" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
     <Label layoutX="40.0" layoutY="471.0" prefWidth="59.0" text="Aditivo" />
-    <Separator layoutX="40.0" layoutY="513.0" prefHeight="7.0" prefWidth="520.9998779296875" />
+    <Separator layoutX="40.0" layoutY="518.0" prefHeight="7.0" prefWidth="520.9998779296875" />
     <TextField fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
     <Label layoutX="40.0" layoutY="537.0" prefWidth="59.0" text="Aditivo" />
   </children>
