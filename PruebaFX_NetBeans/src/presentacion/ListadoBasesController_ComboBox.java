@@ -46,13 +46,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -80,7 +85,18 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     private TextField txtCantidad;
     //@FXML
     //private Label lblErrorCantidad;
-    @FXML private ChoiceBox elegirBase,aditivosChoiceBox;
+    @FXML private ComboBox elegirBase;
+     @FXML private ComboBox aditivosChoiceBox;
+         @FXML MenuItem listadoAcabado;
+            @FXML MenuItem listadoPigmento;
+                    @FXML MenuItem listadoAditivo;
+                            @FXML MenuItem listadoBase;
+                            @FXML MenuItem listadoProducto;
+    @FXML MenuItem aditivoABase;
+    @FXML MenuItem baseAPigmento;
+    @FXML Menu calcular;
+    @FXML Menu inicio;
+    Stage stage;
     
    @FXML
     public void eliminarAditivoBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
@@ -110,6 +126,144 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+        
+        stage = ObjetoCompartido.dameLo().getStage();
+          
+       listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoAcabados.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+  
+        stage.setTitle("Acabados");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+       
+       aditivoABase.setDisable(true);
+       listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoAditivos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Aditivos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+       listadoProducto.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoProductos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+
+        stage.setTitle("Productos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+       listadoBase.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoBases.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Bases");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+       baseAPigmento.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmento_ComboBox.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Pigmento a Base");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+      listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+
+        stage.setTitle("Pigmentos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+      
+      inicio.setOnShown(new EventHandler<Event>() {
+
+          @Override
+           public void handle(Event t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    
+        stage.setTitle("Inicio");
+        stage.setScene(new Scene(root));
+        stage.show();
+        inicio.hide();
+           }
+       });
+ 
+      calcular.setOnShown(new EventHandler<Event>() {
+
+          @Override
+           public void handle(Event t) {
+
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("Calcular.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+
+        stage.setTitle("Calcular");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+        
        elegirBase.getSelectionModel().selectedIndexProperty().addListener(new
             ChangeListener<Number>() {
                 public void changed(ObservableValue ov,
