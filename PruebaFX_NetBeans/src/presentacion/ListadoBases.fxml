@@ -42,7 +42,7 @@
     </MenuBar>
     <Label fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
     <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="110.0" style="" text="Bases" />
-    <Button id="ipad-grey2" layoutX="493.0" layoutY="537.0" mnemonicParsing="false" onAction="#eliminarBase" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <Button id="ipad-grey2" fx:id="botonEliminar" layoutX="493.0" layoutY="537.0" mnemonicParsing="false" onAction="#eliminarBase" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
     <TableView fx:id="tableView" layoutX="40.0" layoutY="118.0" prefHeight="334.0" prefWidth="520.0000999999975">
       <sortOrder>
         <TableColumn prefWidth="100.0" text="Id">
@@ -56,7 +56,7 @@
     <Button id="ipad-grey2" layoutX="493.0" layoutY="467.0" minHeight="21.0" onAction="#anyadirBase" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
     <Label layoutX="40.0" layoutY="471.0" text="Base" />
     <Separator layoutX="40.0" layoutY="513.0" prefHeight="7.0" prefWidth="520.9998779296875" />
-    <TextField disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
+    <TextField fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
     <Label layoutX="40.0" layoutY="538.0" prefWidth="59.0" text="Base" />
   </children>
   <stylesheets>

@@ -12,7 +12,7 @@
 <AnchorPane id="fondo" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoProductosController">
   <children>
     <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="186.0" style="" text="Productos" />
-    <Button id="ipad-grey2" layoutX="493.0" layoutY="541.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <Button id="ipad-grey2" fx:id="botonEliminar" layoutX="493.0" layoutY="541.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
     <TableView fx:id="tableView" layoutX="40.0" layoutY="124.0" prefHeight="334.0" prefWidth="520.0000999999975">
       <sortOrder>
         <TableColumn prefWidth="100.0" text="Id">
@@ -59,10 +59,10 @@
     <Label layoutX="40.0" layoutY="474.0" text="Nombre" />
     <Label layoutX="275.0" layoutY="475.0" text="Factor" />
     <Separator layoutX="40.0" layoutY="520.0" prefWidth="521.0" />
-    <TextField disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
+    <TextField fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
     <Label layoutX="40.0" layoutY="541.0" prefWidth="59.0" text="Nombre" />
     <Label layoutX="275.0" layoutY="542.0" text="Factor" />
-    <TextField disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
+    <TextField fx:id="txtFactorEliminar" disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />
