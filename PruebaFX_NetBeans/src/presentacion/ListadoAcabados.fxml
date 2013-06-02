@@ -52,17 +52,17 @@
       </sortOrder>
     </TableView>
     <TextField id="lastNameField" fx:id="txtNombre" layoutX="109.0" layoutY="474.0" prefWidth="136.0" promptText="Nombre" />
-    <TextField id="emailField" layoutX="329.0" layoutY="474.0" prefWidth="136.0" promptText="Factor" />
-    <Label id="lblErrorFactor" layoutX="329.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
-    <Label id="lblErrorNombre" layoutX="109.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
+    <TextField id="emailField" fx:id="txtFactor" layoutX="329.0" layoutY="474.0" prefWidth="136.0" promptText="Factor" />
+    <Label fx:id="lblErrorFactor" layoutX="329.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
+    <Label fx:id="lblErrorNombre" layoutX="109.0" layoutY="497.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
     <Button id="ipad-grey2" layoutX="493.0" layoutY="473.0" minHeight="21.0" onAction="#anyadirAcabado" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
     <Label layoutX="40.0" layoutY="474.0" prefWidth="68.0" text="Acabado" />
-    <Label layoutX="275.0" layoutY="475.0" text="Factor" />
+    <Label id="txtFactorEliminar" layoutX="275.0" layoutY="475.0" text="Factor" />
     <Separator layoutX="40.0" layoutY="520.0" prefWidth="521.0" />
-    <TextField id="nombreEliminar" disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
+    <TextField id="nombreEliminar" fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
     <Label layoutX="40.0" layoutY="542.0" prefWidth="68.0" text="Acabado" />
     <Label layoutX="275.0" layoutY="542.0" text="Factor" />
-    <TextField id="factorEliminar" disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
+    <TextField id="factorEliminar" fx:id="txtFactorEliminar" disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

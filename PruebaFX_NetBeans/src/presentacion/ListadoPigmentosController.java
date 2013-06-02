@@ -51,6 +51,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -60,15 +61,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
+import logica.Base;
 import logica.Pigmento;
 import logica.Controlador;
 import logica.Pigmento;
 
 
-public class ListadoPigmentosController implements Initializable, ControlledScreen{
+public class ListadoPigmentosController implements Initializable{
     ScreensController myController;
     @FXML private static TableView<Pigmento> tableView;
     private String nombre;
@@ -85,6 +88,8 @@ public class ListadoPigmentosController implements Initializable, ControlledScre
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
     @FXML Menu inicio;
+         @FXML TextField txtNombreEliminar;
+    @FXML Button botonEliminar;
     Stage stage;
     @FXML
     public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
@@ -100,6 +105,8 @@ public class ListadoPigmentosController implements Initializable, ControlledScre
         if(answer==65536){
             controlador=controlador.dameControlador();
             controlador.eliminarPigmento(pigmento);
+            txtNombreEliminar.setText("");
+            botonEliminar.setDisable(true);
             cargar();
         }
     }
@@ -137,6 +144,20 @@ public class ListadoPigmentosController implements Initializable, ControlledScre
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+        
+         botonEliminar.setDisable(true);
+      tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent t) {
+                Pigmento pigmento= tableView.getSelectionModel().getSelectedItem();
+                if(pigmento!=null){
+                    txtNombreEliminar.setText(pigmento.getNombre());
+                    botonEliminar.setDisable(false);
+                    txtNombre.setText("");
+                }
+            }
+      });
         
         stage = ObjetoCompartido.dameLo().getStage();
           
@@ -373,10 +394,5 @@ public class ListadoPigmentosController implements Initializable, ControlledScre
        tableView.setItems(pigmento);
     }
     
-
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        myController=screenPage;
-    }
+      }
     
-}

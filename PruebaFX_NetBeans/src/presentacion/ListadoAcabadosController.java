@@ -75,10 +75,12 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
     ScreensController myController;
     private String factor,nombre;
     @FXML
-    private TextField txtFactor,txtNombre;
+    private TextField txtFactor,txtNombre,txtNombreEliminar,txtFactorEliminar;
     @FXML private Button botonEliminar;
     @FXML
-    private Label lblErrorFactor,lblErrorNombre,nombreEliminar,factorEliminar;
+    private Label lblErrorFactor;
+         @FXML
+    private Label   lblErrorNombre;
             
           @FXML MenuItem listadoProducto;
     @FXML MenuItem listadoAcabado;
@@ -103,9 +105,9 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
         if(answer==65536){
             controlador=controlador.dameControlador();
             controlador.eliminarAcabado(acabado);
-            nombreEliminar.setText("");
-            factorEliminar.setText("");
-            
+            txtNombreEliminar.setText("");
+            txtFactorEliminar.setText("");
+            botonEliminar.setDisable(true);
             cargar();
         }
     }
@@ -322,8 +324,8 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
             public void handle(MouseEvent t) {
                 Acabado acabado= tableView.getSelectionModel().getSelectedItem();
                 if(acabado!=null){
-                    nombreEliminar.setText(acabado.getNombre());
-                    factorEliminar.setText(acabado.getFactor());
+                    txtNombreEliminar.setText(acabado.getNombre());
+                    txtFactorEliminar.setText(acabado.getFactor());
                     botonEliminar.setDisable(false);
                 }
             }

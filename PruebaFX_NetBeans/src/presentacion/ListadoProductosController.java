@@ -51,6 +51,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -60,6 +61,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
@@ -71,6 +73,7 @@ import logica.Producto;
 public class ListadoProductosController implements Initializable, ControlledScreen{
     ScreensController myController;
     @FXML private static TableView<Producto> tableView;
+    @FXML Button botonEliminar;
     private String factor,nombre;
     @FXML
     private TextField txtFactor;
@@ -89,6 +92,8 @@ public class ListadoProductosController implements Initializable, ControlledScre
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
     @FXML Menu inicio;
+    @FXML TextField txtNombreEliminar;
+    @FXML TextField txtFactorEliminar;
     Stage stage;
     @FXML
     public void eliminarProducto(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
@@ -104,6 +109,9 @@ public class ListadoProductosController implements Initializable, ControlledScre
         if(answer==65536){
             controlador=controlador.dameControlador();
             controlador.eliminarProducto(producto);
+            botonEliminar.setDisable(true);
+            txtFactorEliminar.setText("");
+            txtNombreEliminar.setText("");
             cargar();
         }
     }
@@ -160,6 +168,20 @@ public class ListadoProductosController implements Initializable, ControlledScre
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+        botonEliminar.setDisable(true);
+        
+        tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent t) {
+           Producto producto = tableView.getSelectionModel().getSelectedItem();
+           if(producto!=null){
+           botonEliminar.setDisable(false);
+           txtNombreEliminar.setText(producto.getNombre());
+           txtFactorEliminar.setText(producto.getFactor());
+           }
+            }
+        });
         
           stage = ObjetoCompartido.dameLo().getStage();
           

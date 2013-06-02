@@ -51,6 +51,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -60,9 +61,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
+import logica.Aditivo;
 import logica.Base;
 import logica.Controlador;
 import logica.Base;
@@ -85,6 +88,8 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
     @FXML MenuItem aditivoABase;
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
+        @FXML TextField txtNombreEliminar;
+    @FXML Button botonEliminar;
     @FXML Menu inicio;
     Stage stage;
         @FXML
@@ -101,6 +106,8 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         if(answer==65536){
             controlador=controlador.dameControlador();
             controlador.eliminarBase(base);
+            txtNombreEliminar.setText("");
+            botonEliminar.setDisable(true);
             cargar();
         }
     }
@@ -138,6 +145,20 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+        
+        botonEliminar.setDisable(true);
+      tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent t) {
+                Base base= tableView.getSelectionModel().getSelectedItem();
+                if(base!=null){
+                    txtNombreEliminar.setText(base.getNombre());
+                    botonEliminar.setDisable(false);
+                    txtNombre.setText("");
+                }
+            }
+        });
         
            stage = ObjetoCompartido.dameLo().getStage();
           
