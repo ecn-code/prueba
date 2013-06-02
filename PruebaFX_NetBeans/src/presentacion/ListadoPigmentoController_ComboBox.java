@@ -53,6 +53,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -65,9 +66,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
+import logica.Acabado;
 import logica.Aditivo;
 import logica.Base;
 import logica.Pigmento;
@@ -81,11 +84,12 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
    private String cantidad;
     private String nombre;
     @FXML
-    private TextField txtCantidad;
+    private TextField txtCantidad,baseEliminar,cantidadEliminar;
     @FXML
-    private Label lblErrorNombre;
+    private Label lblErrorCantidad,lblErrorBase,lblErrorPigmento;
     @FXML private ComboBox elegirPigmento;
     @FXML private ComboBox        elegirBase;
+    @FXML private Button btnEliminar;
     @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
                     @FXML MenuItem listadoAditivo;
@@ -103,20 +107,57 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
         Controlador controlador= Controlador.dameControlador();
        pigmento=(Pigmento) elegirPigmento.getSelectionModel().getSelectedItem();
        base=tableView.getSelectionModel().getSelectedItem();
-       controlador.eliminaBasePigmento(base, pigmento);
-       cargarBases(pigmento.getId());
-    
+       int answer= MessageBox.show(stage,
+        "Estas seguro de que quieres eliminar este acabado?",
+        "Information dialog",
+        MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
+        System.out.println(answer);
+        if(answer==65536){
+            controlador.eliminaBasePigmento(base, pigmento);
+            cargarBases(pigmento.getId());
+            baseEliminar.setText("");
+            cantidadEliminar.setText("");
+            btnEliminar.setDisable(true);
+        }
         }
 
     public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
          Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
-       cantidad=txtCantidad.getText();
+       cantidad=txtCantidad.getText().trim().replace(',', '.');
        pigmento=controlador.getPigmento(elegirPigmento.getSelectionModel().getSelectedItem().toString());
        base=(Base)elegirBase.getSelectionModel().getSelectedItem();
-    if(cantidad.equals(""))
-             error=true;
+       if(base==null){
+           error=true;
+           lblErrorBase.setText("Selecciona una Base");
+       }else{
+          lblErrorBase.setText("");
+       }
+        if(pigmento==null){
+           error=true;
+           lblErrorPigmento.setText("Selecciona un Pigmento");
+       }else{
+          lblErrorPigmento.setText("");
+       }
+     if(cantidad.equals("")){
+   lblErrorCantidad.setText("Introduce cantidad");
+   error=true;
+    }else{
+    lblErrorCantidad.setText(""); 
+   }
+       for(char x: cantidad.toCharArray()){
+            if(Character.isLetter(x)){
+                error=true;
+                lblErrorCantidad.setText("No se pueden introducir letras");
+                txtCantidad.setText("");
+                break;
+            }else{
+               lblErrorCantidad.setText(""); 
+            }
+            } 
+        
+  
             if(!error){
          controlador.asociarBasePigmento(pigmento,base, Double.parseDouble(cantidad));
            cargarBases(pigmento.getId());
@@ -125,11 +166,25 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+        btnEliminar.setDisable(true);
+      tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent t) {
+                Base base= tableView.getSelectionModel().getSelectedItem();
+                if(base!=null){
+                    baseEliminar.setText(base.getNombre());
+                    cantidadEliminar.setText(base.getPorcentaje()+"");
+                    btnEliminar.setDisable(false);
+                }
+            }
+        });
+
         
          stage = ObjetoCompartido.dameLo().getStage();
           
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
-
+        
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;

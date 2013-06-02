@@ -81,8 +81,9 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     private String cantidad;
     Base base;
     Aditivo aditivo;
+    private Label lblErrorCantidad,lblErrorBase,lblErrorAditivo;
     @FXML
-    private TextField txtCantidad;
+    private TextField txtCantidad,txtEliminarAditivo,txtEliminarCantidad;
     //@FXML
     //private Label lblErrorCantidad;
     @FXML private ComboBox elegirBase;
