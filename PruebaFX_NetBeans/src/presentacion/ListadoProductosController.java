@@ -295,6 +295,7 @@ public class ListadoProductosController implements Initializable, ControlledScre
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         stage.show();
+        calcular.hide();
            }
        });
       

@@ -197,7 +197,6 @@ public class PrincipalController implements Initializable{
         stage.setTitle("Pigmentos");
         stage.setScene(new Scene(root));
         stage.show();
-        inicio.hide();
            }
        });
  

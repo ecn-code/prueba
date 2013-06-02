@@ -268,3 +268,10 @@
 .row-selection{
     background-color: black;
 }
+
+.button:hover{
+      -fx-blend-mode: hard-light;
+}
+.button:pressed{
+    -fx-blend-mode: soft-light;
+}

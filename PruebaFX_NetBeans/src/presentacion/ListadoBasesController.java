@@ -273,6 +273,7 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         stage.show();
+        calcular.hide();
            }
        });
       

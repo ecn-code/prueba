@@ -272,6 +272,7 @@ public class ListadoAditivosController implements Initializable, ControlledScree
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         stage.show();
+        calcular.hide();
            }
        });
       

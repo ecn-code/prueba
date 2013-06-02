@@ -260,6 +260,7 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         stage.show();
+       calcular.hide();
            }
        });
         

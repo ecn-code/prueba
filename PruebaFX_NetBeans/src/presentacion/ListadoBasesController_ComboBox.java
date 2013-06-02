@@ -261,6 +261,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         stage.show();
+        inicio.hide();
            }
        });
         
