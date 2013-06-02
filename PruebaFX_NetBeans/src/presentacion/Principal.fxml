@@ -10,6 +10,7 @@
   <children>
     <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="565.0">
       <menus>
+        <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio" />
         <Menu mnemonicParsing="false" text="Listados" fx:id="menuProductos">
           <items>
             <MenuItem mnemonicParsing="false" text="Producto" fx:id="listadoProducto" />

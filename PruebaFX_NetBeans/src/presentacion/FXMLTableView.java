@@ -52,6 +52,7 @@ public class FXMLTableView extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ObjetoCompartido.dameLo().setStage(primaryStage);
         primaryStage.setTitle("FXML TableView Example");
         Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("Principal.fxml"));
         Scene myScene = new Scene(myPane);
