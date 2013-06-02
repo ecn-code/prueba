@@ -94,15 +94,9 @@ public class PrincipalController implements Initializable{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-<<<<<<< HEAD
-    Stage stage = new Stage();
-        stage.setTitle("FXML Welcome");
-        stage.setScene(new Scene(root, 450, 550));
-=======
   
         stage.setTitle("Acabados");
         stage.setScene(new Scene(root));
->>>>>>> c86f2f75e747d3451dbef530b177ffb88f52b320
         stage.show();
            }
        });
@@ -218,15 +212,11 @@ public class PrincipalController implements Initializable{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-<<<<<<< HEAD
-    Stage stage = new Stage();
-        stage.setTitle("FXML Welcome");
-        stage.setScene(new Scene(root,650, 500));
-=======
+
 
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
->>>>>>> c86f2f75e747d3451dbef530b177ffb88f52b320
+
         stage.show();
            }
        });
