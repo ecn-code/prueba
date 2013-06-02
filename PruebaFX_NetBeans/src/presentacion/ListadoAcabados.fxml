@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
@@ -8,28 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.999977929685" prefWidth="452.9998779296875" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoAcabadosController">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoAcabadosController">
   <children>
-    <Label alignment="CENTER" depthTest="INHERIT" layoutX="32.0" layoutY="35.0" style="-fx-font: NORMAL 20 Tahoma;" text="Acabado" />
-    <Button fx:id="botonEliminar" layoutX="357.0" layoutY="494.0" mnemonicParsing="false" onAction="#eliminarAcabado" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
-    <TableView fx:id="tableView" layoutX="32.0" layoutY="75.0" prefHeight="400.0" prefWidth="393.0">
-      <sortOrder>
-        <TableColumn prefWidth="100.0" text="Id">
-          <cellValueFactory>
-            <PropertyValueFactory property="id" />
-          </cellValueFactory>
-        </TableColumn>
-      </sortOrder>
-    </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="32.0" layoutY="557.0" prefWidth="117.0" promptText="Nombre" />
-    <Label id="lblErrorNombre" fx:id="lblErrorFactor" layoutX="170.0" layoutY="581.0" prefHeight="21.0" prefWidth="117.0" text="" textFill="RED" />
-    <TextField id="emailField" fx:id="txtFactor" layoutX="170.0" layoutY="558.0" prefWidth="117.0" promptText="Factor" />
-    <Label id="lblErrorFactor" fx:id="lblErrorNombre" layoutX="32.0" layoutY="581.0" prefHeight="21.0" prefWidth="117.0" text="" textFill="RED" visible="true" />
-    <Button layoutX="357.0" layoutY="558.0" onAction="#anyadirAcabado" prefWidth="68.0" text="Añadir" />
-    <Separator layoutX="32.0" layoutY="533.0" orientation="HORIZONTAL" prefHeight="21.0" prefWidth="393.0" />
-    <Label fx:id="nombreEliminar" layoutX="32.0" layoutY="496.0" prefHeight="20.9998779296875" prefWidth="117.0" text="" />
-    <Label fx:id="factorEliminar" layoutX="211.0" layoutY="496.0" prefHeight="21.0" prefWidth="117.0" text="" />
-    <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="452.9998779296875">
+    <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="600.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -58,5 +40,31 @@
         </Menu>
       </menus>
     </MenuBar>
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="186.0" style="" text="Acabados" />
+    <Button id="ipad-grey2" fx:id="botonEliminar" layoutX="493.0" layoutY="541.0" mnemonicParsing="false" onAction="#eliminarAcabado" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <TableView fx:id="tableView" layoutX="40.0" layoutY="124.0" prefHeight="334.0" prefWidth="520.0000999999975">
+      <sortOrder>
+        <TableColumn prefWidth="100.0" text="Id">
+          <cellValueFactory>
+            <PropertyValueFactory property="id" />
+          </cellValueFactory>
+        </TableColumn>
+      </sortOrder>
+    </TableView>
+    <TextField id="lastNameField" fx:id="txtNombre" layoutX="109.0" layoutY="474.0" prefWidth="136.0" promptText="Nombre" />
+    <TextField id="emailField" layoutX="329.0" layoutY="474.0" prefWidth="136.0" promptText="Factor" />
+    <Label id="lblErrorFactor" layoutX="329.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
+    <Label id="lblErrorNombre" layoutX="109.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="473.0" minHeight="21.0" onAction="#anyadirAcabado" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
+    <Label layoutX="40.0" layoutY="474.0" prefWidth="68.0" text="Acabado" />
+    <Label layoutX="275.0" layoutY="475.0" text="Factor" />
+    <Separator layoutX="40.0" layoutY="520.0" prefWidth="521.0" />
+    <TextField id="nombreEliminar" disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
+    <Label layoutX="40.0" layoutY="542.0" prefWidth="68.0" text="Acabado" />
+    <Label layoutX="275.0" layoutY="542.0" text="Factor" />
+    <TextField id="factorEliminar" disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
   </children>
+  <stylesheets>
+    <URL value="@Botones.css" />
+  </stylesheets>
 </AnchorPane>

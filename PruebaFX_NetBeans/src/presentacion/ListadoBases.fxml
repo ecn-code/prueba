@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
@@ -8,29 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="493.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoBasesController">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoBasesController">
   <children>
-    <Label alignment="CENTER" depthTest="INHERIT" layoutX="35.0" layoutY="34.0" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Bases" />
-    <TableView fx:id="tableView" layoutX="39.0" layoutY="104.0" prefHeight="404.0" prefWidth="393.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList" />
-      </items>
-      <sortOrder>
-        <TableColumn prefWidth="100.0" text="Id">
-          <cellFactory>
-         
-          </cellFactory>
-          <cellValueFactory>
-            <PropertyValueFactory property="id" />
-          </cellValueFactory>
-        </TableColumn>
-      </sortOrder>
-    </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="67.0" layoutY="519.0" prefWidth="136.0" promptText="Nombre" />
-    <Button layoutX="293.0" layoutY="519.0" onAction="#anyadirBase" prefWidth="68.0" text="Añadir" />
-    <Button layoutX="361.0" layoutY="73.0" mnemonicParsing="false" onAction="#eliminarBase" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
-    <Label fx:id="lblErrorNombre" layoutX="64.0" layoutY="547.0" prefHeight="21.0" prefWidth="159.9998779296875" text="" textFill="RED" />
-    <MenuBar id="menuBar" layoutX="-1.0" layoutY="0.0" prefWidth="452.9998779296875">
+    <MenuBar id="menuBar" layoutX="-1.0" layoutY="0.0" prefWidth="601.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -59,5 +40,26 @@
         </Menu>
       </menus>
     </MenuBar>
+    <Label fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="110.0" style="" text="Bases" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="537.0" mnemonicParsing="false" onAction="#eliminarBase" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <TableView fx:id="tableView" layoutX="40.0" layoutY="118.0" prefHeight="334.0" prefWidth="520.0000999999975">
+      <sortOrder>
+        <TableColumn prefWidth="100.0" text="Id">
+          <cellValueFactory>
+            <PropertyValueFactory property="id" />
+          </cellValueFactory>
+        </TableColumn>
+      </sortOrder>
+    </TableView>
+    <TextField id="lastNameField" fx:id="txtNombre" layoutX="136.0" layoutY="471.0" prefWidth="136.0" promptText="Nombre" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="467.0" minHeight="21.0" onAction="#anyadirBase" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
+    <Label layoutX="40.0" layoutY="471.0" text="Base" />
+    <Separator layoutX="40.0" layoutY="513.0" prefHeight="7.0" prefWidth="520.9998779296875" />
+    <TextField disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
+    <Label layoutX="40.0" layoutY="538.0" prefWidth="59.0" text="Base" />
   </children>
+  <stylesheets>
+    <URL value="@Botones.css" />
+  </stylesheets>
 </AnchorPane>

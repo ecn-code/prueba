@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
@@ -8,43 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="493.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoBasesController_ComboBox">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoBasesController_ComboBox">
   <children>
-    <TableView fx:id="tableView" layoutX="69.0" layoutY="62.0" prefHeight="404.0" prefWidth="393.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList" />
-      </items>
-      <sortOrder>
-        <TableColumn prefWidth="100.0" text="Id">
-          <cellValueFactory>
-            <PropertyValueFactory property="id" />
-          </cellValueFactory>
-        </TableColumn>
-      </sortOrder>
-    </TableView>
-    <Label alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="31.0" prefWidth="162.0" style="-fx-font: NORMAL 20 Tahoma;" text="AditivosDeLaBase" />
-    <Button layoutX="369.0" layoutY="482.0" onAction="#anyadirAditivoBase" prefWidth="68.0" text="Añadir" />
-    <Button layoutX="357.0" layoutY="540.0" mnemonicParsing="false" onAction="#eliminarAditivoBase" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
-    <TextField id="lastNameField" fx:id="txtCantidad" layoutX="182.0" layoutY="482.0" prefWidth="136.0" promptText="Cantidad" />
-    <ComboBox fx:id="aditivosChoiceBox" layoutX="77.0" layoutY="483.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ComboBox>
-    <ComboBox id="aditivosChoiceBox" fx:id="elegirBase" layoutX="286.0" layoutY="30.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ComboBox>
-    <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="452.9998779296875">
+    <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="600.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -73,5 +40,51 @@
         </Menu>
       </menus>
     </MenuBar>
+    <TableView fx:id="tableView" layoutX="40.0" layoutY="165.0" prefHeight="299.0" prefWidth="520.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+      <sortOrder>
+        <TableColumn prefWidth="100.0" text="Id">
+          <cellValueFactory>
+            <PropertyValueFactory property="id" />
+          </cellValueFactory>
+        </TableColumn>
+      </sortOrder>
+    </TableView>
+    <Button layoutX="492.0" layoutY="481.0" onAction="#anyadirAditivoBase" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
+    <Button layoutX="492.0" layoutY="552.0" mnemonicParsing="false" onAction="#eliminarAditivoBase" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="276.9999000000025" style="" text="Aditivos a Base" />
+    <ComboBox id="elegirPigmento" fx:id="elegirBase" layoutX="82.0" layoutY="134.0" prefHeight="21.0" prefWidth="165.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <ComboBox id="elegirBase" fx:id="aditivosChoiceBox" layoutX="97.0" layoutY="484.0" prefHeight="21.0" prefWidth="150.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <TextField id="lastNameField" fx:id="txtCantidad" layoutX="339.0" layoutY="483.0" prefWidth="136.0" promptText="Nombre" text="Cantidad" />
+    <Label id="lblErrorNombre" layoutX="339.0" layoutY="508.0" prefHeight="21.0" prefWidth="136.0" text="" />
+    <Label layoutX="40.0" layoutY="134.0" prefWidth="71.0" text="Base" />
+    <Label layoutX="40.0" layoutY="482.0" prefWidth="50.000099999997474" text="Aditivo" />
+    <Label layoutX="267.0" layoutY="482.0" text="Cantidad" />
+    <Separator layoutX="40.0" layoutY="531.0" prefWidth="517.0" />
+    <TextField disable="true" layoutX="82.0" layoutY="553.0" prefWidth="165.0" />
+    <Label layoutX="40.0" layoutY="553.0" prefWidth="42.0" text="Base" />
+    <Label layoutX="268.0" layoutY="553.0" text="Aditivo" />
+    <TextField disable="true" layoutX="339.0" layoutY="553.0" prefWidth="136.0" />
   </children>
+  <stylesheets>
+    <URL value="@Botones.css" />
+  </stylesheets>
 </AnchorPane>

@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="453.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoProductosController">
+<AnchorPane id="fondo" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoProductosController">
   <children>
-    <Label alignment="CENTER" depthTest="INHERIT" layoutX="48.0" layoutY="40.0" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Productos" />
-    <Button layoutX="347.0" layoutY="576.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
-    <TableView fx:id="tableView" layoutX="30.0" layoutY="84.0" prefHeight="404.0" prefWidth="393.0">
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="186.0" style="" text="Productos" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="541.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <TableView fx:id="tableView" layoutX="40.0" layoutY="124.0" prefHeight="334.0" prefWidth="520.0000999999975">
       <sortOrder>
         <TableColumn prefWidth="100.0" text="Id">
           <cellValueFactory>
@@ -22,12 +22,12 @@
         </TableColumn>
       </sortOrder>
     </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="48.0" layoutY="537.0" prefWidth="136.0" promptText="Nombre" />
-    <TextField id="emailField" fx:id="txtFactor" layoutX="202.0" layoutY="537.0" prefWidth="136.0" promptText="Factor" />
-    <Label fx:id="lblErrorFactor" layoutX="202.0" layoutY="565.0" prefHeight="21.0" prefWidth="145.0" text="" textFill="RED" visible="true" />
-    <Label fx:id="lblErrorNombre" layoutX="24.0" layoutY="565.0" prefHeight="21.0" prefWidth="159.9998779296875" text="" textFill="RED" />
-    <Button layoutX="355.0" layoutY="538.0" onAction="#anyadirProducto" prefWidth="68.0" text="Añadir" />
-    <MenuBar id="menuBar" layoutX="0.0" layoutY="-1.0" prefWidth="452.9998779296875">
+    <TextField id="lastNameField" fx:id="txtNombre" layoutX="109.0" layoutY="474.0" prefWidth="136.0" promptText="Nombre" />
+    <TextField id="emailField" fx:id="txtFactor" layoutX="329.0" layoutY="474.0" prefWidth="136.0" promptText="Factor" />
+    <Label fx:id="lblErrorFactor" layoutX="329.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
+    <Label fx:id="lblErrorNombre" layoutX="109.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="473.0" minHeight="21.0" onAction="#anyadirProducto" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
+    <MenuBar id="menuBar" layoutX="0.0" layoutY="-1.0" prefWidth="600.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -56,6 +56,13 @@
         </Menu>
       </menus>
     </MenuBar>
+    <Label layoutX="40.0" layoutY="474.0" text="Nombre" />
+    <Label layoutX="275.0" layoutY="475.0" text="Factor" />
+    <Separator layoutX="40.0" layoutY="520.0" prefWidth="521.0" />
+    <TextField disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
+    <Label layoutX="40.0" layoutY="541.0" prefWidth="59.0" text="Nombre" />
+    <Label layoutX="275.0" layoutY="542.0" text="Factor" />
+    <TextField disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

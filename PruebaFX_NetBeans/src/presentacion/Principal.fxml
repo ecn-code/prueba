@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="565.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.PrincipalController">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.PrincipalController">
   <children>
-    <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="565.0">
+    <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="600.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio" />
         <Menu mnemonicParsing="false" text="Listados" fx:id="menuProductos">
@@ -33,5 +35,15 @@
         </Menu>
       </menus>
     </MenuBar>
+    <ImageView id="microcemento-topciment.gif" layoutX="10.0" layoutY="54.0">
+      <image>
+        <Image url="@../../../../../../Desktop/microcemento-topciment.gif" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <Label layoutX="190.0" layoutY="202.0" text="Calculadora de pigmentos" />
+    <Label layoutX="260.0" layoutY="229.0" prefWidth="43.49993896484375" text="V 1.0" />
   </children>
+  <stylesheets>
+    <URL value="@Botones.css" />
+  </stylesheets>
 </AnchorPane>

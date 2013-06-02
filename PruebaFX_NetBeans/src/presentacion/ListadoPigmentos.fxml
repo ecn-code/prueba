@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
@@ -8,29 +9,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="493.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentosController">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentosController">
   <children>
-    <Label alignment="CENTER" depthTest="INHERIT" layoutX="36.0" layoutY="53.0" prefWidth="109.0" style="-fx-font: NORMAL 20 Tahoma;" text="Pigmentos" />
-    <TableView fx:id="tableView" layoutX="50.0" layoutY="103.0" prefHeight="404.0" prefWidth="393.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList" />
-      </items>
-      <sortOrder>
-        <TableColumn prefWidth="100.0" text="Id">
-          <cellFactory>
-          
-          </cellFactory>
-          <cellValueFactory>
-            <PropertyValueFactory property="id" />
-          </cellValueFactory>
-        </TableColumn>
-      </sortOrder>
-    </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="66.0" layoutY="548.0" prefWidth="136.0" promptText="Nombre" />
-    <Label fx:id="lblErrorNombre" layoutX="66.0" layoutY="580.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
-    <Button layoutX="111.0" layoutY="516.0" onAction="#anyadirPigmento" prefWidth="68.0" text="Añadir" />
-    <Button layoutX="337.0" layoutY="66.0" mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="23.0" prefWidth="68.0" text="Eliminar" />
-    <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="452.9998779296875">
+    <Label fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
+    <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="600.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -59,5 +41,25 @@
         </Menu>
       </menus>
     </MenuBar>
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="191.0" style="" text="Pigmentos" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="535.0" mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+    <TableView fx:id="tableView" layoutX="40.0" layoutY="118.0" prefHeight="334.0" prefWidth="520.0000999999975">
+      <sortOrder>
+        <TableColumn prefWidth="100.0" text="Id">
+          <cellValueFactory>
+            <PropertyValueFactory property="id" />
+          </cellValueFactory>
+        </TableColumn>
+      </sortOrder>
+    </TableView>
+    <TextField id="lastNameField" fx:id="txtNombre" layoutX="136.0" layoutY="471.0" prefWidth="136.0" promptText="Nombre" />
+    <Button id="ipad-grey2" layoutX="493.0" layoutY="467.0" minHeight="21.0" onAction="#anyadirPigmento" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
+    <Label layoutX="40.0" layoutY="471.0" text="Nombre" />
+    <Separator layoutX="40.0" layoutY="513.0" prefHeight="7.0" prefWidth="520.9998779296875" />
+    <TextField disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
+    <Label layoutX="40.0" layoutY="538.0" prefWidth="59.0" text="Nombre" />
   </children>
+  <stylesheets>
+    <URL value="@Botones.css" />
+  </stylesheets>
 </AnchorPane>

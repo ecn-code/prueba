@@ -189,7 +189,7 @@ public class PrincipalController implements Initializable{
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("listadoPigmentos.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
