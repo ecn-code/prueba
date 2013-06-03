@@ -298,18 +298,17 @@ public class ListadoPigmentosController implements Initializable{
        });
       
         tableView.setEditable(true);
-        tableView.setMaxWidth(400);
+        tableView.setMaxWidth(520);
         TableColumn Id=new TableColumn("Id");
         TableColumn Nombre=new TableColumn("Nombre");
-        Id.setMinWidth(100);
-        Nombre.setMinWidth(200);
+        Id.setMinWidth(200);
+        Nombre.setMinWidth(320);
       Id.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Id"));
       Nombre.setCellValueFactory(new PropertyValueFactory<Pigmento,String>("Nombre"));
       tableView.getColumns().addAll(Id,Nombre);
-      tableView.setTableMenuButtonVisible(true);
       cargar();
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
+    Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
+    Nombre.setOnEditCommit(
     new EventHandler<CellEditEvent<Pigmento, String>>() {
         @Override
         public void handle(CellEditEvent<Pigmento, String> t) {
@@ -366,7 +365,7 @@ public class ListadoPigmentosController implements Initializable{
       
         }
     }
-);*/
+);
     
         }
     

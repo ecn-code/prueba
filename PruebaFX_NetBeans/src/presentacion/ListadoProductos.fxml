@@ -22,12 +22,12 @@
         </TableColumn>
       </sortOrder>
     </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="109.0" layoutY="474.0" prefWidth="136.0" promptText="Nombre" />
+    <TextField id="lastNameField" fx:id="txtNombre" layoutX="110.0" layoutY="474.0" prefWidth="136.0" promptText="Nombre" />
     <TextField id="emailField" fx:id="txtFactor" layoutX="329.0" layoutY="474.0" prefWidth="136.0" promptText="Factor" />
-    <Label fx:id="lblErrorFactor" layoutX="329.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
-    <Label fx:id="lblErrorNombre" layoutX="109.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
+    <Label id="label-error" fx:id="lblErrorFactor" layoutX="329.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
+    <Label id="label-error" fx:id="lblErrorNombre" layoutX="109.0" layoutY="498.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
     <Button id="ipad-grey2" layoutX="493.0" layoutY="473.0" minHeight="21.0" onAction="#anyadirProducto" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
-    <MenuBar id="menuBar" layoutX="0.0" layoutY="-1.0" prefWidth="600.0">
+    <MenuBar id="label-normal" layoutX="1.0" layoutY="-2.0" prefWidth="600.0" style="&#10;">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
           <items>
@@ -56,12 +56,12 @@
         </Menu>
       </menus>
     </MenuBar>
-    <Label layoutX="40.0" layoutY="474.0" text="Nombre" />
-    <Label layoutX="275.0" layoutY="475.0" text="Factor" />
+    <Label id="label-normal" layoutX="40.0" layoutY="474.0" text="Producto" />
+    <Label id="label-normal" layoutX="275.0" layoutY="475.0" text="Factor" />
     <Separator layoutX="40.0" layoutY="520.0" prefWidth="521.0" />
     <TextField fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="110.0" layoutY="542.0" prefWidth="136.0" />
-    <Label layoutX="40.0" layoutY="541.0" prefWidth="59.0" text="Nombre" />
-    <Label layoutX="275.0" layoutY="542.0" text="Factor" />
+    <Label id="label-normal" layoutX="40.0" layoutY="541.0" prefWidth="65.0" text="Producto" />
+    <Label id="label-normal" layoutX="275.0" layoutY="542.0" text="Factor" />
     <TextField fx:id="txtFactorEliminar" disable="true" editable="false" layoutX="329.0" layoutY="543.0" prefWidth="136.00009999999747" />
   </children>
   <stylesheets>

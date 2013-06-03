@@ -161,6 +161,7 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
             if(!error){
          controlador.asociarBasePigmento(pigmento,base, Double.parseDouble(cantidad));
            cargarBases(pigmento.getId());
+           txtCantidad.setText("");
             }
     }
     
@@ -336,18 +337,17 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
 
        elegirPigmento.setItems(null);
         tableView.setEditable(true);
-        tableView.setMaxWidth(400);
+        tableView.setMaxWidth(520);
         TableColumn Id=new TableColumn("Id");
         TableColumn Nombre=new TableColumn("Nombre");
         TableColumn Porcentaje=new TableColumn("Porcentaje");
         Id.setMinWidth(100);
-        Nombre.setMinWidth(100);
-        Porcentaje.setMinWidth(100);
+        Nombre.setMinWidth(270);
+        Porcentaje.setMinWidth(150);
       Id.setCellValueFactory(new PropertyValueFactory<Base,String>("Id"));
       Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
       Porcentaje.setCellValueFactory(new PropertyValueFactory<Base,String>("Porcentaje"));
       tableView.getColumns().addAll(Id,Nombre,Porcentaje);
-      tableView.setTableMenuButtonVisible(true);
       cargarPigmentos(); 
    // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
    /* Nombre.setOnEditCommit(

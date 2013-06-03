@@ -305,18 +305,17 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
     
       
         tableView.setEditable(true);
-        tableView.setMaxWidth(400);
+        tableView.setMaxWidth(520);
         TableColumn Id=new TableColumn("Id");
         TableColumn Nombre=new TableColumn("Nombre");
         TableColumn Factor=new TableColumn("Factor");
         Id.setMinWidth(100);
-        Factor.setMinWidth(100);
-        Nombre.setMinWidth(200);
+        Factor.setMinWidth(150);
+        Nombre.setMinWidth(270);
       Id.setCellValueFactory(new PropertyValueFactory<Acabado,String>("Id"));
       Nombre.setCellValueFactory(new PropertyValueFactory<Acabado,String>("Nombre"));
       Factor.setCellValueFactory(new PropertyValueFactory("Factor"));
       tableView.getColumns().addAll(Id,Nombre,Factor);
-      tableView.setTableMenuButtonVisible(true);
       botonEliminar.setDisable(true);
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 

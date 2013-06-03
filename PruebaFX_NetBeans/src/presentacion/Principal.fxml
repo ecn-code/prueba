@@ -35,13 +35,13 @@
         </Menu>
       </menus>
     </MenuBar>
-    <ImageView id="microcemento-topciment.gif" layoutX="10.0" layoutY="54.0">
+    <ImageView id="microcemento-topciment.gif" layoutX="175.0" layoutY="95.0">
       <image>
-        <Image url="@../../../../../../Desktop/microcemento-topciment.gif" preserveRatio="true" smooth="true" />
+        <Image url="@microcemento-topciment.gif" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <Label layoutX="190.0" layoutY="202.0" text="Calculadora de pigmentos" />
-    <Label layoutX="260.0" layoutY="229.0" prefWidth="43.49993896484375" text="V 1.0" />
+    <Label id="label-normal" layoutX="208.0" layoutY="231.0" text="Calculadora de pigmentos" />
+    <Label id="label-normal" layoutX="278.0" layoutY="253.0" prefWidth="43.49993896484375" text="V 1.0" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

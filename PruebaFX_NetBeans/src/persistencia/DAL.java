@@ -124,6 +124,9 @@ public void asociarBasePigmento(Pigmento pigmento,Base base,Double cantidad) thr
 public void modificarBase(Base base) throws DAOExcepcion{
     ibaseDAO.modificarBase(base);
 }
+public void modificarPigmento(Pigmento pigmento) throws DAOExcepcion{
+    ipigmentoDAO.modificarPigmento(pigmento);
+}
 public void eliminarBase(Base base) throws DAOExcepcion{
     ibaseDAO.eliminarBase(base);
 }

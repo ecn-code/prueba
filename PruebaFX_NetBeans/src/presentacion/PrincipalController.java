@@ -215,7 +215,7 @@ public class PrincipalController implements Initializable{
 
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
-
+        calcular.hide();
         stage.show();
            }
        });

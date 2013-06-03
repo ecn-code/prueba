@@ -157,7 +157,6 @@ public class CalcularController implements Initializable, ControlledScreen{
    
     public Base calculo(Base _base,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad){
        Double factor=Double.parseDouble(_producto.getFactor())*Double.parseDouble(_acabado.getFactor())*_base.getPorcentaje();
-       factor=Math.round(factor*100)/100d;
        Double factorAditivos=_base.getFactorBase();
        Double resultado100g=factor+factor*factorAditivos;
        Double resultadParaCantidadSeleccionada=(resultado100g*_cantidad)/0.1;
@@ -290,6 +289,7 @@ public class CalcularController implements Initializable, ControlledScreen{
                }
     
         stage.setTitle("Inicio");
+        inicio.hide();
         stage.setScene(new Scene(root));
         stage.show();
  
@@ -322,12 +322,11 @@ public class CalcularController implements Initializable, ControlledScreen{
         tableView.setMaxWidth(400);
         TableColumn Nombre=new TableColumn("Base");
         TableColumn Cantidad=new TableColumn("Cantidad(g)");
-        Cantidad.setMinWidth(100);
+        Cantidad.setMinWidth(200);
         Nombre.setMinWidth(200);
       Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
       Cantidad.setCellValueFactory(new PropertyValueFactory("Porcentaje"));
       tableView.getColumns().addAll(Nombre,Cantidad);
-      tableView.setTableMenuButtonVisible(true);
        try {
            cargarPigmentos();
        } catch (DAOExcepcion ex) {

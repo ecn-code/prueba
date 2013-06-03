@@ -54,10 +54,10 @@
       </sortOrder>
     </TableView>
     <Button id="ipad-grey2" layoutX="493.0" layoutY="468.0" minHeight="21.0" onAction="#anyadirAditivo" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
-    <Label layoutX="40.0" layoutY="471.0" prefWidth="59.0" text="Aditivo" />
+    <Label id="label-normal" layoutX="40.0" layoutY="471.0" prefWidth="59.0" text="Aditivo" />
     <Separator layoutX="40.0" layoutY="518.0" prefHeight="7.0" prefWidth="520.9998779296875" />
     <TextField fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
-    <Label layoutX="40.0" layoutY="537.0" prefWidth="59.0" text="Aditivo" />
+    <Label id="label-normal" layoutX="40.0" layoutY="537.0" prefWidth="59.0" text="Aditivo" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

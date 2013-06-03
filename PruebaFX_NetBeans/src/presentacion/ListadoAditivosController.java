@@ -297,12 +297,12 @@ public class ListadoAditivosController implements Initializable, ControlledScree
        });
       
         tableView.setEditable(true);
-        tableView.setMaxWidth(400);
+        tableView.setMaxWidth(520);
         TableColumn Nombre=new TableColumn("Nombre");
-        Nombre.setMinWidth(200);
+        Nombre.setMinWidth(520);
       Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
       tableView.getColumns().addAll(Nombre);
-      tableView.setTableMenuButtonVisible(true);
+      
       cargar();
    // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
    /* Nombre.setOnEditCommit(

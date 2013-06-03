@@ -299,18 +299,18 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
        });
       
         tableView.setEditable(true);
-        tableView.setMaxWidth(400);
+        tableView.setMaxWidth(520);
         TableColumn Id=new TableColumn("Id");
         TableColumn Nombre=new TableColumn("Nombre");
         Id.setMinWidth(100);
-        Nombre.setMinWidth(200);
+        Nombre.setMinWidth(420);
       Id.setCellValueFactory(new PropertyValueFactory<Base,String>("Id"));
       Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
       tableView.getColumns().addAll(Id,Nombre);
-      tableView.setTableMenuButtonVisible(true);
+      
       cargar();
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
+   Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
+    Nombre.setOnEditCommit(
     new EventHandler<CellEditEvent<Base, String>>() {
         @Override
         public void handle(CellEditEvent<Base, String> t) {
@@ -367,7 +367,7 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
       
         }
     }
-);*/
+);
     
         }
     

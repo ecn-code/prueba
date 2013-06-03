@@ -53,6 +53,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -65,6 +66,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
@@ -81,11 +83,9 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     private String cantidad;
     Base base;
     Aditivo aditivo;
-    private Label lblErrorCantidad,lblErrorBase,lblErrorAditivo;
-    @FXML
-    private TextField txtCantidad,txtEliminarAditivo,txtEliminarCantidad;
-    //@FXML
-    //private Label lblErrorCantidad;
+    @FXML private Button btnEliminar;
+    @FXML private Label lblErrorCantidad,lblErrorBase,lblErrorAditivo;
+    @FXML private TextField txtCantidad,txtEliminarAditivo,txtEliminarCantidad;
     @FXML private ComboBox elegirBase;
      @FXML private ComboBox aditivosChoiceBox;
          @FXML MenuItem listadoAcabado;
@@ -104,29 +104,80 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        Controlador controlador= Controlador.dameControlador();
        base=base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
        aditivo=tableView.getSelectionModel().getSelectedItem();
-       controlador.eliminaAsociacionAditivo(base, aditivo);
-       cargarAditivos(base.getId());
+       int answer= MessageBox.show(stage,
+        "Estas seguro de que quieres eliminar este aditivo?",
+        "Information dialog",
+        MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
+        System.out.println(answer);
+        if(answer==65536){
+            controlador.eliminaAsociacionAditivo(base, aditivo);
+            cargarAditivos(base.getId());
+            txtEliminarAditivo.setText("");
+            txtEliminarCantidad.setText("");
+            btnEliminar.setDisable(true);
+        }  
         }
 
     public void anyadirAditivoBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
-       cantidad=txtCantidad.getText();
+       cantidad=txtCantidad.getText().trim().replace(',', '.');
        base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
        aditivo=(Aditivo)aditivosChoiceBox.getSelectionModel().getSelectedItem();
-    if(cantidad.equals(""))
-             error=true;
+       
+        if(base==null){
+           error=true;
+           lblErrorBase.setText("Selecciona una Base");
+       }else{
+          lblErrorBase.setText("");
+       }
+        if(aditivo==null){
+           error=true;
+           lblErrorAditivo.setText("Selecciona un Aditivo");
+       }else{
+          lblErrorAditivo.setText("");
+       }
+     if(cantidad.equals("")){
+   lblErrorCantidad.setText("Introduce cantidad");
+   error=true;
+    }else{
+    lblErrorCantidad.setText(""); 
+   }
+       for(char x: cantidad.toCharArray()){
+            if(Character.isLetter(x)){
+                error=true;
+                lblErrorCantidad.setText("No introducir letras");
+                txtCantidad.setText("");
+                break;
+            }else{
+               lblErrorCantidad.setText(""); 
+            }
+            } 
             if(!error){
            aditivo.setCantidad(Double.parseDouble(cantidad));
            controlador.asociarAditivo(base, aditivo);
            cargarAditivos(base.getId());
+           txtCantidad.setText("");
             }
             
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
+         btnEliminar.setDisable(false);
+      tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent t) {
+                Aditivo aditivo= tableView.getSelectionModel().getSelectedItem();
+                if(base!=null){
+                    txtEliminarAditivo.setText(aditivo.getNombre());
+                    txtEliminarCantidad.setText(aditivo.getCantidad().toString());
+                    btnEliminar.setDisable(false);
+                }
+            }
+        });
         
         stage = ObjetoCompartido.dameLo().getStage();
           
@@ -260,6 +311,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
                }
 
         stage.setTitle("Calcular");
+        calcular.hide();
         stage.setScene(new Scene(root));
         stage.show();
         inicio.hide();
@@ -281,76 +333,15 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
 
        elegirBase.setItems(null);
         tableView.setEditable(true);
-        tableView.setMaxWidth(400);
+        tableView.setMaxWidth(520);
         TableColumn Nombre=new TableColumn("Nombre");
         TableColumn Cantidad=new TableColumn("Cantidad");
-        Nombre.setMinWidth(200);
+        Nombre.setMinWidth(320);
         Cantidad.setMinWidth(200);
       Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
       Cantidad.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Cantidad"));
       tableView.getColumns().addAll(Nombre,Cantidad);
-      tableView.setTableMenuButtonVisible(true);
-      cargarBases();
-   // Cantidad.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Cantidad.setOnEditCommit(
-    new EventHandler<CellEditEvent<Pigmento, String>>() {
-        @Override
-        public void handle(CellEditEvent<Pigmento, String> t) {
-               Controlador controlador = null;
-               Pigmento pigmento=null;
-               Stage stage=new Stage();
-        try {
-            controlador=controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            try {
-                pigmento=controlador.getPigmento(t.getNewValue());
-            } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                this.finalize();
-            } catch (Throwable ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             if(t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"El cantidad del pigmento no  puede estar vacio",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-            }
-            if(pigmento==null && !t.getNewValue().trim().equals("")){
-               ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow())
-                ).setCantidad(t.getNewValue());
-               Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow()));
-               pigmentoA.setCantidad(t.getNewValue().trim());
-                   try {
-                       controlador.modificarPigmento(pigmentoA);
-                   } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               cargar();
-            }
-           
-            if(pigmento!= null && !t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"Ese pigmento ya existe, introduzca un cantidad distinto",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-    
-            }
-      
-        }
-    }
-);*/
-    
+      cargarBases();    
         }
     
     

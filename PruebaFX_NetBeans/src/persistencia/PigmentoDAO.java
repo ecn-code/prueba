@@ -96,7 +96,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 		try{
 			connManager.connect();
 			connManager.updateDB("UPDATE PIGMENTO SET NOMBRE = '" + pigmento.getNombre()+ 
-                        "'WHERE ID = " + pigmento.getId());
+                        "'WHERE IDP = " + pigmento.getId());
 			connManager.close();
 
 		}catch (DAOExcepcion e){

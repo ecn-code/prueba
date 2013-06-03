@@ -76,7 +76,7 @@ public class BaseDAO implements IBaseDAO{
     public void modificarBase(Base base) throws DAOExcepcion {
     try{
 			connManager.connect();
-			connManager.updateDB("UPDATE ADITIVOS SET NOMBRE = '" + base.getNombre()+ 
+			connManager.updateDB("UPDATE BASES SET NOMBRE = '" + base.getNombre()+ 
                         "'WHERE IDB = " + base.getId());
 			connManager.close();
 

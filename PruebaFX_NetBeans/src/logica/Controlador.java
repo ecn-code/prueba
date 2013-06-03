@@ -56,7 +56,9 @@ public class Controlador {
           public void eliminarPigmento(Pigmento pigmento) throws DAOExcepcion {
          dal.eliminarPigmento(pigmento);
         }
-  
+          public void modificarPigmento(Pigmento pigmento) throws DAOExcepcion{
+        dal.modificarPigmento(pigmento);
+}
         public void insertarAcabado(Acabado acabado) throws DAOExcepcion {
 	dal.insertarAcabado(acabado);
         }
