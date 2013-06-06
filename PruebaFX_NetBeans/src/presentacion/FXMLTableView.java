@@ -87,8 +87,8 @@ public class FXMLTableView extends Application {
        
          try {
                 rt = Runtime.getRuntime();
-                //Process pr = rt.exec("cmd /c dir");
-                 pr= rt.exec("c:\\hsqldb\\bin\\runServer.bat CALCPIGMENTOS CALCPIGMENTOS");
+                Process pr  =  rt.exec("C:\\Users\\Elias\\Documents\\GitHub\\prueba\\PruebaFX_NetBeans\\hsqldb\\bin\\runServer.bat CALCPIGMENTOS CALCPIGMENTOS");
+                // pr= rt.exec("hsqldb\\bin\\runServer.bat CALCPIGMENTOS CALCPIGMENTOS");
  
                 BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
  
@@ -97,7 +97,7 @@ public class FXMLTableView extends Application {
                 while((line=input.readLine()) != null) {
                     System.out.println(line);
                 }
- 
+  
                 int exitVal = pr.waitFor();
                 System.out.println("Exited with error code "+exitVal);
  
