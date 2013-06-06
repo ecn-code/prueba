@@ -313,16 +313,12 @@ public class CalcularController implements Initializable, ControlledScreen{
         stage.show();
            }
        });
-             
-       
-        
-             
-        
+            
          tableView.setEditable(true);
         tableView.setMaxWidth(400);
         TableColumn Nombre=new TableColumn("Base");
         TableColumn Cantidad=new TableColumn("Cantidad(g)");
-        Cantidad.setMinWidth(200);
+        Cantidad.setMinWidth(150);
         Nombre.setMinWidth(200);
       Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
       Cantidad.setCellValueFactory(new PropertyValueFactory("Porcentaje"));

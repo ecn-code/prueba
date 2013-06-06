@@ -111,10 +111,11 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         System.out.println(answer);
         if(answer==65536){
             controlador.eliminaAsociacionAditivo(base, aditivo);
-            cargarAditivos(base.getId());
             txtEliminarAditivo.setText("");
             txtEliminarCantidad.setText("");
             btnEliminar.setDisable(true);
+            aditivosChoiceBox.setPromptText("Selecciona");
+            cargarAditivos(base.getId());
         }  
         }
 
@@ -159,19 +160,19 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
            controlador.asociarAditivo(base, aditivo);
            cargarAditivos(base.getId());
            txtCantidad.setText("");
+           
             }
             
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-         btnEliminar.setDisable(false);
+         btnEliminar.setDisable(true);
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent t) {
                 Aditivo aditivo= tableView.getSelectionModel().getSelectedItem();
-                if(base!=null){
+                if(aditivo!=null){
                     txtEliminarAditivo.setText(aditivo.getNombre());
                     txtEliminarCantidad.setText(aditivo.getCantidad().toString());
                     btnEliminar.setDisable(false);

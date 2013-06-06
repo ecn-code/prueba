@@ -84,7 +84,7 @@
     <TextField id="aditivoEliminar" fx:id="cantidadEliminar" disable="true" layoutX="339.0" layoutY="552.0" prefWidth="136.0" />
     <Label id="label-error" fx:id="lblErrorCantidad" layoutX="339.0" layoutY="509.0" prefHeight="22.0" prefWidth="136.0" text="" />
     <Label id="label-error" fx:id="lblErrorBase" layoutX="80.0" layoutY="507.0" prefWidth="169.0" text="" />
-    <Label fx:id="lblErrorPigmento" layoutX="300.0" layoutY="134.0" prefWidth="165.0" text="" />
+    <Label id="label-error" fx:id="lblErrorPigmento" layoutX="300.0" layoutY="135.0" prefWidth="165.0" text="" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

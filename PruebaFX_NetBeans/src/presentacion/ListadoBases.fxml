@@ -40,7 +40,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <Label fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
+    <Label id="label-error" fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
     <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="110.0" style="" text="Bases" />
     <Button id="ipad-grey2" fx:id="botonEliminar" layoutX="493.0" layoutY="537.0" mnemonicParsing="false" onAction="#eliminarBase" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
     <TableView fx:id="tableView" layoutX="40.0" layoutY="118.0" prefHeight="334.0" prefWidth="520.0000999999975">
