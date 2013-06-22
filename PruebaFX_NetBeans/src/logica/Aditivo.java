@@ -47,4 +47,8 @@ public class Aditivo {
     @Override public String toString() {
      return nombre.get();
      }
+
+    public void setCantidad(String cantidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

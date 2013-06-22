@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Pigmento {
-    private ArrayList<Base> bases = new ArrayList<Base>();
+    private ArrayList<Color> colores = new ArrayList<Color>();
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private final SimpleStringProperty nombre = new SimpleStringProperty("");
 
@@ -34,12 +34,12 @@ public class Pigmento {
         id.set(fName);
     }
 
-    public ArrayList<Base> getBases() {
-        return bases;
+    public ArrayList<Color> getColores() {
+        return colores;
     }
 
-    public void setBases(ArrayList<Base> bases) {
-        this.bases = bases;
+    public void setColores(ArrayList<Color> colores) {
+        this.colores = colores;
     }
 
     public String getNombre() {

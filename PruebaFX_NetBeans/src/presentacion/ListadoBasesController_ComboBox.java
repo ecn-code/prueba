@@ -72,6 +72,7 @@ import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import logica.Aditivo;
 import logica.Base;
+import logica.Color;
 import logica.Pigmento;
 import logica.Controlador;
 import logica.Pigmento;
@@ -90,7 +91,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
      @FXML private ComboBox aditivosChoiceBox;
          @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
-                    @FXML MenuItem listadoAditivo;
+                    @FXML MenuItem listadoAditivo,listadoPeso;
                             @FXML MenuItem listadoBase;
                             @FXML MenuItem listadoProducto;
     @FXML MenuItem aditivoABase;
@@ -101,6 +102,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     
    @FXML
     public void eliminarAditivoBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+       /*
        Controlador controlador= Controlador.dameControlador();
        base=base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
        aditivo=tableView.getSelectionModel().getSelectedItem();
@@ -117,10 +119,11 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             aditivosChoiceBox.setPromptText("Selecciona");
             cargarAditivos(base.getId());
         }  
+        * */
         }
 
     public void anyadirAditivoBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
-        Stage stage=new Stage();
+        /*Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
        cantidad=txtCantidad.getText().trim().replace(',', '.');
@@ -162,7 +165,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
            txtCantidad.setText("");
            
             }
-            
+            */
     }
     
     @Override
@@ -318,7 +321,22 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         inicio.hide();
            }
        });
-        
+        listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Pesos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
        elegirBase.getSelectionModel().selectedIndexProperty().addListener(new
             ChangeListener<Number>() {
                 public void changed(ObservableValue ov,
@@ -342,12 +360,12 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
       Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
       Cantidad.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Cantidad"));
       tableView.getColumns().addAll(Nombre,Cantidad);
-      cargarBases();    
+     // cargarBases();    
         }
     
     
     public void cargarAditivos(int idb) throws DAOExcepcion{
-        
+        /*
                     Controlador controlador = null;
 
   ArrayList<Aditivo> aditivos=new ArrayList<Aditivo>();
@@ -368,30 +386,19 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        ObservableList<Aditivo> aditivosConvertidosParaTabla = FXCollections.observableList(aditivos);  
      
        ArrayList<Aditivo> aditivosChoiceBoxx = controlador.getAditivosNoAsociados(idb);
-       /*
-       
-       ObservableList<Aditivo> aditivosOVChoiceBox = null;
-       if(aditivos.size()>0){
-       for(Aditivo aditivoOV : aditivosTodos)
-           for(Aditivo aditivoOV2 : aditivos)
-           if(!aditivoOV.getCantidad().equals(aditivoOV2.getCantidad()))aditivosChoiceBoxx.add(aditivoOV);
-       
-       aditivosOVChoiceBox = FXCollections.observableList(aditivosChoiceBoxx); 
-       }else{
-          
-       aditivosOVChoiceBox = FXCollections.observableList(aditivosTodos); 
-       }
-       */
+     
        ObservableList<Aditivo>  aditivosOVChoiceBox = FXCollections.observableList(aditivosChoiceBoxx); 
        aditivosChoiceBox.setItems(aditivosOVChoiceBox);
        tableView.setItems(aditivosConvertidosParaTabla);
+       
     }
-    
-    public  void cargarBases(){
+ */
+        }
+           public  void cargarColores(){
         
                     Controlador controlador = null;
 
-  ArrayList<Base> bases=new ArrayList<Base>();
+            ArrayList<Color> colores=new ArrayList<Color>();
 
         try {
             controlador = Controlador.dameControlador();
@@ -401,15 +408,16 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            bases=controlador.getBases();
+            colores=controlador.getColores();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Base> bases2 = FXCollections.observableList(bases);  
-       elegirBase.setItems(bases2);
+       ObservableList<Color> colores2 = FXCollections.observableList(colores);  
+       elegirBase.setItems(colores2);
  
     }
+    
     
 
     @Override

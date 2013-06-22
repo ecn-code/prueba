@@ -10,6 +10,7 @@ import excepciones.DAOExcepcion;
 import logica.Acabado;
 import logica.Aditivo;
 import logica.Base;
+import logica.Color;
 import logica.Pigmento;
 
 
@@ -38,8 +39,8 @@ public class BaseDAO implements IBaseDAO{
 			try {
 				DAL dal = DAL.dameDAL();
 				while (rs.next()){
-                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
-					Base base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
+                                   ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"),rs.getDouble("CONCENTRACION"));
+					Base base = new Base(rs.getInt("IDB"),rs.getDouble("CONCENTRACION"));
 					base.setAditivos(array);
                                         bases.add(base);
 		
@@ -85,12 +86,11 @@ public class BaseDAO implements IBaseDAO{
 		}}
 
     @Override
-    public void eliminarBase(Base base) throws DAOExcepcion {
+    public void eliminarConcentracionBase(Base base) throws DAOExcepcion {
      try{
 			connManager.connect();
-			connManager.updateDB("DELETE FROM BASES_PIGMENTO WHERE IDB = " + base.getId());
-                        connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE IDB = " + base.getId());
-			connManager.updateDB("DELETE FROM BASES WHERE IDB = " + base.getId());
+                        connManager.updateDB("DELETE FROM ADITIVOS_CANTIDAD WHERE IDB = " + base.getId()+" and CONCENTRACION="+base.getConcentracion());
+			connManager.updateDB("DELETE FROM BASES WHERE IDB = " + base.getId()+" and CONCENTRACION="+base.getConcentracion());
 			connManager.close();
 
 		}catch (DAOExcepcion e){
@@ -101,8 +101,9 @@ public class BaseDAO implements IBaseDAO{
    
 
     @Override
-    public Base getBase(int idb) throws DAOExcepcion {
-         Base base=null;        
+    public ArrayList<Base> getBases(int idb) throws DAOExcepcion {
+        Base base=null;    
+        ArrayList<Base> bases =new ArrayList<Base>();
         try{
                    
 			connManager.connect();
@@ -111,14 +112,12 @@ public class BaseDAO implements IBaseDAO{
 			try {
 			DAL dal = DAL.dameDAL();
 				while (rs.next()){
-                                  ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
-                                   
-				base = new Base(rs.getInt("IDB"),rs.getString("NOMBRE"));
-				//	base.setAditivos(array);
+                                base = new Base(rs.getInt("IDB"),rs.getDouble("CONCENTRACION"));
+				bases.add(base);
                                         
 		
 				}
-                                return base;
+                                return bases;
 				}catch (SQLException e){
 					throw new DAOExcepcion("DB_READ_ERROR");
 				}
@@ -128,12 +127,12 @@ public class BaseDAO implements IBaseDAO{
                         }
     }
 
-    @Override
+   /* @Override
     public ArrayList<Base> getBases(int idp) throws DAOExcepcion {
         ArrayList<Base> bases = new ArrayList<Base>();
                 try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from BASES_PIGMENTO WHERE IDP="+idp);
+			ResultSet rs=connManager.queryDB("select * from BASES WHERE IDP="+idp);
 			connManager.close();
 			try {
 				DAL dal = DAL.dameDAL();
@@ -143,7 +142,7 @@ public class BaseDAO implements IBaseDAO{
 
 
 				Base base = getBase(rs.getInt("IDB"));
-                                base.setPorcentaje(rs.getDouble("PORCENTAJE"));
+                                base.setConcentracion(rs.getDouble("PORCENTAJE"));
                                 ArrayList<Aditivo> array = dal.getAditivos(rs.getInt("IDB"));
                                 base.setAditivos(array);
                                 bases.add(base);
@@ -158,9 +157,9 @@ public class BaseDAO implements IBaseDAO{
 			}catch (DAOExcepcion e){
 				throw e;
 			}
-    }
+    }*/
 
-    @Override
+   /* @Override
     public Base getBase(String nombre) throws DAOExcepcion {
             
        try{
@@ -186,7 +185,7 @@ public class BaseDAO implements IBaseDAO{
 				throw e;
 			}
     }
-
+*/
     @Override
     public void asociarBasePigmento(Pigmento pigmento, Base base, Double cantidad) throws DAOExcepcion {
        try {
@@ -269,4 +268,6 @@ public class BaseDAO implements IBaseDAO{
 			}
 			return null; 
     }
+
+    
     }

@@ -77,8 +77,8 @@ public class Controlador {
         public ArrayList<Aditivo> getAditivos() throws DAOExcepcion{
         return dal.getAditivos();
         }
-        public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion{
-        return dal.getAditivos(idb);
+        public ArrayList<Aditivo> getAditivos(int idb,double concentracion) throws DAOExcepcion{
+        return dal.getAditivos(idb,concentracion);
         }
         public void insertarAditivo(Aditivo aditivo) throws DAOExcepcion{
         dal.insertarAditivo(aditivo);
@@ -104,8 +104,8 @@ public class Controlador {
         public void modificarBase(Base base) throws DAOExcepcion{
         dal.modificarBase(base);
         }
-        public void eliminarBase(Base base) throws DAOExcepcion{
-        dal.eliminarBase(base);
+        public void eliminarConcentracionBase(Base base) throws DAOExcepcion{
+        dal.eliminarConcentracionBase(base);
         }
          public void asociarBasePigmento(Pigmento pigmento,Base base,Double cantidad) throws DAOExcepcion{
         dal.asociarBasePigmento(pigmento,base,cantidad);
@@ -113,27 +113,82 @@ public class Controlador {
         public ArrayList<Base> getBases() throws DAOExcepcion{
             return dal.getBases();
         }
-        public ArrayList<Base> getBases(int idp) throws DAOExcepcion{
-            return dal.getBases(idp);
-        }
+       
         public ArrayList<Base> getBasesNoAsignadas(int idp) throws DAOExcepcion{
             return dal.getBasesNoAsignadas(idp);
         }
-        public Base getBase(int idb) throws DAOExcepcion{
-            return dal.getBase(idb);
+        public ArrayList<Base> getBases(int idb) throws DAOExcepcion{
+            return dal.getBases(idb);
         }
-        public Base getBase(String nombre) throws DAOExcepcion{
-            return dal.getBase(nombre);
+        public ArrayList<Aditivo> getAditivosNoAsignados(int idb,double concentracion) throws DAOExcepcion {
+        return dal.getAditivosNoAsignados(idb,concentracion);
         }
 
-    public ArrayList<Aditivo> getAditivosNoAsociados(int idb) throws DAOExcepcion {
-        return dal.getAditivosNoAsociados(idb);
-    }
-
-    public void eliminaBasePigmento(Base base, Pigmento pigmento) {
+        public void eliminaBasePigmento(Base base, Pigmento pigmento) {
         dal.eliminaBasePigmento(base,pigmento);
-    }
-    public Double getPorcentaje(Base base, Pigmento pigmento) throws DAOExcepcion {
-       return dal.getPorcentaje(base, pigmento);
-    }
+        }
+        public Double getPorcentaje(Base base, Pigmento pigmento) throws DAOExcepcion {
+        return dal.getPorcentaje(base, pigmento);
+        }
+
+        public void insertarColor(Color color)throws DAOExcepcion  {
+        dal.insertarColor(color);
+        }
+
+        public void eliminarColor(Color color)throws DAOExcepcion{
+        dal.eliminarColor(color);
+        }
+
+        public Color getColor(String nombre) throws DAOExcepcion{
+        return dal.getColor(nombre);
+        }
+
+        public void modificarColor(Color color) throws DAOExcepcion{
+        dal.modificarColor(color);
+        }
+
+        public ArrayList<Color> getColores() throws DAOExcepcion{
+        return dal.getColores();
+        }
+
+        public ArrayList<Color> getColores(int idp) throws DAOExcepcion {
+        return dal.getColores(idp);
+        }
+
+        public ArrayList<Color> getColoresNoAsignados(int idp) throws DAOExcepcion {
+        return dal.getColoresNoAsignados(idp);
+        }
+
+        public void asociarColorPigmento(Pigmento pigmento, Color color, double porcentaje)throws DAOExcepcion  {
+        dal.asociarColorPigmento(pigmento,color,porcentaje);
+        }
+
+        public void eliminaColorPigmento(Color color, Pigmento pigmento)throws DAOExcepcion {
+        dal.eliminarColorPigmento(color,pigmento);   
+        }
+        public void asociarConcentracion(Color color, Double cantidad)throws DAOExcepcion{
+        dal.asociarConcentracion(color, cantidad);
+        }
+        public boolean existeConcentracionBase(Color color,Double cantidad)throws DAOExcepcion{
+        return dal.existeConcentracionBase(color, cantidad);
+        }
+         public Color getColor(int idb)throws DAOExcepcion {
+             return dal.getColor(idb);
+         }
+         public Double getPorcentaje(Color color, Pigmento pigmento) throws DAOExcepcion {
+             return dal.getPorcentaje(color, pigmento);
+         }
+         public Peso getPeso() throws DAOExcepcion{
+             return dal.getPeso();
+         }
+        public void insertarPeso(Peso peso) throws DAOExcepcion{
+            dal.insertarPeso(peso);
+        }
+        public void eliminarPeso(Peso peso) throws DAOExcepcion{
+            dal.eliminarPeso(peso);
+        }
+        public void modificarPeso(Peso peso) throws DAOExcepcion{
+            dal.modificarPeso(peso);
+        }
 }
+

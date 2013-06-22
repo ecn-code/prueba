@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2012, 2013 Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
@@ -31,45 +30,53 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package presentacion;
+package logica;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import javafx.application.Application;
-import javafx.beans.property.ListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventType;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import persistencia.DAL;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
-public class FXMLTableView extends Application {
+public class Peso {
 
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
+    private final SimpleDoubleProperty pesoMin = new SimpleDoubleProperty(0.0);
+    private final SimpleDoubleProperty pesoMax = new SimpleDoubleProperty(0.0);
 
-    
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        ObjetoCompartido.dameLo().setStage(primaryStage);
-        primaryStage.setTitle("FXML TableView Example");
-        Pane myPane = (Pane)FXMLLoader.load(getClass().getResource("Principal.fxml"));
-        Scene myScene = new Scene(myPane);
-        primaryStage.setScene(myScene);
-        primaryStage.show();
-        
+    public Peso() {
+        this(0, 0.0, 0.0);
     }
- 
-    public static void main(String[] args) {
-      launch(args);     
-     }
-    
-    }
-        
-        
-        
 
+    public Peso(int id, double min, double max) {
+        setId(id);
+        setPesoMin(min);
+        setPesoMax(max);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    /**
+     *
+     * @param fName
+     */
+    public void setId(int fName) {
+        id.set(fName);
+    }
+
+    public double getPesoMin() {
+        return pesoMin.get();
+    }
+
+    public void setPesoMin(double peso) {
+        pesoMin.set(peso);
+    }
+
+    public Double getPesoMax() {
+        return pesoMax.get();
+    }
+
+    public void setPesoMax(double peso) {
+        pesoMax.set(peso);
+    }    
+}

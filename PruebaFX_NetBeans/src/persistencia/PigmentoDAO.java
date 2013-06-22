@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import excepciones.DAOExcepcion;
 import logica.Base;
+import logica.Color;
 import logica.Controlador;
 
 import logica.Pigmento;
@@ -40,8 +41,8 @@ public class PigmentoDAO implements IPigmentoDAO{
                                         idPigmento=rs.getInt("IDP");
                                         nombrePigmento=rs.getString("NOMBRE");
 					Pigmento pigmento = new Pigmento(idPigmento,nombrePigmento);
-                                        ArrayList<Base> bases=dal.getBases(idPigmento);
-                                        pigmento.setBases(bases);
+                                        ArrayList<Color> colores=dal.getColores(idPigmento);
+                                        pigmento.setColores(colores);
                                         pigmentos.add(pigmento);
 				}
 				}catch (SQLException e){
@@ -108,7 +109,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 	public void eliminarPigmento(Pigmento pigmento) {
 		try{
 			connManager.connect();
-                        connManager.updateDB("DELETE FROM BASES_PIGMENTO WHERE IDP = " + pigmento.getId());
+                        connManager.updateDB("DELETE FROM COLORES_PIGMENTO WHERE IDP = " + pigmento.getId());
 			connManager.updateDB("DELETE FROM PIGMENTO WHERE IDP = " + pigmento.getId());
 			connManager.close();
 

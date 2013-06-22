@@ -51,6 +51,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -60,31 +61,125 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
-import logica.Producto;
+import logica.Peso;
 import logica.Controlador;
 import logica.Producto;
 
 
-public class PrincipalController implements Initializable{
-    @FXML MenuItem listadoProducto;
+public class ListadoPesosController implements Initializable, ControlledScreen{
+    @FXML private static TableView<Peso> tableView;
+    ScreensController myController;
+    private String pesoMin,pesoMax;
+    @FXML
+    private TextField txtPesoMin,txtPesoMax,txtNombreEliminar,txtFactorEliminar;
+   @FXML private Button btnAnyadir;
+    @FXML
+    private Label lblErrorPesoMin;
+         @FXML
+    private Label   lblErrorPesoMax;
+            
+          @FXML MenuItem listadoProducto;
+    @FXML MenuItem listadoPeso;
     @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
-                    @FXML MenuItem listadoAditivo,listadoPeso;
+                    @FXML MenuItem listadoAditivo;
                             @FXML MenuItem listadoBase;
-    @FXML MenuItem aditivoABase;
-    @FXML MenuItem concentracionABase;
+    @FXML MenuItem aditivoABase,concentracionABase;
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
     @FXML Menu inicio;
     Stage stage;
+    @FXML
+   
+    public void anyadirPeso(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
+        Stage stage=new Stage();
+        boolean error=false;
+         Controlador controlador= Controlador.dameControlador();
+       pesoMin=txtPesoMin.getText().trim().replace(',', '.'); 
+       pesoMax=txtPesoMax.getText().trim().replace(',', '.');
+          
+        for(char x: pesoMin.toCharArray()){
+            if(Character.isLetter(x)){
+                error=true;
+                lblErrorPesoMin.setText("No se pueden introducir letras");
+                txtPesoMin.setText("");
+                break;
+            }else{
+               lblErrorPesoMin.setText(""); 
+            }
+            }
+            if(pesoMin.equals("")){
+                 lblErrorPesoMin.setText("Debes rellenar el peso minimo");
+                error=true;
+            }
+            
+        for(char x: pesoMax.toCharArray()){
+            if(Character.isLetter(x)){
+                error=true;
+                lblErrorPesoMax.setText("No se pueden introducir letras");
+                txtPesoMax.setText("");
+                break;
+            }else{
+               lblErrorPesoMax.setText(""); 
+            }
+            }
+            if(pesoMax.equals("")){
+                 lblErrorPesoMax.setText("Debes rellenar el peso minimo");
+                error=true;
+            }
+           
+            
+            if(!error){
+               
+           Peso peso=new Peso(0,Double.parseDouble(pesoMin) , Double.parseDouble(pesoMax));
+                controlador.modificarPeso(peso);
+               // controlador.insertarPeso(peso);
+               // controlador.eliminarPeso(peso);
+                lblErrorPesoMin.setText("");
+                lblErrorPesoMax.setText("");     
+                  int answer = MessageBox.show(stage,
+						"El peso se ha guardado correctamente",
+						"Information dialog", 
+						MessageBox.ICON_INFORMATION | MessageBox.OK);
+               
+            }
+    }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-      stage = ObjetoCompartido.dameLo().getStage();
-          
+    Controlador controlador = null;
+        try {
+            controlador = Controlador.dameControlador();
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DominioExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Peso peso=null;
+        try {
+            peso = controlador.getPeso();
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(peso!=null){
+           txtPesoMin.setText(peso.getPesoMin()+"");
+           txtPesoMax.setText(peso.getPesoMax()+"");
+        }else{
+            peso=new Peso(0,0.0,0.0);
+             txtPesoMin.setText(0.0+"");
+           txtPesoMax.setText(0.0+"");
+        try {
+            controlador.insertarPeso(peso);
+            
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        stage = ObjetoCompartido.dameLo().getStage();
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
@@ -101,24 +196,6 @@ public class PrincipalController implements Initializable{
         stage.show();
            }
        });
-       
-       inicio.setDisable(true);
-       listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
-
-           @Override
-           public void handle(ActionEvent t) {
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoAditivos.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
- 
-        stage.setTitle("Aditivos");
-        stage.setScene(new Scene(root));
-        stage.show();
-           }
-       });
        listadoProducto.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
@@ -129,8 +206,26 @@ public class PrincipalController implements Initializable{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-
+  
         stage.setTitle("Productos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+       
+       
+       listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Pigmentos");
         stage.setScene(new Scene(root));
         stage.show();
            }
@@ -145,8 +240,24 @@ public class PrincipalController implements Initializable{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
- 
+
         stage.setTitle("Bases");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+       listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoAditivos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Aditivos");
         stage.setScene(new Scene(root));
         stage.show();
            }
@@ -183,39 +294,7 @@ public class PrincipalController implements Initializable{
         stage.show();
            }
        });
-      listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
-
-           @Override
-           public void handle(ActionEvent t) {
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
- 
-        stage.setTitle("Pesos");
-        stage.setScene(new Scene(root));
-        stage.show();
-           }
-       });
-      listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
-
-          @Override
-           public void handle(ActionEvent t) {
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
-    
-        stage.setTitle("Pigmentos");
-        stage.setScene(new Scene(root));
-        stage.show();
-           }
-       });
-      concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
+       concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
 
           @Override
            public void handle(ActionEvent t) {
@@ -231,6 +310,23 @@ public class PrincipalController implements Initializable{
         stage.show();
            }
        });
+      inicio.setOnShown(new EventHandler<Event>() {
+
+          @Override
+           public void handle(Event t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    
+        stage.setTitle("Inicio");
+        stage.setScene(new Scene(root));
+        stage.show();
+        inicio.hide();
+           }
+       });
  
       calcular.setOnShown(new EventHandler<Event>() {
 
@@ -244,15 +340,37 @@ public class PrincipalController implements Initializable{
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
 
-
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
-        calcular.hide();
         stage.show();
+        calcular.hide();
            }
        });
     }
     
+    /*public static void cargar(){
+        
+                    Controlador controlador = null;
+                    ArrayList<Peso> peso=new ArrayList<Peso>();
+             try {
+            controlador = Controlador.dameControlador();
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DominioExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            peso.add(controlador.getPeso());
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
+        }           
+       ObservableList<Peso> pesoTabla = FXCollections.observableList(peso);  
+       tableView.setItems(pesoTabla);
+    }
     
-    
+*/
+    @Override
+    public void setScreenParent(ScreensController screenPage) {
+        myController=screenPage;
+    }    
 }

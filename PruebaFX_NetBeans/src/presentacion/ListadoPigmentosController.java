@@ -81,10 +81,11 @@ public class ListadoPigmentosController implements Initializable{
     private Label lblErrorNombre;
         @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
-                    @FXML MenuItem listadoAditivo;
+                    @FXML MenuItem listadoAditivo,listadoPeso;
                             @FXML MenuItem listadoBase;
                             @FXML MenuItem listadoProducto;
     @FXML MenuItem aditivoABase;
+    @FXML MenuItem concentracionABase;
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
     @FXML Menu inicio;
@@ -243,13 +244,46 @@ public class ListadoPigmentosController implements Initializable{
         stage.show();
            }
        });
+       listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Pesos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+         concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
+
+          @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoConcentracionBase.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    
+        stage.setTitle("Añadir concentracion a base");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+ 
       aditivoABase.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("AnyadirAditivosABase.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }

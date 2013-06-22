@@ -9,9 +9,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentosController">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPesosController">
   <children>
-    <Label id="label-error" fx:id="lblErrorNombre" layoutX="136.0" layoutY="493.0" minHeight="13.0" prefHeight="15.9998779296875" prefWidth="136.0" text="" />
     <MenuBar id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="600.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio">
@@ -43,23 +42,18 @@
         </Menu>
       </menus>
     </MenuBar>
-    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="191.0" style="" text="Pigmentos" />
-    <Button id="ipad-grey2" fx:id="botonEliminar" layoutX="493.0" layoutY="535.0" mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
-    <TableView fx:id="tableView" layoutX="40.0" layoutY="118.0" prefHeight="334.0" prefWidth="520.0000999999975">
-      <sortOrder>
-        <TableColumn prefWidth="100.0" text="Id">
-          <cellValueFactory>
-            <PropertyValueFactory property="id" />
-          </cellValueFactory>
-        </TableColumn>
-      </sortOrder>
-    </TableView>
-    <TextField id="lastNameField" fx:id="txtNombre" layoutX="136.0" layoutY="471.0" prefWidth="136.0" promptText="Nombre" />
-    <Button id="ipad-grey2" layoutX="493.0" layoutY="467.0" minHeight="21.0" onAction="#anyadirPigmento" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
-    <Label id="label-normal" layoutX="40.0" layoutY="470.0" text="Pigmento" />
-    <Separator layoutX="40.0" layoutY="513.0" prefHeight="7.0" prefWidth="520.9998779296875" />
-    <TextField fx:id="txtNombreEliminar" disable="true" editable="false" layoutX="137.0" layoutY="539.0" prefWidth="136.0" />
-    <Label id="label-normal" layoutX="40.0" layoutY="538.0" prefWidth="69.00009999999747" text="Pigmento" />
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="75.0" prefWidth="84.0" style="" text="Peso" />
+    <TextField id="lastNameField" fx:id="txtPesoMin" layoutX="154.0" layoutY="154.0" prefWidth="105.0" promptText="" />
+    <TextField id="emailField" fx:id="txtPesoMax" layoutX="154.0" layoutY="228.0" prefWidth="105.0" promptText="" />
+    <Label id="label-error" fx:id="lblErrorFactor" layoutX="330.0" layoutY="520.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
+    <Label id="label-error" fx:id="lblErrorNombre" layoutX="110.0" layoutY="519.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
+    <Button id="ipad-grey2" layoutX="340.0" layoutY="154.0" minHeight="21.0" onAction="#anyadirPeso" prefHeight="25.0" prefWidth="68.0" text="Guardar" />
+    <Label id="label-normal" layoutX="42.0" layoutY="154.0" prefWidth="105.0" text="Peso mínimo" />
+    <Label id="label-normal" layoutX="40.0" layoutY="228.0" text="Peso máximo" />
+    <Label id="label-normal" layoutX="262.0" layoutY="154.0" prefWidth="24.0" text="g" />
+    <Label id="label-normal" layoutX="263.0" layoutY="228.0" prefWidth="24.0" text="g" />
+    <Label id="label-error" fx:id="lblErrorPesoMin" layoutX="154.0" layoutY="176.0" prefWidth="162.0" text="" />
+    <Label id="label-error" fx:id="lblErrorPesoMax" layoutX="154.0" layoutY="253.0" prefWidth="176.0" text="" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

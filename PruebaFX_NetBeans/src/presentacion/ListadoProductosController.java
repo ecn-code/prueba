@@ -83,12 +83,13 @@ public class ListadoProductosController implements Initializable, ControlledScre
     private Label lblErrorFactor;
      @FXML
     private Label      lblErrorNombre;
-              @FXML MenuItem listadoProducto;
+              @FXML MenuItem listadoProducto,listadoPeso;
     @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
                     @FXML MenuItem listadoAditivo;
                             @FXML MenuItem listadoBase;
     @FXML MenuItem aditivoABase;
+    @FXML MenuItem concentracionABase;
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
     @FXML Menu inicio;
@@ -267,13 +268,30 @@ public class ListadoProductosController implements Initializable, ControlledScre
         stage.show();
            }
        });
+         concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
+
+          @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoConcentracionBase.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    
+        stage.setTitle("Añadir concentracion a base");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+ 
       aditivoABase.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("AnyadirAditivosABase.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
@@ -301,7 +319,22 @@ public class ListadoProductosController implements Initializable, ControlledScre
         inicio.hide();
            }
        });
+      listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
  
+        stage.setTitle("Pesos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
       calcular.setOnShown(new EventHandler<Event>() {
 
           @Override

@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,6 +54,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -59,6 +63,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -66,106 +71,116 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import logica.Aditivo;
+import logica.Base;
 import logica.Color;
 import logica.Controlador;
-import logica.Color;
-import logica.Color;
 
 
-public class ListadoBasesController implements Initializable, ControlledScreen{
-    ScreensController myController;
-    @FXML private static TableView<Color> tableView;
+public class ListadoConcentracionBase implements Initializable, ControlledScreen{
+   ScreensController myController;
+    @FXML private static TableView<Base> tableView;
+   private String cantidad;
     private String nombre;
     @FXML
-    private TextField txtNombre;
+    private TextField txtCantidad,baseEliminar,cantidadEliminar;
     @FXML
-    private Label lblErrorNombre;
-
-        @FXML MenuItem listadoAcabado;
+    private Label lblErrorCantidad,lblErrorBase,lblErrorPigmento;
+    @FXML private ComboBox elegirBase;
+    @FXML private Button btnEliminar;
+    @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
-                    @FXML MenuItem listadoAditivo,listadoPeso;
-                            @FXML MenuItem listadoBase;
+                    @FXML MenuItem listadoAditivo;
+                            @FXML MenuItem listadoBase,listadoPeso;
                             @FXML MenuItem listadoProducto;
-    @FXML MenuItem aditivoABase;
-    @FXML MenuItem baseAPigmento,concentracionABase;
-    
+    @FXML MenuItem aditivoABase,concentracionABase;
+    @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
-        @FXML TextField txtNombreEliminar;
-    @FXML Button botonEliminar;
     @FXML Menu inicio;
     Stage stage;
-        @FXML
-    public void eliminarBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-        
-        Stage stage=new Stage();
-        Controlador controlador=null;
-        Color color= tableView.getSelectionModel().getSelectedItem();
-        int answer= MessageBox.show(stage,
-        "Estas seguro de que quieres eliminar este color?",
+    Color color;
+   @FXML
+    public void eliminarPigmento(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+       Base base;
+       Controlador controlador= Controlador.dameControlador();
+       base=(Base) tableView.getSelectionModel().getSelectedItem();
+       int answer= MessageBox.show(stage,
+        "Estas seguro de que quieres eliminar esta concentracion?",
         "Information dialog",
         MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
         System.out.println(answer);
         if(answer==65536){
-            controlador=controlador.dameControlador();
-            controlador.eliminarColor(color);
-            txtNombreEliminar.setText("");
-            botonEliminar.setDisable(true);
-            cargar();
+            controlador.eliminarConcentracionBase(base);
+            cantidadEliminar.setText("");
+            btnEliminar.setDisable(true);
+            cargarBases(base.getId());
         }
-    }
-    public void anyadirBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
-        Stage stage=new Stage();
+        }
+
+    public void anyadirConcentracion(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
+         Stage stage=new Stage();
         boolean error=false;
          Controlador controlador= Controlador.dameControlador();
-       nombre=txtNombre.getText();
-            if(!nombre.equals("")){
-             Color color=controlador.getColor(nombre);
-            if(color!=null){
-            lblErrorNombre.setText("Ese color ya existe");
-            txtNombre.setText("");
-            error=true;
-            }else{
-              lblErrorNombre.setText("");  
-            }
-                
-            }else{
-                lblErrorNombre.setText("Debes rellenar el nombre");
+       cantidad=txtCantidad.getText().trim().replace(',', '.');
+       color=controlador.getColor(elegirBase.getSelectionModel().getSelectedItem().toString());
+     
+       if(color==null){
+           error=true;
+           lblErrorBase.setText("Selecciona una Base");
+       }else{
+          lblErrorBase.setText("");
+       }
+     if(cantidad.equals("")){
+   lblErrorCantidad.setText("Introduce cantidad");
+   error=true;
+    }else{
+    lblErrorCantidad.setText(""); 
+   }
+       for(char x: cantidad.toCharArray()){
+            if(Character.isLetter(x)){
                 error=true;
+                lblErrorCantidad.setText("No se pueden introducir letras");
+                txtCantidad.setText("");
+                break;
+            }else{
+               lblErrorCantidad.setText(""); 
             }
-            if(!error){
-           Color color=new Color(0, nombre,0.0);
-                controlador.insertarColor(color);  
-                lblErrorNombre.setText("");
-                  txtNombre.setText("");     
-                  int answer = MessageBox.show(stage,
-						"El color se ha creado correctamente",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
+            } 
+            if (controlador.existeConcentracionBase(color, Double.parseDouble(cantidad))){
+                error=true;
+               MessageBox.show(stage,
+        "Para esa base ya existe la concentracion "+cantidad+"%",
+        "Information dialog",
+        MessageBox.ICON_INFORMATION | MessageBox.OK);
+                
             }
+  
+            if(!error){       
+         controlador.asociarConcentracion(color, Double.parseDouble(cantidad));
+           txtCantidad.setText("");
+           cargarBases(color.getId());
+            }
+         
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-        
-        botonEliminar.setDisable(true);
+        btnEliminar.setDisable(true);
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent t) {
-                Color color= tableView.getSelectionModel().getSelectedItem();
-                if(color!=null){
-                    txtNombreEliminar.setText(color.getNombre());
-                    botonEliminar.setDisable(false);
-                    txtNombre.setText("");
+                Base base= tableView.getSelectionModel().getSelectedItem();
+                if(base!=null){
+                    cantidadEliminar.setText(base.getConcentracion().toString());
+                    btnEliminar.setDisable(false);
                 }
             }
         });
-       
-           stage = ObjetoCompartido.dameLo().getStage();
+    
+         stage = ObjetoCompartido.dameLo().getStage();
           
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
-
+        
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -180,20 +195,20 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         stage.show();
            }
        });
-      
-       listadoBase.setDisable(true);
-       listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
+       
+       concentracionABase.setDisable(true);
+       listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("ListadoAditivos.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
  
-        stage.setTitle("Pigmentos");
+        stage.setTitle("Aditivos");
         stage.setScene(new Scene(root));
         stage.show();
            }
@@ -214,70 +229,23 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         stage.show();
            }
        });
-       listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
+       listadoBase.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoAditivos.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("ListadoBases.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
  
-        stage.setTitle("Aditivos");
+        stage.setTitle("Bases");
         stage.setScene(new Scene(root));
         stage.show();
            }
        });
-       listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
-
-           @Override
-           public void handle(ActionEvent t) {
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
- 
-        stage.setTitle("Pesos");
-        stage.setScene(new Scene(root));
-        stage.show();
-           }
-       });
-       baseAPigmento.setOnAction(new EventHandler<ActionEvent>() {
-
-           public void handle(ActionEvent t) {
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoPigmento_ComboBox.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
- 
-        stage.setTitle("Pigmento a Color");
-        stage.setScene(new Scene(root));
-        stage.show();
-           }
-       });
-        concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
-
-          @Override
-           public void handle(ActionEvent t) {
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoConcentracionBase.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
-    
-        stage.setTitle("Añadir concentracion a base");
-        stage.setScene(new Scene(root));
-        stage.show();
-           }
-       });
-      aditivoABase.setOnAction(new EventHandler<ActionEvent>() {
+       aditivoABase.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
            public void handle(ActionEvent t) {
@@ -287,8 +255,24 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
+ 
+        stage.setTitle("Pigmento a Base");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+      listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
 
-        stage.setTitle("Aditivo a Color");
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmentos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+
+        stage.setTitle("Pigmentos");
         stage.setScene(new Scene(root));
         stage.show();
            }
@@ -311,7 +295,22 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         inicio.hide();
            }
        });
+      listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
  
+        stage.setTitle("Pesos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
       calcular.setOnShown(new EventHandler<Event>() {
 
           @Override
@@ -327,71 +326,109 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         stage.show();
-        calcular.hide();
+       calcular.hide();
            }
        });
-     
+        
+       baseAPigmento.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmento_ComboBox.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Pigmento a Base");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
+        
+       elegirBase.getSelectionModel().selectedIndexProperty().addListener(new
+            ChangeListener<Number>() {
+                public void changed(ObservableValue ov,
+                    Number value, Number new_value) {
+                  
+            }
+        });
+       
+        elegirBase.getSelectionModel().selectedIndexProperty().addListener(new
+            ChangeListener<Number>() {
+                public void changed(ObservableValue ov,
+                    Number value, Number new_value) {
+                    try {
+                        //  label.setText(greetings[new_value.intValue()]);
+                      cargarBases(((Color)elegirBase.getItems().get(new_value.intValue())).getId());
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(ListadoBasesController_ComboBox.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
+        });
+       
+       elegirBase.setItems(null);
         tableView.setEditable(true);
         tableView.setMaxWidth(520);
         TableColumn Id=new TableColumn("Id");
-        TableColumn Nombre=new TableColumn("Nombre");
+        TableColumn Concentracion=new TableColumn("Concentracion");
         Id.setMinWidth(100);
-        Nombre.setMinWidth(420);
-      Id.setCellValueFactory(new PropertyValueFactory<Color,String>("Id"));
-      Nombre.setCellValueFactory(new PropertyValueFactory<Color,String>("Nombre"));
-      tableView.getColumns().addAll(Id,Nombre);
-      
-      cargar();
-   Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-    Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Color, String>>() {
+        Concentracion.setMinWidth(150);
+      Id.setCellValueFactory(new PropertyValueFactory<Base,String>("Id"));
+      Concentracion.setCellValueFactory(new PropertyValueFactory("Concentracion"));
+      tableView.getColumns().addAll(Id,Concentracion);
+      cargarColores(); 
+   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
+   /* Nombre.setOnEditCommit(
+    new EventHandler<CellEditEvent<Pigmento, String>>() {
         @Override
-        public void handle(CellEditEvent<Color, String> t) {
+        public void handle(CellEditEvent<Pigmento, String> t) {
                Controlador controlador = null;
-               Color color=null;
+               Pigmento pigmento=null;
                Stage stage=new Stage();
         try {
             controlador=controlador.dameControlador();
         } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         }
             try {
-                color=controlador.getColor(t.getNewValue());
+                pigmento=controlador.getPigmento(t.getNewValue());
             } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 this.finalize();
             } catch (Throwable ex) {
-                Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
             }
              if(t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"El nombre del color no  puede estar vacio",
+						"El nombre del pigmento no  puede estar vacio",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
             }
-            if(color==null && !t.getNewValue().trim().equals("")){
-               ((Color) t.getTableView().getItems().get(
+            if(pigmento==null && !t.getNewValue().trim().equals("")){
+               ((Pigmento) t.getTableView().getItems().get(
                 t.getTablePosition().getRow())
                 ).setNombre(t.getNewValue());
-               Color colorA=  ((Color) t.getTableView().getItems().get(
+               Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
                 t.getTablePosition().getRow()));
-               colorA.setNombre(t.getNewValue().trim());
+               pigmentoA.setNombre(t.getNewValue().trim());
                    try {
-                       controlador.modificarColor(colorA);
+                       controlador.modificarPigmento(pigmentoA);
                    } catch (DAOExcepcion ex) {
-                       
+                       Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
                    }
                cargar();
             }
            
-            if(color!= null && !t.getNewValue().trim().equals("")){
+            if(pigmento!= null && !t.getNewValue().trim().equals("")){
                 int answer = MessageBox.show(stage,
-						"Ese color ya existe, introduzca un nombre distinto",
+						"Ese pigmento ya existe, introduzca un nombre distinto",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
@@ -400,14 +437,17 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
       
         }
     }
-);
+);*/
     
         }
     
     
-    public static void cargar(){
-    Controlador controlador = null;
-    ArrayList<Color> colores=new ArrayList<Color>();
+   
+    public  void cargarColores(){
+        
+                    Controlador controlador = null;
+
+  ArrayList<Color> colores=new ArrayList<Color>();
 
         try {
             controlador = Controlador.dameControlador();
@@ -419,17 +459,39 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         try {
             colores=controlador.getColores();
         } catch (DAOExcepcion ex) {
-           
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
-       ObservableList<Color> color = FXCollections.observableList(colores);  
-       tableView.setItems(color);
+       ObservableList<Color> colores2 = FXCollections.observableList(colores);  
+       elegirBase.setItems(colores2);
+ 
     }
-    
+    public void cargarBases(int idb) throws DAOExcepcion{
+            Controlador controlador = null;
+            ArrayList<Base> bases=new ArrayList<Base>();
+        try {
+            controlador = Controlador.dameControlador();
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DominioExcepcion ex) {
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            bases=controlador.getBases(idb);
+        } catch (DAOExcepcion ex) {
+            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                  
+       ObservableList<Base> basesConvertidosParaTabla = FXCollections.observableList(bases);  
+       tableView.setItems(basesConvertidosParaTabla);
+        for(int i=0;i<bases.size();i++){
+            System.out.println(bases.get(i).getConcentracion());
+        }
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;
     }
-    
+  
 }

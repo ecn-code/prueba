@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoPigmentoController_ComboBox">
+<AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.ListadoConcentracionBase">
   <children>
     <TableView fx:id="tableView" layoutX="40.0" layoutY="166.0" prefHeight="299.0" prefWidth="520.0">
       <items>
@@ -23,19 +23,10 @@
         </TableColumn>
       </sortOrder>
     </TableView>
-    <Button layoutX="492.0" layoutY="482.0" onAction="#anyadirPigmento" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
+    <Button layoutX="492.0" layoutY="482.0" onAction="#anyadirConcentracion" prefHeight="25.0" prefWidth="68.0" text="Añadir" />
     <Button fx:id="btnEliminar" layoutX="492.0" layoutY="551.0" mnemonicParsing="false" onAction="#eliminarPigmento" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
-    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="452.0" style="" text="Añadir Base a Pigmentos" />
-    <ComboBox fx:id="elegirPigmento" layoutX="126.0" layoutY="135.0" prefHeight="21.0" prefWidth="165.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ComboBox>
-    <ComboBox fx:id="elegirBase" layoutX="82.0" layoutY="482.0" prefHeight="21.0" prefWidth="165.0">
+    <Label id="label-titulo" alignment="CENTER" depthTest="INHERIT" layoutX="40.0" layoutY="45.0" prefWidth="520.0" style="" text="Añadir Concentracion a Base" />
+    <ComboBox id="elegirPigmento" fx:id="elegirBase" layoutX="93.0" layoutY="135.0" prefHeight="21.0" prefWidth="165.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -75,18 +66,14 @@
         </Menu>
       </menus>
     </MenuBar>
-    <TextField id="lastNameField" fx:id="txtCantidad" layoutX="339.0" layoutY="484.0" prefWidth="136.0" promptText="Cantidad" text="" />
-    <Label id="label-normal" layoutX="40.0" layoutY="134.0" prefWidth="71.0" text="Pigmento" />
-    <Label id="label-normal" layoutX="40.0" layoutY="484.0" prefWidth="42.0" text="Base" />
-    <Label id="label-normal" layoutX="267.0" layoutY="483.0" text="Cantidad" />
+    <TextField id="lastNameField" fx:id="txtCantidad" layoutX="122.0" layoutY="489.0" prefWidth="136.0" promptText="Cantidad" text="" />
+    <Label id="label-normal" layoutX="40.0" layoutY="134.0" prefWidth="71.0" text="Base" />
+    <Label id="label-normal" layoutX="40.0" layoutY="489.0" text="Cantidad" />
     <Separator layoutX="40.0" layoutY="531.0" prefWidth="517.0" />
-    <TextField fx:id="baseEliminar" disable="true" layoutX="82.0" layoutY="552.0" prefWidth="165.0" />
-    <Label id="label-normal" layoutX="40.0" layoutY="551.0" prefWidth="42.0" text="Base" />
-    <Label id="label-normal" layoutX="268.0" layoutY="552.0" text="Cantidad" />
-    <TextField id="aditivoEliminar" fx:id="cantidadEliminar" disable="true" layoutX="339.0" layoutY="552.0" prefWidth="136.0" />
-    <Label id="label-error" fx:id="lblErrorCantidad" layoutX="339.0" layoutY="509.0" prefHeight="22.0" prefWidth="136.0" text="" />
-    <Label id="label-error" fx:id="lblErrorBase" layoutX="80.0" layoutY="507.0" prefWidth="169.0" text="" />
-    <Label id="label-error" fx:id="lblErrorPigmento" layoutX="300.0" layoutY="135.0" prefWidth="165.0" text="" />
+    <Label id="label-normal" layoutX="40.0" layoutY="550.0" text="Cantidad" />
+    <TextField id="aditivoEliminar" fx:id="cantidadEliminar" disable="true" layoutX="122.0" layoutY="552.0" prefWidth="136.0" />
+    <Label id="label-error" fx:id="lblErrorCantidad" layoutX="122.0" layoutY="507.0" prefHeight="22.0" prefWidth="136.0" text="" />
+    <Label id="label-error" fx:id="lblErrorBase" layoutX="300.0" layoutY="135.0" prefWidth="165.0" text="" />
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

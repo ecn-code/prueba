@@ -72,16 +72,18 @@ import jfx.messagebox.MessageBox;
 import logica.Acabado;
 import logica.Aditivo;
 import logica.Base;
+import logica.Color;
 import logica.Pigmento;
 import logica.Controlador;
+import logica.Peso;
 import logica.Pigmento;
 import logica.Producto;
+import logica.Resultado;
 import static presentacion.ListadoProductosController.cargar;
-
 
 public class CalcularController implements Initializable, ControlledScreen{
    ScreensController myController;
-    @FXML private static TableView<Base> tableView;
+    @FXML private static TableView<Resultado> tableView;
     private String comprobarCantidad;
     private Double cantidad;
     Producto producto;
@@ -93,15 +95,18 @@ public class CalcularController implements Initializable, ControlledScreen{
       @FXML MenuItem listadoAcabado;
             @FXML MenuItem listadoPigmento;
                     @FXML MenuItem listadoAditivo;
+                    @FXML MenuItem listadoPeso;
                             @FXML MenuItem listadoBase;
                             @FXML MenuItem listadoProducto;
-    @FXML MenuItem aditivoABase;
+    @FXML MenuItem aditivoABase,concentracionABase;
     @FXML MenuItem baseAPigmento;
     @FXML Menu calcular;
     @FXML Menu inicio;
     Stage stage;
     @FXML
+    
     public void calcular(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+    ArrayList<ArrayList<Base>> basesYConcentraciones =new ArrayList<ArrayList<Base>>();
     ArrayList<Base> basesResultado=new ArrayList<Base>();
     boolean correcto=true;
     pigmento=(Pigmento)comboPigmento.getSelectionModel().getSelectedItem();
@@ -146,32 +151,164 @@ public class CalcularController implements Initializable, ControlledScreen{
         
     if(correcto){
     cantidad=Double.parseDouble(comprobarCantidad);
-    ArrayList<Base> bases=getBases(pigmento);
+    ArrayList<Color> bases=getBases(pigmento);
     for(int i=0;i<bases.size();i++){
-        basesResultado.add(calculo(bases.get(i), pigmento, acabado, producto, cantidad));
+        basesYConcentraciones.add(basesConConcentracion(bases.get(i)));
     }
-   ObservableList<Base> basesTabla = FXCollections.observableList(basesResultado);  
-       tableView.setItems(basesTabla);
+    ArrayList<Resultado> resultadoParaTabla=new ArrayList<Resultado>();
+    if(basesYConcentraciones.size()==1){
+        resultadoParaTabla=combinacion1Bases(basesYConcentraciones,pigmento,acabado,producto,cantidad);
+    }else if(basesYConcentraciones.size()==2){
+        resultadoParaTabla=combinacion2Bases(basesYConcentraciones,pigmento,acabado,producto,cantidad);
+    }else if(basesYConcentraciones.size()==3){
+        resultadoParaTabla=combinacion3Bases(basesYConcentraciones,pigmento,acabado,producto,cantidad);
+    }else if(basesYConcentraciones.size()==4){
+       resultadoParaTabla=combinacion4Bases(basesYConcentraciones,pigmento,acabado,producto,cantidad);  
+    }
+     ObservableList<Resultado> basesTabla = FXCollections.observableList(resultadoParaTabla);  
+     tableView.setItems(basesTabla);
     }
     }
-   
-    public Base calculo(Base _base,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad){
-       Double factor=Double.parseDouble(_producto.getFactor())*Double.parseDouble(_acabado.getFactor())*_base.getPorcentaje();
-       Double factorAditivos=_base.getFactorBase();
-       Double resultado100g=factor+factor*factorAditivos;
-       Double resultadParaCantidadSeleccionada=(resultado100g*_cantidad)/0.1;
-       Base baseResultado=_base;
-       baseResultado.setPorcentaje(Math.round(resultadParaCantidadSeleccionada*100)/100d);
-        return baseResultado;
+    
+    public Double calculo(Base _base,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad) throws DAOExcepcion, DominioExcepcion{
+        Controlador controlador= Controlador.dameControlador();
+        Color color=new Color(_base.getId(),"",0.0);
+        double polvoBase=controlador.getPorcentaje(color, pigmento);
+        Double factor=Double.parseDouble(_producto.getFactor())*Double.parseDouble(_acabado.getFactor())*polvoBase;
+        Double factorAditivos=(100-_base.getConcentracion())/_base.getConcentracion();
+        Double resultado100g=factor+factor*factorAditivos;
+        Double resultadParaCantidadSeleccionada=(resultado100g*_cantidad)/0.1;
+     //  baseResultado.setConcentracion(Math.round(resultadParaCantidadSeleccionada*100)/100d);
+        return Math.round(resultadParaCantidadSeleccionada*100)/100d;
         
     }
  
-   public ArrayList<Base> getBases(Pigmento _pigmento) throws DAOExcepcion, DominioExcepcion{
+     public ArrayList<Resultado> combinacion4Bases(ArrayList<ArrayList<Base>> bases,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad) throws DAOExcepcion, DominioExcepcion{
+         Controlador controlador=Controlador.dameControlador();
+       ArrayList<Resultado> combinacionFinal=new ArrayList<>();
+       Peso peso= controlador.getPeso();
+       String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
+       String nombre2=controlador.getColor(bases.get(1).get(0).getId()).getNombre();
+       String nombre3=controlador.getColor(bases.get(2).get(0).getId()).getNombre();
+       String nombre4=controlador.getColor(bases.get(3).get(0).getId()).getNombre();
+      for(int i = 0;i<bases.get(0).size();i++){
+           for(int j=0;j<bases.get(1).size();j++){
+               for(int s=0;s<bases.get(2).size();s++){
+                   for(int t=0;t<bases.get(3).size();t++){
+               double cantidad1=calculo(bases.get(0).get(i), _pigmento, _acabado, _producto, _cantidad);
+               double cantidad2=calculo(bases.get(1).get(j), _pigmento, _acabado, _producto, _cantidad);
+               double cantidad3=calculo(bases.get(2).get(s), _pigmento, _acabado, _producto, _cantidad);
+               double cantidad4=calculo(bases.get(3).get(t), _pigmento, _acabado, _producto, _cantidad);
+               double total=Math.round((cantidad1+cantidad2+cantidad3+cantidad4)*100)/100d;
+               ArrayList<Base> combinacionSimple=new ArrayList<Base>();
+                    if(total>peso.getPesoMin() && total<peso.getPesoMax()){
+                   String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
+                   String nombre2fin=nombre2+" "+bases.get(1).get(j).getConcentracion().toString()+"%";
+                   String nombre3fin=nombre3+" "+bases.get(2).get(s).getConcentracion().toString()+"%";
+                   String nombre4fin=nombre4+" "+bases.get(3).get(t).getConcentracion().toString()+"%";
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   resultado.setBase2(nombre2fin);
+                   resultado.setCant2(cantidad2);
+                   resultado.setBase3(nombre3fin);
+                   resultado.setCant3(cantidad3);
+                   resultado.setBase4(nombre4fin);
+                   resultado.setCant4(cantidad4);
+                   resultado.setTotal(total);
+                   combinacionFinal.add(resultado);
+               }
+                   }
+               }
+           }
+       }
+      return combinacionFinal;
+    }
+    
+       public ArrayList<Resultado> combinacion3Bases(ArrayList<ArrayList<Base>> bases,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad) throws DAOExcepcion, DominioExcepcion{
        Controlador controlador=Controlador.dameControlador();
-       ArrayList<Base> bases=controlador.getBases(_pigmento.getId());
+       ArrayList<Resultado> combinacionFinal=new ArrayList<>();
+       Peso peso= controlador.getPeso();
+       String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
+       String nombre2=controlador.getColor(bases.get(1).get(0).getId()).getNombre();
+       String nombre3=controlador.getColor(bases.get(2).get(0).getId()).getNombre();
+      for(int i = 0;i<bases.get(0).size();i++){
+           for(int j=0;j<bases.get(1).size();j++){
+               for(int s=0;s<bases.get(2).size();s++){
+               double cantidad1=calculo(bases.get(0).get(i), _pigmento, _acabado, _producto, _cantidad);
+               double cantidad2=calculo(bases.get(1).get(j), _pigmento, _acabado, _producto, _cantidad);
+               double cantidad3=calculo(bases.get(2).get(s), _pigmento, _acabado, _producto, _cantidad);
+               double total=Math.round((cantidad1+cantidad2+cantidad3)*100)/100d;
+               ArrayList<Base> combinacionSimple=new ArrayList<Base>();
+                if(total>peso.getPesoMin() && total<peso.getPesoMax()){
+                   String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
+                   String nombre2fin=nombre2+" "+bases.get(1).get(j).getConcentracion().toString()+"%";
+                   String nombre3fin=nombre3+" "+bases.get(2).get(s).getConcentracion().toString()+"%";
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   resultado.setBase2(nombre2fin);
+                   resultado.setCant2(cantidad2);
+                   resultado.setBase3(nombre3fin);
+                   resultado.setCant3(cantidad3);
+                   resultado.setTotal(total);
+                   combinacionFinal.add(resultado);
+               }
+               }
+           }
+       }
+      return combinacionFinal;
+    }
+       
+    public ArrayList<Resultado> combinacion2Bases(ArrayList<ArrayList<Base>> bases,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad) throws DAOExcepcion, DominioExcepcion{
+        Controlador controlador=Controlador.dameControlador();
+       ArrayList<Resultado> combinacionFinal=new ArrayList<>();
+       Peso peso= controlador.getPeso();
+       String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
+       String nombre2=controlador.getColor(bases.get(1).get(0).getId()).getNombre();
+      for(int i = 0;i<bases.get(0).size();i++){
+           for(int j=0;j<bases.get(1).size();j++){
+               double cantidad1=calculo(bases.get(0).get(i), _pigmento, _acabado, _producto, _cantidad);
+               double cantidad2=calculo(bases.get(1).get(j), _pigmento, _acabado, _producto, _cantidad);
+               double total=Math.round((cantidad1+cantidad2)*100)/100d;
+               if(total>peso.getPesoMin() && total<peso.getPesoMax()){
+                   String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
+                   String nombre2fin=nombre2+" "+bases.get(1).get(j).getConcentracion().toString()+"%";
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   resultado.setBase2(nombre2fin);
+                   resultado.setCant2(cantidad2);
+                   resultado.setTotal(total);
+                   combinacionFinal.add(resultado);
+               }
+           }
+       }
+      return combinacionFinal;
+    }
+     public ArrayList<Resultado> combinacion1Bases(ArrayList<ArrayList<Base>> bases,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad) throws DAOExcepcion, DominioExcepcion{
+       Controlador controlador=Controlador.dameControlador();
+       Peso peso= controlador.getPeso();
+       ArrayList<Resultado> combinacionFinal=new ArrayList<>();
+       String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
+      for(int i = 0;i<bases.get(0).size();i++){
+      double cantidad1=calculo(bases.get(0).get(i), _pigmento, _acabado, _producto, _cantidad);
+      cantidad1=Math.round(cantidad1*100)/100d;
+      if(cantidad1>peso.getPesoMin() && cantidad1<peso.getPesoMax()){
+                   String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   resultado.setTotal(cantidad1);
+                   combinacionFinal.add(resultado);
+               }
+               
+       }
+      return combinacionFinal;
+    }
+    
+   public ArrayList<Color> getBases(Pigmento _pigmento) throws DAOExcepcion, DominioExcepcion{
+       Controlador controlador=Controlador.dameControlador();
+       ArrayList<Color> colores=controlador.getColores(_pigmento.getId());
+       return colores;
+   }
+   public ArrayList<Base> basesConConcentracion(Color color) throws DAOExcepcion, DominioExcepcion{
+       Controlador controlador=Controlador.dameControlador();
+       ArrayList<Base> bases=controlador.getBases(color.getId());
        return bases;
    }
-   
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
@@ -194,8 +331,39 @@ public class CalcularController implements Initializable, ControlledScreen{
         stage.show();
            }
        });
-       
+        concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
+
+          @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoConcentracionBase.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+    
+        stage.setTitle("Añadir concentracion a base");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
        calcular.setDisable(true);
+       listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
+
+           @Override
+           public void handle(ActionEvent t) {
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("ListadoPesos.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+ 
+        stage.setTitle("Pesos");
+        stage.setScene(new Scene(root));
+        stage.show();
+           }
+       });
        listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
@@ -250,7 +418,7 @@ public class CalcularController implements Initializable, ControlledScreen{
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("AnyadirAditivosABase.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
@@ -298,31 +466,52 @@ public class CalcularController implements Initializable, ControlledScreen{
  
       baseAPigmento.setOnAction(new EventHandler<ActionEvent>() {
 
-          @Override
+           @Override
            public void handle(ActionEvent t) {
-
                Parent root=null;
                try {
-                   root = FXMLLoader.load(getClass().getResource("ListadoBases_ComboBox.fxml"));
+                   root = FXMLLoader.load(getClass().getResource("ListadoPigmento_ComboBox.fxml"));
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-
-        stage.setTitle("Base a Pigmento");
+ 
+        stage.setTitle("Pigmento a Base");
         stage.setScene(new Scene(root));
         stage.show();
            }
        });
             
          tableView.setEditable(true);
-        tableView.setMaxWidth(400);
-        TableColumn Nombre=new TableColumn("Base");
-        TableColumn Cantidad=new TableColumn("Cantidad(g)");
-        Cantidad.setMinWidth(150);
-        Nombre.setMinWidth(200);
-      Nombre.setCellValueFactory(new PropertyValueFactory<Base,String>("Nombre"));
-      Cantidad.setCellValueFactory(new PropertyValueFactory("Porcentaje"));
-      tableView.getColumns().addAll(Nombre,Cantidad);
+        tableView.setMaxWidth(800);
+        TableColumn Base1=new TableColumn("Base1");
+        TableColumn Cant1=new TableColumn("Cant1");
+        TableColumn Base2=new TableColumn("Base2");
+        TableColumn Cant2=new TableColumn("Cant2");
+        TableColumn Base3=new TableColumn("Base3");
+        TableColumn Cant3=new TableColumn("Cant3");
+        TableColumn Base4=new TableColumn("Base4");
+        TableColumn Cant4=new TableColumn("Cant4");
+        TableColumn total=new TableColumn("Total");
+        total.setStyle("columna-total");
+        Cant1.setMinWidth(30);
+        Base1.setMinWidth(100);
+        Cant2.setMinWidth(30);
+        Base2.setMinWidth(100);
+        Cant3.setMinWidth(30);
+        Base3.setMinWidth(100);
+        Cant4.setMinWidth(30);
+        Base4.setMinWidth(100);
+        total.setMinWidth(30);
+      Base1.setCellValueFactory(new PropertyValueFactory<Base,String>("Base1"));
+      Cant1.setCellValueFactory(new PropertyValueFactory("Cant1"));
+      Base2.setCellValueFactory(new PropertyValueFactory<Base,String>("Base2"));
+      Cant2.setCellValueFactory(new PropertyValueFactory("Cant2"));
+      Base3.setCellValueFactory(new PropertyValueFactory<Base,String>("Base3"));
+      Cant3.setCellValueFactory(new PropertyValueFactory("Cant3"));
+      Base4.setCellValueFactory(new PropertyValueFactory<Base,String>("Base4"));
+      Cant4.setCellValueFactory(new PropertyValueFactory("Cant4"));
+      total.setCellValueFactory(new PropertyValueFactory("Total"));
+      tableView.getColumns().addAll(Base1,Cant1,Base2,Cant2,Base3,Cant3,Base4,Cant4,total);
        try {
            cargarPigmentos();
        } catch (DAOExcepcion ex) {

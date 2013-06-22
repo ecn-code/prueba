@@ -20,11 +20,13 @@
             <MenuItem mnemonicParsing="false" text="Pigmento" fx:id="listadoPigmento" />
             <MenuItem mnemonicParsing="false" text="Base" fx:id="listadoBase" />
             <MenuItem mnemonicParsing="false" text="Aditivo" fx:id="listadoAditivo" />
+            <MenuItem mnemonicParsing="false" text="Peso" fx:id="listadoPeso" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Añadir" fx:id="menuAcabados">
           <items>
             <MenuItem mnemonicParsing="false" text="Base a Pigmento" fx:id="baseAPigmento" />
+            <MenuItem mnemonicParsing="false" text="Concentracion a Base" fx:id="concentracionABase" />
             <MenuItem mnemonicParsing="false" text="Aditivo a Base" fx:id="aditivoABase" />
           </items>
         </Menu>
@@ -42,6 +44,12 @@
     </ImageView>
     <Label id="label-normal" layoutX="208.0" layoutY="231.0" text="Calculadora de pigmentos" />
     <Label id="label-normal" layoutX="278.0" layoutY="253.0" prefWidth="43.49993896484375" text="V 1.0" />
+    <Accordion expandedPane="$null" layoutX="198.0" layoutY="186.0" />
+    <ImageView fitHeight="189.13014221191406" fitWidth="282.0099033565546" layoutX="137.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@calculadora.png" />
+      </image>
+    </ImageView>
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

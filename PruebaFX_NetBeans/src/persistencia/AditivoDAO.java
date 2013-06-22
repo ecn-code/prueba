@@ -52,13 +52,13 @@ public class AditivoDAO implements IAditivoDAO{
     }
 
     @Override
-    public ArrayList<Aditivo> getAditivos(int idb) throws DAOExcepcion {
+    public ArrayList<Aditivo> getAditivos(int idb,double concentracion) throws DAOExcepcion {
          ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
                 
 		try{
                     
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ADITIVOS_CANTIDAD WHERE IDB="+idb);
+			ResultSet rs=connManager.queryDB("select * from ADITIVOS_CANTIDAD WHERE IDB="+idb+" and CONCENTRACION="+concentracion);
 			connManager.close();
                         
                         
@@ -125,11 +125,11 @@ public class AditivoDAO implements IAditivoDAO{
     public void asociarAditivo(Base base, Aditivo aditivo) throws DAOExcepcion {
       try {
 			this.connManager.connect();
-			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (CANTIDAD,IDB,NOMBRE) values ("+
-					aditivo.getCantidad()+","+
-                                        base.getId()+",'"+
-                                        aditivo.getNombre()
-					+ "')");
+			this.connManager.updateDB("insert into ADITIVOS_CANTIDAD (CANTIDAD,NOMBRE,CONCENTRACION,IDB) values ("+
+					aditivo.getCantidad()+",'"+
+                                        aditivo.getNombre()+"',"+
+                                        base.getConcentracion()+ ","+
+                                        base.getId()+")");
 			this.connManager.close();
 
 		} catch (DAOExcepcion e) {
@@ -166,7 +166,7 @@ public class AditivoDAO implements IAditivoDAO{
     }
 
     @Override
-    public ArrayList<Aditivo> getAditivosNoAsignados(int idb) throws DAOExcepcion {
+    public ArrayList<Aditivo> getAditivosNoAsignados(int idb,double concentracion) throws DAOExcepcion {
       ArrayList<Aditivo> aditivos = new ArrayList<Aditivo>();
                 
 		try{

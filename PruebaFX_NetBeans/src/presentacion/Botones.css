@@ -325,7 +325,7 @@
 ;
 }
 .table-view{
-    -fx-font: 16px "System";
+    -fx-font: 12px "System";
 }
 
 
@@ -336,7 +336,10 @@
     -fx-blend-mode: soft-light;
 }
 
-
+#columna-total{
+     -fx-text-fill:red;
+    -fx-font: 16px "System";
+}
 
 .button{
     -fx-background-color:

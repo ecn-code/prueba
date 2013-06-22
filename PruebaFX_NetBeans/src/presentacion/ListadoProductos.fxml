@@ -41,11 +41,13 @@
             <MenuItem mnemonicParsing="false" text="Pigmento" fx:id="listadoPigmento" />
             <MenuItem mnemonicParsing="false" text="Base" fx:id="listadoBase" />
             <MenuItem mnemonicParsing="false" text="Aditivo" fx:id="listadoAditivo" />
+            <MenuItem mnemonicParsing="false" text="Peso" fx:id="listadoPeso" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Añadir">
           <items>
             <MenuItem mnemonicParsing="false" text="Base a Pigmento" fx:id="baseAPigmento" />
+            <MenuItem mnemonicParsing="false" text="Concentracion a Base" fx:id="concentracionABase" />
             <MenuItem mnemonicParsing="false" text="Aditivo a Base" fx:id="aditivoABase" />
           </items>
         </Menu>
