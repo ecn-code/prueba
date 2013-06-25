@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,6 +76,7 @@ import logica.Base;
 import logica.Color;
 import logica.Pigmento;
 import logica.Controlador;
+import logica.ObjetoResultado;
 import logica.Peso;
 import logica.Pigmento;
 import logica.Producto;
@@ -105,6 +107,24 @@ public class CalcularController implements Initializable, ControlledScreen{
     Stage stage;
     @FXML
     
+    public void elegir(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
+        ObjetoResultado objetoResultado=ObjetoResultado.dameObjetoResultado();
+        Resultado resultado=tableView.getSelectionModel().getSelectedItem();
+         objetoResultado.setResultado(resultado);
+         
+          
+               Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("Resultado.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+
+        stage.setTitle("Pigmentos");
+        stage.setScene(new Scene(root));
+        stage.show();
+          
+    }
     public void calcular(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
     ArrayList<ArrayList<Base>> basesYConcentraciones =new ArrayList<ArrayList<Base>>();
     ArrayList<Base> basesResultado=new ArrayList<Base>();
@@ -165,7 +185,30 @@ public class CalcularController implements Initializable, ControlledScreen{
     }else if(basesYConcentraciones.size()==4){
        resultadoParaTabla=combinacion4Bases(basesYConcentraciones,pigmento,acabado,producto,cantidad);  
     }
-     ObservableList<Resultado> basesTabla = FXCollections.observableList(resultadoParaTabla);  
+    int m,n;
+    Resultado[] resultados=new Resultado[resultadoParaTabla.size()];
+    for(int i=0;i<resultadoParaTabla.size();i++){
+        resultados[i]=resultadoParaTabla.get(i);
+    }   
+         Resultado aux;
+    for (int i = 0; i < resultados.length - 1; i++) {
+        for (int x = i + 1; x < resultados.length; x++) {
+            if (resultados[x].getTotal() < resultados[i].getTotal()) {
+                aux = resultados[i];
+                resultados[i] = resultados[x];
+                resultados[x] = aux;
+            }
+        }
+    }
+          
+    ArrayList<Resultado> resultadosOrdenados=new ArrayList<Resultado>();
+    for(int j=0;j<resultados.length;j++)
+        resultadosOrdenados.add(resultados[j]);
+    
+    
+    
+     
+     ObservableList<Resultado> basesTabla = FXCollections.observableList(resultadosOrdenados);
      tableView.setItems(basesTabla);
     }
     }
@@ -249,6 +292,7 @@ public class CalcularController implements Initializable, ControlledScreen{
                    resultado.setCant3(cantidad3);
                    resultado.setTotal(total);
                    combinacionFinal.add(resultado);
+                
                }
                }
            }

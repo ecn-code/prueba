@@ -212,7 +212,7 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
         });
     */
          stage = ObjetoCompartido.dameLo().getStage();
-          
+        
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
         
            @Override
