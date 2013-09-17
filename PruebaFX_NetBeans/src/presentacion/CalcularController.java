@@ -55,6 +55,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -67,6 +68,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
@@ -107,24 +111,6 @@ public class CalcularController implements Initializable, ControlledScreen{
     Stage stage;
     @FXML
     
-    public void elegir(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-        ObjetoResultado objetoResultado=ObjetoResultado.dameObjetoResultado();
-        Resultado resultado=tableView.getSelectionModel().getSelectedItem();
-         objetoResultado.setResultado(resultado);
-         
-          
-               Parent root=null;
-               try {
-                   root = FXMLLoader.load(getClass().getResource("Resultado.fxml"));
-               } catch (IOException ex) {
-                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-               }
-
-        stage.setTitle("Pigmentos");
-        stage.setScene(new Scene(root));
-        stage.show();
-          
-    }
     public void calcular(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
     ArrayList<ArrayList<Base>> basesYConcentraciones =new ArrayList<ArrayList<Base>>();
     ArrayList<Base> basesResultado=new ArrayList<Base>();
@@ -193,7 +179,7 @@ public class CalcularController implements Initializable, ControlledScreen{
          Resultado aux;
     for (int i = 0; i < resultados.length - 1; i++) {
         for (int x = i + 1; x < resultados.length; x++) {
-            if (resultados[x].getTotal() < resultados[i].getTotal()) {
+            if (Double.parseDouble(resultados[x].getTotal()) < Double.parseDouble(resultados[i].getTotal())) {
                 aux = resultados[i];
                 resultados[i] = resultados[x];
                 resultados[x] = aux;
@@ -205,10 +191,7 @@ public class CalcularController implements Initializable, ControlledScreen{
     for(int j=0;j<resultados.length;j++)
         resultadosOrdenados.add(resultados[j]);
     
-    
-    
-     
-     ObservableList<Resultado> basesTabla = FXCollections.observableList(resultadosOrdenados);
+    ObservableList<Resultado> basesTabla = FXCollections.observableList(resultadosOrdenados);
      tableView.setItems(basesTabla);
     }
     }
@@ -221,15 +204,14 @@ public class CalcularController implements Initializable, ControlledScreen{
         Double factorAditivos=(100-_base.getConcentracion())/_base.getConcentracion();
         Double resultado100g=factor+factor*factorAditivos;
         Double resultadParaCantidadSeleccionada=(resultado100g*_cantidad)/0.1;
-     //  baseResultado.setConcentracion(Math.round(resultadParaCantidadSeleccionada*100)/100d);
         return Math.round(resultadParaCantidadSeleccionada*100)/100d;
-        
     }
  
      public ArrayList<Resultado> combinacion4Bases(ArrayList<ArrayList<Base>> bases,Pigmento _pigmento,Acabado _acabado,Producto _producto,Double _cantidad) throws DAOExcepcion, DominioExcepcion{
          Controlador controlador=Controlador.dameControlador();
        ArrayList<Resultado> combinacionFinal=new ArrayList<>();
        Peso peso= controlador.getPeso();
+        String producto=_pigmento.getNombre()+"  "+_cantidad+" Kg  para  "+ _producto.getNombre()+"  acabado  al  "+_acabado.getNombre()+"";
        String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
        String nombre2=controlador.getColor(bases.get(1).get(0).getId()).getNombre();
        String nombre3=controlador.getColor(bases.get(2).get(0).getId()).getNombre();
@@ -249,14 +231,20 @@ public class CalcularController implements Initializable, ControlledScreen{
                    String nombre2fin=nombre2+" "+bases.get(1).get(j).getConcentracion().toString()+"%";
                    String nombre3fin=nombre3+" "+bases.get(2).get(s).getConcentracion().toString()+"%";
                    String nombre4fin=nombre4+" "+bases.get(3).get(t).getConcentracion().toString()+"%";
-                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   String cantidad1Tabla=cantidad1+"";
+                   String cantidad2Tabla=cantidad2+"";
+                   String cantidad3Tabla=cantidad3+"";
+                   String cantidad4Tabla=cantidad4+"";
+                   String totalTabla=total+"";
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1Tabla);
                    resultado.setBase2(nombre2fin);
-                   resultado.setCant2(cantidad2);
+                   resultado.setCant2(cantidad2Tabla);
                    resultado.setBase3(nombre3fin);
-                   resultado.setCant3(cantidad3);
+                   resultado.setCant3(cantidad3Tabla);
                    resultado.setBase4(nombre4fin);
-                   resultado.setCant4(cantidad4);
-                   resultado.setTotal(total);
+                   resultado.setCant4(cantidad4Tabla);
+                   resultado.setTotal(totalTabla);
+                   resultado.setProductoSeleccionado(producto);
                    combinacionFinal.add(resultado);
                }
                    }
@@ -273,6 +261,7 @@ public class CalcularController implements Initializable, ControlledScreen{
        String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
        String nombre2=controlador.getColor(bases.get(1).get(0).getId()).getNombre();
        String nombre3=controlador.getColor(bases.get(2).get(0).getId()).getNombre();
+      String producto=_pigmento.getNombre()+"  "+_cantidad+" Kg  para  "+ _producto.getNombre()+"  acabado  al  "+_acabado.getNombre()+"";
       for(int i = 0;i<bases.get(0).size();i++){
            for(int j=0;j<bases.get(1).size();j++){
                for(int s=0;s<bases.get(2).size();s++){
@@ -285,14 +274,18 @@ public class CalcularController implements Initializable, ControlledScreen{
                    String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
                    String nombre2fin=nombre2+" "+bases.get(1).get(j).getConcentracion().toString()+"%";
                    String nombre3fin=nombre3+" "+bases.get(2).get(s).getConcentracion().toString()+"%";
-                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   String cantidad1Tabla=cantidad1+"";
+                   String cantidad2Tabla=cantidad2+"";
+                   String cantidad3Tabla=cantidad3+"";
+                   String totalTabla=total+"";
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1Tabla);
                    resultado.setBase2(nombre2fin);
-                   resultado.setCant2(cantidad2);
+                   resultado.setCant2(cantidad2Tabla);
                    resultado.setBase3(nombre3fin);
-                   resultado.setCant3(cantidad3);
-                   resultado.setTotal(total);
-                   combinacionFinal.add(resultado);
-                
+                   resultado.setCant3(cantidad3Tabla);
+                   resultado.setTotal(totalTabla);
+                   resultado.setProductoSeleccionado(producto);
+                   combinacionFinal.add(resultado);          
                }
                }
            }
@@ -306,18 +299,23 @@ public class CalcularController implements Initializable, ControlledScreen{
        Peso peso= controlador.getPeso();
        String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
        String nombre2=controlador.getColor(bases.get(1).get(0).getId()).getNombre();
+      String producto=_pigmento.getNombre()+"  "+_cantidad+" Kg  para  "+ _producto.getNombre()+"  acabado  al  "+_acabado.getNombre()+"";
       for(int i = 0;i<bases.get(0).size();i++){
            for(int j=0;j<bases.get(1).size();j++){
                double cantidad1=calculo(bases.get(0).get(i), _pigmento, _acabado, _producto, _cantidad);
                double cantidad2=calculo(bases.get(1).get(j), _pigmento, _acabado, _producto, _cantidad);
                double total=Math.round((cantidad1+cantidad2)*100)/100d;
+               String cantidad1Tabla=cantidad1+"";
+                   String cantidad2Tabla=cantidad2+"";
+                   String totalTabla=total+"";
                if(total>peso.getPesoMin() && total<peso.getPesoMax()){
                    String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
                    String nombre2fin=nombre2+" "+bases.get(1).get(j).getConcentracion().toString()+"%";
-                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1Tabla);
                    resultado.setBase2(nombre2fin);
-                   resultado.setCant2(cantidad2);
-                   resultado.setTotal(total);
+                   resultado.setCant2(cantidad2Tabla);
+                   resultado.setTotal(totalTabla);
+                   resultado.setProductoSeleccionado(producto);
                    combinacionFinal.add(resultado);
                }
            }
@@ -329,13 +327,17 @@ public class CalcularController implements Initializable, ControlledScreen{
        Peso peso= controlador.getPeso();
        ArrayList<Resultado> combinacionFinal=new ArrayList<>();
        String nombre1=controlador.getColor(bases.get(0).get(0).getId()).getNombre();
+       String producto=_pigmento.getNombre()+"  "+_cantidad+" Kg  para  "+ _producto.getNombre()+"  acabado  al  "+_acabado.getNombre()+"";
       for(int i = 0;i<bases.get(0).size();i++){
       double cantidad1=calculo(bases.get(0).get(i), _pigmento, _acabado, _producto, _cantidad);
       cantidad1=Math.round(cantidad1*100)/100d;
+        String cantidad1Tabla=cantidad1+"";
+        
       if(cantidad1>peso.getPesoMin() && cantidad1<peso.getPesoMax()){
                    String nombre1fin=nombre1+" "+bases.get(0).get(i).getConcentracion().toString()+"%";
-                   Resultado resultado=new Resultado(nombre1fin, cantidad1);
-                   resultado.setTotal(cantidad1);
+                   Resultado resultado=new Resultado(nombre1fin, cantidad1Tabla);
+                   resultado.setTotal(cantidad1Tabla);
+                   resultado.setProductoSeleccionado(producto);
                    combinacionFinal.add(resultado);
                }
                
@@ -356,9 +358,51 @@ public class CalcularController implements Initializable, ControlledScreen{
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-        
         stage = ObjetoCompartido.dameLo().getStage();
-          
+        
+        txtCantidad.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        calcular(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+          tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                if(t.getClickCount() > 1){
+                Resultado resultado= (Resultado)tableView.getSelectionModel().getSelectedItem();
+              /*  if(resultado!=null){
+                   
+                    btnElegir.setDisable(false);
+                }else{
+                  btnElegir.setDisable(true);  
+                }*/
+                 ObjetoResultado objetoResultado=ObjetoResultado.dameObjetoResultado();
+       // Resultado resultado=tableView.getSelectionModel().getSelectedItem();
+         objetoResultado.setResultado(resultado);
+          Parent root=null;
+               try {
+                   root = FXMLLoader.load(getClass().getResource("Resultado.fxml"));
+               } catch (IOException ex) {
+                   Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+
+        stage.setTitle("Pigmentos");
+        stage.setScene(new Scene(root));
+        stage.show();
+            }
+            }  
+        });
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
@@ -637,8 +681,6 @@ public class CalcularController implements Initializable, ControlledScreen{
           ObservableList<Producto> producto = FXCollections.observableList(productos);
           comboProducto.setItems(producto);
     }
-    
-
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;

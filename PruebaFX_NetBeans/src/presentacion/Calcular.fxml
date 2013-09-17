@@ -87,11 +87,6 @@
         <Menu mnemonicParsing="false" text="Calcular" fx:id="calcular" />
       </menus>
     </MenuBar>
-    <Button id="ipad-grey2" fx:id="btnElegir" layoutX="582.0" layoutY="557.0" minHeight="29.0" mnemonicParsing="false" onAction="#elegir" prefHeight="29.0" prefWidth="113.0" style="" text="Elegir Formula">
-      <stylesheets>
-        <URL value="@Botones.css" />
-      </stylesheets>
-    </Button>
   </children>
   <stylesheets>
     <URL value="@Botones.css" />

@@ -66,6 +66,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -101,8 +103,7 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
     Stage stage;
     Color color;
    @FXML
-    public void eliminarAditivo(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-       
+    public void eliminarAditivo(ActionEvent event) throws DAOExcepcion, DominioExcepcion{       
        Controlador controlador= Controlador.dameControlador();
        color=(Color) elegirBase.getSelectionModel().getSelectedItem();
        String concentracion=elegirConcentracion.getSelectionModel().getSelectedItem().toString();
@@ -120,21 +121,6 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
             cantidadEliminar.setText("");
             btnEliminar.setDisable(true);
         }
-     /*  Base base;
-       Controlador controlador= Controlador.dameControlador();
-       base=(Base) tableView.getSelectionModel().getSelectedItem();
-       int answer= MessageBox.show(stage,
-        "Estas seguro de que quieres eliminar esta concentracion?",
-        "Information dialog",
-        MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
-        System.out.println(answer);
-        if(answer==65536){
-            controlador.eliminarConcentracionBase(base);
-            cantidadEliminar.setText("");
-            btnEliminar.setDisable(true);
-            cargarBases(base.getId());
-        }
-        */
         }
 
     public void anyadirAditivo(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
@@ -169,8 +155,7 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
                lblErrorCantidad.setText(""); 
             }
             } 
-            
-  
+
             if(!error){       
                 Base base= new Base(color.getId(),concentracion);
                 Aditivo aditivo=new Aditivo(elegirAditivo.getSelectionModel().getSelectedItem().toString());
@@ -185,6 +170,24 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
     @Override
     public void initialize (URL location,ResourceBundle resources){
         btnEliminar.setDisable(true);
+         txtCantidad.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirAditivo(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
          tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -198,19 +201,6 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
                 }
             }
       });
-        /*
-      tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent t) {
-                Base base= tableView.getSelectionModel().getSelectedItem();
-                if(base!=null){
-                    cantidadEliminar.setText(base.getConcentracion().toString());
-                    btnEliminar.setDisable(false);
-                }
-            }
-        });
-    */
          stage = ObjetoCompartido.dameLo().getStage();
         
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
@@ -403,12 +393,10 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
                     tableView.setItems(null);
                     elegirAditivo.setItems(null);
                     elegirConcentracion.setItems(null);
-                    //System.out.println(((Color)elegirBase.getItems().get(new_value.intValue())).getId());
                     cargarConcentracion(((Color)elegirBase.getItems().get(new_value.intValue())).getId());      
                     }
         });
-       
-       elegirBase.setItems(null);
+        elegirBase.setItems(null);
         tableView.setEditable(true);
         tableView.setMaxWidth(520);
         TableColumn Nombre=new TableColumn("Nombre");
@@ -419,70 +407,8 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
       Cantidad.setCellValueFactory(new PropertyValueFactory("Cantidad"));
       tableView.getColumns().addAll(Nombre,Cantidad);
       cargarColores(); 
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Pigmento, String>>() {
-        @Override
-        public void handle(CellEditEvent<Pigmento, String> t) {
-               Controlador controlador = null;
-               Pigmento pigmento=null;
-               Stage stage=new Stage();
-        try {
-            controlador=controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            try {
-                pigmento=controlador.getPigmento(t.getNewValue());
-            } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                this.finalize();
-            } catch (Throwable ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             if(t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"El nombre del pigmento no  puede estar vacio",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-            }
-            if(pigmento==null && !t.getNewValue().trim().equals("")){
-               ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow())
-                ).setNombre(t.getNewValue());
-               Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow()));
-               pigmentoA.setNombre(t.getNewValue().trim());
-                   try {
-                       controlador.modificarPigmento(pigmentoA);
-                   } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               cargar();
-            }
-           
-            if(pigmento!= null && !t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"Ese pigmento ya existe, introduzca un nombre distinto",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-    
-            }
-      
-        }
-    }
-);*/
-    
-        }
-    
-    
-   
+
     public  void cargarColores(){
         
         Controlador controlador = null;
@@ -505,29 +431,6 @@ public class AnyadirAditivosABaseController implements Initializable, Controlled
        elegirBase.setItems(colores2);
  
     }
-    /*
-    public void cargarBases(int idb) throws DAOExcepcion{
-            Controlador controlador = null;
-            ArrayList<Base> bases=new ArrayList<Base>();
-        try {
-            controlador = Controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            bases=controlador.getBases(idb);
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                  
-       ObservableList<Base> basesConvertidosParaTabla = FXCollections.observableList(bases);  
-       tableView.setItems(basesConvertidosParaTabla);
-        for(int i=0;i<bases.size();i++){
-            System.out.println(bases.get(i).getConcentracion());
-        }
-    }*/
      public  void cargarConcentracion(int idb){
         
         Controlador controlador = null;

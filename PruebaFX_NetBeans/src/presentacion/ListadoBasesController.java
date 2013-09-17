@@ -61,6 +61,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -95,8 +97,7 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
     @FXML Menu inicio;
     Stage stage;
         @FXML
-    public void eliminarBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-        
+    public void eliminarBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{      
         Stage stage=new Stage();
         Controlador controlador=null;
         Color color= tableView.getSelectionModel().getSelectedItem();
@@ -147,7 +148,24 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-        
+        txtNombre.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirBase(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
         botonEliminar.setDisable(true);
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -262,7 +280,6 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
            }
        });
         concentracionABase.setOnAction(new EventHandler<ActionEvent>() {
-
           @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -401,14 +418,12 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
         }
     }
 );
-    
         }
     
     
     public static void cargar(){
     Controlador controlador = null;
     ArrayList<Color> colores=new ArrayList<Color>();
-
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -425,8 +440,6 @@ public class ListadoBasesController implements Initializable, ControlledScreen{
        ObservableList<Color> color = FXCollections.observableList(colores);  
        tableView.setItems(color);
     }
-    
-
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;

@@ -61,6 +61,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -92,8 +94,7 @@ public class ListadoAditivosController implements Initializable, ControlledScree
     @FXML Button botonEliminar;
     Stage stage;
     @FXML
-    public void eliminarAditivo(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-        
+    public void eliminarAditivo(ActionEvent event) throws DAOExcepcion, DominioExcepcion{       
         Stage stage=new Stage();
         Controlador controlador=null;
         Aditivo aditivo= tableView.getSelectionModel().getSelectedItem();
@@ -176,7 +177,24 @@ public class ListadoAditivosController implements Initializable, ControlledScree
         stage.show();
            }
        });
-       
+       txtNombre.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirAditivo(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
        listadoAditivo.setDisable(true);
        listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -335,77 +353,14 @@ public class ListadoAditivosController implements Initializable, ControlledScree
         Nombre.setMinWidth(520);
       Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
       tableView.getColumns().addAll(Nombre);
-      
       cargar();
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Aditivo, String>>() {
-        @Override
-        public void handle(CellEditEvent<Aditivo, String> t) {
-               Controlador controlador = null;
-               Aditivo aditivo=null;
-               Stage stage=new Stage();
-        try {
-            controlador=controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            try {
-                aditivo=controlador.getAditivo(t.getNewValue());
-            } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                this.finalize();
-            } catch (Throwable ex) {
-                Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             if(t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"El nombre del aditivo no  puede estar vacio",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-            }
-            if(aditivo==null && !t.getNewValue().trim().equals("")){
-               ((Aditivo) t.getTableView().getItems().get(
-                t.getTablePosition().getRow())
-                ).setNombre(t.getNewValue());
-               Aditivo aditivoA=  ((Aditivo) t.getTableView().getItems().get(
-                t.getTablePosition().getRow()));
-               aditivoA.setNombre(t.getNewValue().trim());
-                   try {
-                       controlador.modificarAditivo(aditivoA);
-                   } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               cargar();
-            }
-           
-            if(aditivo!= null && !t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"Ese aditivo ya existe, introduzca un nombre distinto",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-    
-            }
-      
-        }
-    }
-);*/
-    
         }
     
     
     public static void cargar(){
         
-                    Controlador controlador = null;
-
-  ArrayList<Aditivo> aditivos=new ArrayList<Aditivo>();
-
+   Controlador controlador = null;
+   ArrayList<Aditivo> aditivos=new ArrayList<Aditivo>();
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -417,13 +372,10 @@ public class ListadoAditivosController implements Initializable, ControlledScree
             aditivos=controlador.getAditivos();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoAditivosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                  
+        }          
        ObservableList<Aditivo> aditivo = FXCollections.observableList(aditivos);  
        tableView.setItems(aditivo);
     }
-    
-
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;

@@ -66,6 +66,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -150,24 +152,37 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                MessageBox.show(stage,
         "Para esa base ya existe la concentracion "+cantidad+"%",
         "Information dialog",
-        MessageBox.ICON_INFORMATION | MessageBox.OK);
-                
+        MessageBox.ICON_INFORMATION | MessageBox.OK);               
             }
-  
             if(!error){       
-         controlador.asociarConcentracion(color, Double.parseDouble(cantidad));
-           txtCantidad.setText("");
-           cargarBases(color.getId());
-            }
-         
-    }
-    
+            controlador.asociarConcentracion(color, Double.parseDouble(cantidad));
+            txtCantidad.setText("");
+            cargarBases(color.getId());
+            }      
+    } 
     @Override
     public void initialize (URL location,ResourceBundle resources){
         btnEliminar.setDisable(true);
+        txtCantidad.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirConcentracion(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
+       @Override
             public void handle(MouseEvent t) {
                 Base base= tableView.getSelectionModel().getSelectedItem();
                 if(base!=null){
@@ -180,8 +195,7 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
          stage = ObjetoCompartido.dameLo().getStage();
           
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
-        
-           @Override
+         @Override
            public void handle(ActionEvent t) {
                Parent root=null;
                try {
@@ -214,7 +228,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
            }
        });
        listadoProducto.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -223,14 +236,12 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-
         stage.setTitle("Productos");
         stage.setScene(new Scene(root));
         stage.show();
            }
        });
        listadoBase.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -246,7 +257,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
            }
        });
        aditivoABase.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -255,7 +265,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
- 
         stage.setTitle("Pigmento a Base");
         stage.setScene(new Scene(root));
         stage.show();
@@ -271,15 +280,12 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-
         stage.setTitle("Pigmentos");
         stage.setScene(new Scene(root));
         stage.show();
            }
        });
-      
       inicio.setOnShown(new EventHandler<Event>() {
-
           @Override
            public void handle(Event t) {
                Parent root=null;
@@ -288,7 +294,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-    
         stage.setTitle("Inicio");
         stage.setScene(new Scene(root));
         stage.show();
@@ -296,7 +301,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
            }
        });
       listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -305,7 +309,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
- 
         stage.setTitle("Pesos");
         stage.setScene(new Scene(root));
         stage.show();
@@ -328,10 +331,8 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
         stage.show();
        calcular.hide();
            }
-       });
-        
+       });      
        baseAPigmento.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -350,8 +351,7 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
        elegirBase.getSelectionModel().selectedIndexProperty().addListener(new
             ChangeListener<Number>() {
                 public void changed(ObservableValue ov,
-                    Number value, Number new_value) {
-                  
+                    Number value, Number new_value) {               
             }
         });
        
@@ -360,7 +360,6 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
                 public void changed(ObservableValue ov,
                     Number value, Number new_value) {
                     try {
-                        //  label.setText(greetings[new_value.intValue()]);
                       cargarBases(((Color)elegirBase.getItems().get(new_value.intValue())).getId());
                     } catch (DAOExcepcion ex) {
                         Logger.getLogger(ListadoBasesController_ComboBox.class.getName()).log(Level.SEVERE, null, ex);
@@ -379,76 +378,11 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
       Concentracion.setCellValueFactory(new PropertyValueFactory("Concentracion"));
       tableView.getColumns().addAll(Id,Concentracion);
       cargarColores(); 
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Pigmento, String>>() {
-        @Override
-        public void handle(CellEditEvent<Pigmento, String> t) {
-               Controlador controlador = null;
-               Pigmento pigmento=null;
-               Stage stage=new Stage();
-        try {
-            controlador=controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            try {
-                pigmento=controlador.getPigmento(t.getNewValue());
-            } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                this.finalize();
-            } catch (Throwable ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             if(t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"El nombre del pigmento no  puede estar vacio",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-            }
-            if(pigmento==null && !t.getNewValue().trim().equals("")){
-               ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow())
-                ).setNombre(t.getNewValue());
-               Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow()));
-               pigmentoA.setNombre(t.getNewValue().trim());
-                   try {
-                       controlador.modificarPigmento(pigmentoA);
-                   } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               cargar();
-            }
-           
-            if(pigmento!= null && !t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"Ese pigmento ya existe, introduzca un nombre distinto",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-    
-            }
-      
-        }
-    }
-);*/
-    
-        }
-    
-    
-   
     public  void cargarColores(){
         
-                    Controlador controlador = null;
-
-  ArrayList<Color> colores=new ArrayList<Color>();
-
+    Controlador controlador = null;
+    ArrayList<Color> colores=new ArrayList<Color>();
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -461,10 +395,8 @@ public class ListadoConcentracionBase implements Initializable, ControlledScreen
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                  
        ObservableList<Color> colores2 = FXCollections.observableList(colores);  
        elegirBase.setItems(colores2);
- 
     }
     public void cargarBases(int idb) throws DAOExcepcion{
             Controlador controlador = null;

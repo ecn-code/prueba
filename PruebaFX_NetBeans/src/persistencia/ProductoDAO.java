@@ -29,7 +29,7 @@ public class ProductoDAO implements IProductoDAO{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from PRODUCTO");
+			ResultSet rs=connManager.queryDB("select * from PRODUCTO ORDER BY NOMBRE");
 			connManager.close();
 			try {
 				

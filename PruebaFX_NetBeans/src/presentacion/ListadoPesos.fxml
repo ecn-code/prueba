@@ -47,7 +47,7 @@
     <TextField id="emailField" fx:id="txtPesoMax" layoutX="154.0" layoutY="228.0" prefWidth="105.0" promptText="" />
     <Label id="label-error" fx:id="lblErrorFactor" layoutX="330.0" layoutY="520.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" visible="true" />
     <Label id="label-error" fx:id="lblErrorNombre" layoutX="110.0" layoutY="519.0" prefHeight="22.0" prefWidth="136.0" text="" textFill="RED" />
-    <Button id="ipad-grey2" layoutX="340.0" layoutY="154.0" minHeight="21.0" onAction="#anyadirPeso" prefHeight="25.0" prefWidth="68.0" text="Guardar" />
+    <Button id="ipad-grey2" layoutX="206.0" layoutY="275.0" minHeight="21.0" onAction="#anyadirPeso" prefHeight="25.0" prefWidth="68.0" text="Guardar" />
     <Label id="label-normal" layoutX="42.0" layoutY="154.0" prefWidth="105.0" text="Peso mínimo" />
     <Label id="label-normal" layoutX="40.0" layoutY="228.0" text="Peso máximo" />
     <Label id="label-normal" layoutX="262.0" layoutY="154.0" prefWidth="24.0" text="g" />

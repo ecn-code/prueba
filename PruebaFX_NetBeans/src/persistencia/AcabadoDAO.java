@@ -28,7 +28,7 @@ public class AcabadoDAO implements IAcabadoDAO{
 		ArrayList<Acabado> acabados = new ArrayList<Acabado>();
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ACABADO");
+			ResultSet rs=connManager.queryDB("select * from ACABADO ORDER BY NOMBRE");
 			connManager.close();
 			try {
 				

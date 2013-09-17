@@ -10,7 +10,7 @@
 
 <AnchorPane id="fondo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.PrincipalController">
   <children>
-    <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="600.0">
+    <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" prefWidth="626.0">
       <menus>
         <Menu mnemonicParsing="false" text="Inicio" fx:id="inicio" />
         <Menu mnemonicParsing="false" text="Listados" fx:id="menuProductos">

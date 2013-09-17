@@ -61,6 +61,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -160,13 +162,47 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
                 cargar();
             }
-    }
-    
+    }  
     @Override
     public void initialize (URL location,ResourceBundle resources){
 
-        stage = ObjetoCompartido.dameLo().getStage();
-          
+        stage = ObjetoCompartido.dameLo().getStage();  
+         txtFactor.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirAcabado(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+         txtNombre.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirAcabado(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
        listadoProducto.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
@@ -282,7 +318,6 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
            }
        });
        listadoPeso.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -333,8 +368,6 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
         calcular.hide();
            }
        });
-    
-      
         tableView.setEditable(true);
         tableView.setMaxWidth(520);
         TableColumn Id=new TableColumn("Id");
@@ -349,7 +382,6 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
       tableView.getColumns().addAll(Id,Nombre,Factor);
       botonEliminar.setDisable(true);
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent t) {
                 Acabado acabado= tableView.getSelectionModel().getSelectedItem();
@@ -360,8 +392,6 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
                 }
             }
         });
-
-
     Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
     Nombre.setOnEditCommit(
     new EventHandler<CellEditEvent<Acabado, String>>() {
@@ -414,10 +444,8 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
 						"Ese producto ya existe, introduzca un nombre distinto",
 						"Information dialog", 
 						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-    
-            }
-      
+                cargar();  
+            }  
         }
     }
 );
@@ -478,11 +506,8 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
     }
     
     public static void cargar(){
-        
-                    Controlador controlador = null;
-
-  ArrayList<Acabado> acabados=new ArrayList<Acabado>();
-
+    Controlador controlador = null;
+    ArrayList<Acabado> acabados=new ArrayList<Acabado>();
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -494,8 +519,7 @@ public class ListadoAcabadosController implements Initializable, ControlledScree
             acabados=controlador.getAcabados();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoAcabadosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                  
+        }                 
        ObservableList<Acabado> acabado = FXCollections.observableList(acabados);  
        tableView.setItems(acabado);
     }

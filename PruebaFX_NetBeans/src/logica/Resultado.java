@@ -39,20 +39,21 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Resultado {
+    private final SimpleStringProperty productoSeleccionado = new SimpleStringProperty("");
     private final SimpleStringProperty base1 = new SimpleStringProperty("");
-    private final SimpleDoubleProperty cant1 = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty cant1 = new SimpleStringProperty("");
      private final SimpleStringProperty base2 = new SimpleStringProperty("");
-    private final SimpleDoubleProperty cant2 = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty cant2 = new SimpleStringProperty("");
     private final SimpleStringProperty base3 = new SimpleStringProperty("");
-    private final SimpleDoubleProperty cant3 = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty cant3 = new SimpleStringProperty("");
     private final SimpleStringProperty base4 = new SimpleStringProperty("");
-    private final SimpleDoubleProperty cant4 = new SimpleDoubleProperty(0.0);
-    private final SimpleDoubleProperty total = new SimpleDoubleProperty(0.0);
+    private final SimpleStringProperty cant4 = new SimpleStringProperty("");
+    private final SimpleStringProperty total = new SimpleStringProperty("");
     public Resultado() {
-        this("",0.0);
+        this("","");
     }
 
-    public Resultado(String nombre,Double cantidad) {
+    public Resultado(String nombre,String cantidad) {
         setBase1(nombre);
         setCant1(cantidad);
     }
@@ -60,11 +61,11 @@ public class Resultado {
     public String getBase1() {
         return base1.get();
     }
-     public void setCant1(Double fName) {
+     public void setCant1(String fName) {
         cant1.set(fName);
     }
 
-    public Double getCant1() {
+    public String getCant1() {
         return cant1.get();
     }
 
@@ -77,11 +78,11 @@ public class Resultado {
      public String getBase2() {
         return base2.get();
     }
-     public void setCant2(Double fName) {
+     public void setCant2(String fName) {
         cant2.set(fName);
     }
 
-    public Double getCant2() {
+    public String getCant2() {
         return cant2.get();
     }
 
@@ -91,11 +92,11 @@ public class Resultado {
    public String getBase3() {
         return base3.get();
     }
-     public void setCant3(Double fName) {
+     public void setCant3(String fName) {
         cant3.set(fName);
     }
 
-    public Double getCant3() {
+    public String getCant3() {
         return cant3.get();
     }
 
@@ -105,22 +106,28 @@ public class Resultado {
      public String getBase4() {
         return base4.get();
     }
-     public void setCant4(Double fName) {
+     public void setCant4(String fName) {
         cant4.set(fName);
     }
-
-    public Double getCant4() {
+ public void setProductoSeleccionado(String fName) {
+        productoSeleccionado.set(fName);
+    }
+    public String getProductoSeleccionado() {
+        return productoSeleccionado.get();
+    }
+    public String getCant4() {
         return cant4.get();
     }
 
     public void setBase4(String fName) {
         base4.set(fName);
     }
-    public Double getTotal() {
+    public String getTotal() {
     return total.get();
     }
 
-    public void setTotal(Double fName) {
+    public void setTotal(String fName) {
         total.set(fName);
     }
+    
 }

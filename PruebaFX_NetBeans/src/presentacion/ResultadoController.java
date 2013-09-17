@@ -75,7 +75,7 @@ import logica.Resultado;
 public class ResultadoController implements Initializable, ControlledScreen{
     ScreensController myController;
    
-    @FXML private Label base1,base2,base3,base4,cant1,cant2,cant3,cant4,total,cant;
+    @FXML private Label base1,base2,base3,base4,cant1,cant2,cant3,cant4,total,productoSeleccionado,cantTotal;
    
             
           @FXML MenuItem listadoProducto;
@@ -104,15 +104,17 @@ public class ResultadoController implements Initializable, ControlledScreen{
         }
        ObjetoResultado objetoResultado= ObjetoResultado.dameObjetoResultado();
        Resultado resultado=objetoResultado.getResultado();
+       productoSeleccionado.setText(""+resultado.getProductoSeleccionado());
        base1.setText(resultado.getBase1());
-       cant1.setText(resultado.getCant1()+"");
+       cant1.setText(resultado.getCant1());
        base2.setText(resultado.getBase2());
-       cant2.setText(resultado.getCant2()+"");
+       cant2.setText(resultado.getCant2());
        base3.setText(resultado.getBase3());
-       cant3.setText(resultado.getCant3()+"");
+       cant3.setText(resultado.getCant3());
        base4.setText(resultado.getBase4());
-       cant4.setText(resultado.getCant4()+"");
+       cant4.setText(resultado.getCant4());
        total.setText("TOTAL");
+       cantTotal.setText(resultado.getTotal()+" g");
        
         stage = ObjetoCompartido.dameLo().getStage();
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
@@ -146,9 +148,7 @@ public class ResultadoController implements Initializable, ControlledScreen{
         stage.setScene(new Scene(root));
         stage.show();
            }
-       });
-       
-       
+       });    
        listadoPigmento.setOnAction(new EventHandler<ActionEvent>() {
 
            @Override
@@ -191,7 +191,6 @@ public class ResultadoController implements Initializable, ControlledScreen{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
- 
         stage.setTitle("Aditivos");
         stage.setScene(new Scene(root));
         stage.show();
@@ -282,8 +281,6 @@ public class ResultadoController implements Initializable, ControlledScreen{
            }
        });
     }
-    
-    
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;

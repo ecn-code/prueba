@@ -33,7 +33,7 @@ public class PigmentoDAO implements IPigmentoDAO{
 		ArrayList<Pigmento> pigmentos = new ArrayList<Pigmento>();
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from PIGMENTO");
+			ResultSet rs=connManager.queryDB("select * from PIGMENTO ORDER BY NOMBRE");
 			connManager.close();
 			try {
 				

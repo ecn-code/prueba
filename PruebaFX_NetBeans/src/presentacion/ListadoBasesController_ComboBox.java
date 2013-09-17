@@ -102,70 +102,11 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
     
    @FXML
     public void eliminarAditivoBase(ActionEvent event) throws DAOExcepcion, DominioExcepcion{
-       /*
-       Controlador controlador= Controlador.dameControlador();
-       base=base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
-       aditivo=tableView.getSelectionModel().getSelectedItem();
-       int answer= MessageBox.show(stage,
-        "Estas seguro de que quieres eliminar este aditivo?",
-        "Information dialog",
-        MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
-        System.out.println(answer);
-        if(answer==65536){
-            controlador.eliminaAsociacionAditivo(base, aditivo);
-            txtEliminarAditivo.setText("");
-            txtEliminarCantidad.setText("");
-            btnEliminar.setDisable(true);
-            aditivosChoiceBox.setPromptText("Selecciona");
-            cargarAditivos(base.getId());
-        }  
-        * */
+      
         }
 
     public void anyadirAditivoBase(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
-        /*Stage stage=new Stage();
-        boolean error=false;
-         Controlador controlador= Controlador.dameControlador();
-       cantidad=txtCantidad.getText().trim().replace(',', '.');
-       base=controlador.getBase(elegirBase.getSelectionModel().getSelectedItem().toString());
-       aditivo=(Aditivo)aditivosChoiceBox.getSelectionModel().getSelectedItem();
-       
-        if(base==null){
-           error=true;
-           lblErrorBase.setText("Selecciona una Base");
-       }else{
-          lblErrorBase.setText("");
-       }
-        if(aditivo==null){
-           error=true;
-           lblErrorAditivo.setText("Selecciona un Aditivo");
-       }else{
-          lblErrorAditivo.setText("");
-       }
-     if(cantidad.equals("")){
-   lblErrorCantidad.setText("Introduce cantidad");
-   error=true;
-    }else{
-    lblErrorCantidad.setText(""); 
-   }
-       for(char x: cantidad.toCharArray()){
-            if(Character.isLetter(x)){
-                error=true;
-                lblErrorCantidad.setText("No introducir letras");
-                txtCantidad.setText("");
-                break;
-            }else{
-               lblErrorCantidad.setText(""); 
-            }
-            } 
-            if(!error){
-           aditivo.setCantidad(Double.parseDouble(cantidad));
-           controlador.asociarAditivo(base, aditivo);
-           cargarAditivos(base.getId());
-           txtCantidad.setText("");
-           
-            }
-            */
+        
     }
     
     @Override
@@ -186,7 +127,6 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         stage = ObjetoCompartido.dameLo().getStage();
           
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -204,7 +144,6 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
        
        aditivoABase.setDisable(true);
        listadoAditivo.setOnAction(new EventHandler<ActionEvent>() {
-
            @Override
            public void handle(ActionEvent t) {
                Parent root=null;
@@ -341,8 +280,7 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             ChangeListener<Number>() {
                 public void changed(ObservableValue ov,
                     Number value, Number new_value) {
-                    try {
-                        //  label.setText(greetings[new_value.intValue()]);
+                    try {            
                       cargarAditivos(((Base)elegirBase.getItems().get(new_value.intValue())).getId());
                     } catch (DAOExcepcion ex) {
                         Logger.getLogger(ListadoBasesController_ComboBox.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,47 +297,17 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
         Cantidad.setMinWidth(200);
       Nombre.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Nombre"));
       Cantidad.setCellValueFactory(new PropertyValueFactory<Aditivo,String>("Cantidad"));
-      tableView.getColumns().addAll(Nombre,Cantidad);
-     // cargarBases();    
+      tableView.getColumns().addAll(Nombre,Cantidad);    
         }
     
     
     public void cargarAditivos(int idb) throws DAOExcepcion{
-        /*
-                    Controlador controlador = null;
-
-  ArrayList<Aditivo> aditivos=new ArrayList<Aditivo>();
-
-        try {
-            controlador = Controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            aditivos=controlador.getAditivos(idb);
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                  
-       ObservableList<Aditivo> aditivosConvertidosParaTabla = FXCollections.observableList(aditivos);  
-     
-       ArrayList<Aditivo> aditivosChoiceBoxx = controlador.getAditivosNoAsociados(idb);
-     
-       ObservableList<Aditivo>  aditivosOVChoiceBox = FXCollections.observableList(aditivosChoiceBoxx); 
-       aditivosChoiceBox.setItems(aditivosOVChoiceBox);
-       tableView.setItems(aditivosConvertidosParaTabla);
-       
-    }
- */
-        }
-           public  void cargarColores(){
         
-                    Controlador controlador = null;
-
-            ArrayList<Color> colores=new ArrayList<Color>();
-
+        }
+    
+         public  void cargarColores(){
+         Controlador controlador = null;
+         ArrayList<Color> colores=new ArrayList<Color>();
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -411,18 +319,13 @@ public class ListadoBasesController_ComboBox implements Initializable, Controlle
             colores=controlador.getColores();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                  
+        }            
        ObservableList<Color> colores2 = FXCollections.observableList(colores);  
        elegirBase.setItems(colores2);
- 
     }
     
-    
-
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;
-    }
-  
+    }  
 }

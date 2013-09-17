@@ -243,8 +243,6 @@ public class PrincipalController implements Initializable{
                } catch (IOException ex) {
                    Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
                }
-
-
         stage.setTitle("Calcular");
         stage.setScene(new Scene(root));
         calcular.hide();

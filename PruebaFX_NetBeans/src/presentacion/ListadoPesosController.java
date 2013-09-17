@@ -61,6 +61,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -137,8 +139,6 @@ public class ListadoPesosController implements Initializable, ControlledScreen{
                
            Peso peso=new Peso(0,Double.parseDouble(pesoMin) , Double.parseDouble(pesoMax));
                 controlador.modificarPeso(peso);
-               // controlador.insertarPeso(peso);
-               // controlador.eliminarPeso(peso);
                 lblErrorPesoMin.setText("");
                 lblErrorPesoMax.setText("");     
                   int answer = MessageBox.show(stage,
@@ -179,6 +179,42 @@ public class ListadoPesosController implements Initializable, ControlledScreen{
             Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
+        txtPesoMin.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirPeso(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        txtPesoMax.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirPeso(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
         stage = ObjetoCompartido.dameLo().getStage();
        listadoAcabado.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -347,28 +383,6 @@ public class ListadoPesosController implements Initializable, ControlledScreen{
            }
        });
     }
-    
-    /*public static void cargar(){
-        
-                    Controlador controlador = null;
-                    ArrayList<Peso> peso=new ArrayList<Peso>();
-             try {
-            controlador = Controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            peso.add(controlador.getPeso());
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPesosController.class.getName()).log(Level.SEVERE, null, ex);
-        }           
-       ObservableList<Peso> pesoTabla = FXCollections.observableList(peso);  
-       tableView.setItems(pesoTabla);
-    }
-    
-*/
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;

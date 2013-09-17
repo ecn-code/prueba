@@ -66,6 +66,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -119,10 +121,8 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
             baseEliminar.setText("");
             cantidadEliminar.setText("");
             btnEliminar.setDisable(true);
+        }  
         }
-        
-        }
-
     public void anyadirPigmento(ActionEvent event) throws IOException, DAOExcepcion, DominioExcepcion {
          Stage stage=new Stage();
         boolean error=false;
@@ -158,22 +158,36 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
                lblErrorCantidad.setText(""); 
             }
             } 
-        
-  
-            if(!error){
+        if(!error){
                 System.out.println("pigmento= "+pigmento.getId()+" color= "+color.getId()+"cantidad="+Double.parseDouble(cantidad));
          controlador.asociarColorPigmento(pigmento,color, Double.parseDouble(cantidad));
            cargarBases(pigmento.getId());
            txtCantidad.setText("");
             }
-           
     }
     
     @Override
     public void initialize (URL location,ResourceBundle resources){
-        btnEliminar.setDisable(true);
+      btnEliminar.setDisable(true);
+       txtCantidad.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        anyadirPigmento(null);
+                    } catch (DAOExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (DominioExcepcion ex) {
+                        Logger.getLogger(CalcularController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListadoProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
       tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent t) {
                 Color color= tableView.getSelectionModel().getSelectedItem();
@@ -385,75 +399,13 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
       Porcentaje.setCellValueFactory(new PropertyValueFactory<Base,String>("Porcentaje"));
       tableView.getColumns().addAll(Id,Nombre,Porcentaje);
       cargarPigmentos(); 
-   // Nombre.setCellFactory(TextFieldTableCell.forTableColumn());
-   /* Nombre.setOnEditCommit(
-    new EventHandler<CellEditEvent<Pigmento, String>>() {
-        @Override
-        public void handle(CellEditEvent<Pigmento, String> t) {
-               Controlador controlador = null;
-               Pigmento pigmento=null;
-               Stage stage=new Stage();
-        try {
-            controlador=controlador.dameControlador();
-        } catch (DAOExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DominioExcepcion ex) {
-            Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            try {
-                pigmento=controlador.getPigmento(t.getNewValue());
-            } catch (DAOExcepcion ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                this.finalize();
-            } catch (Throwable ex) {
-                Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             if(t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"El nombre del pigmento no  puede estar vacio",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-            }
-            if(pigmento==null && !t.getNewValue().trim().equals("")){
-               ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow())
-                ).setNombre(t.getNewValue());
-               Pigmento pigmentoA=  ((Pigmento) t.getTableView().getItems().get(
-                t.getTablePosition().getRow()));
-               pigmentoA.setNombre(t.getNewValue().trim());
-                   try {
-                       controlador.modificarPigmento(pigmentoA);
-                   } catch (DAOExcepcion ex) {
-                       Logger.getLogger(ListadoPigmentosController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               cargar();
-            }
-           
-            if(pigmento!= null && !t.getNewValue().trim().equals("")){
-                int answer = MessageBox.show(stage,
-						"Ese pigmento ya existe, introduzca un nombre distinto",
-						"Information dialog", 
-						MessageBox.ICON_INFORMATION | MessageBox.OK);
-                cargar();
-    
-            }
-      
-        }
-    }
-);*/
-    
         }
     
     
     public void cargarBases(int idp) throws DAOExcepcion{
         System.out.println(idp);
          Controlador controlador = null;
-
-    ArrayList<Color> colores=new ArrayList<Color>();
-
+         ArrayList<Color> colores=new ArrayList<Color>();
         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
@@ -467,36 +419,16 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
         }
       System.out.println(colores.size());    
        ObservableList<Color> basesConvertidosParaTabla = FXCollections.observableList(colores);  
-       
-      
-       
        ArrayList<Color> basesChoiceBoxx = controlador.getColoresNoAsignados(idp);
-       
-     /*  ObservableList<Base> basesOVChoiceBox = null;
-       if(bases.size()>0){
-       for(Base baseOV : aditivosTodos)
-           for(Base baseOV2 : bases)
-           if(!baseOV.getNombre().equals(baseOV2.getNombre()))basesChoiceBoxx.add(baseOV);
-       
-       basesOVChoiceBox = FXCollections.observableList(basesChoiceBoxx); 
-       }else{
-          
-       basesOVChoiceBox = FXCollections.observableList(aditivosTodos); 
-       }
-       
-       */
        ObservableList<Color> basesOVChoiceBox = FXCollections.observableList(basesChoiceBoxx); 
        elegirBase.setItems(basesOVChoiceBox);
        tableView.setItems(basesConvertidosParaTabla);
     }
     
     public  void cargarPigmentos(){
-        
-                    Controlador controlador = null;
-
-  ArrayList<Pigmento> pigmentos=new ArrayList<Pigmento>();
-
-        try {
+    Controlador controlador = null;
+    ArrayList<Pigmento> pigmentos=new ArrayList<Pigmento>();
+         try {
             controlador = Controlador.dameControlador();
         } catch (DAOExcepcion ex) {
             Logger.getLogger(ListadoBasesController.class.getName()).log(Level.SEVERE, null, ex);
@@ -511,13 +443,9 @@ public class ListadoPigmentoController_ComboBox implements Initializable, Contro
                   
        ObservableList<Pigmento> pigmentos2 = FXCollections.observableList(pigmentos);  
        elegirPigmento.setItems(pigmentos2);
- 
     }
-    
-
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController=screenPage;
-    }
-  
+    }  
 }

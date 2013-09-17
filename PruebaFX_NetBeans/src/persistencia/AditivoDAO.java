@@ -31,7 +31,7 @@ public class AditivoDAO implements IAditivoDAO{
     
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from ADITIVOS");
+			ResultSet rs=connManager.queryDB("select * from ADITIVOS ORDER BY NOMBRE");
 			connManager.close();
 			try {
 				

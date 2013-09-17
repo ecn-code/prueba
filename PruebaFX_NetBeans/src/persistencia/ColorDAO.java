@@ -36,7 +36,7 @@ public class ColorDAO implements IColorDAO{
    ArrayList<Color> colors = new ArrayList<Color>();
 		try{
 			connManager.connect();
-			ResultSet rs=connManager.queryDB("select * from COLORES");
+			ResultSet rs=connManager.queryDB("select * from COLORES ORDER BY NOMBRE");
 			connManager.close();
 			try {
 				DAL dal = DAL.dameDAL();
